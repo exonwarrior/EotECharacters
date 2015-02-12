@@ -1,0 +1,603 @@
+html, body{
+	font-family: advent-pro, sans-serif;
+}
+
+*{
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: moz-none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+input{
+	-webkit-touch-callout: text;
+	-webkit-user-select: text;
+	-khtml-user-select: text;
+	-moz-user-select: text;
+	-ms-user-select: text;
+	user-select: text;
+}
+
+button{
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+	color: inherit;
+	font-weight: bold;
+}
+
+.total td{
+	border-top: 2px solid #333;
+}
+
+h1{
+	margin: 0 0 3px;
+	border-bottom: 2px solid #666;
+	text-align: left;
+}
+
+h2{
+	margin: 0;
+}
+
+img.die{
+	height: 16px;
+	margin: auto 3px;
+}
+
+header{
+	position: relative;
+}
+
+.editButtons{
+	font-size: 18pt;
+	color: #eee;
+	margin: 0;
+	position: absolute;
+	right: 10px;
+	bottom: -45px;
+}
+
+.editButtons button{
+	border-radius: 6px;
+	padding: 5px;
+	box-shadow: 0 -1px 0 0 rgba(0,0,0,0.6), 0 1px 1px 0 rgba(255,255,255,.5), 0 1px 0 0 rgba(255,255,255,.75) inset, 0 -1px 1px 0 rgba(0,0,0,0.8) inset;
+	
+}
+
+.icon-pencil, .icon-ok, .icon-plus{
+	background-color: #008800;
+	color: #eee;
+	border-radius: 2px;
+}
+
+.icon-cancel, .icon-minus{
+	background-color: #880000;
+	color: #eee;
+	border-radius: 2px;
+}
+
+
+.statBox img.die{
+	height: 24px;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.25);
+}
+.inlineBlock{
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.character{
+	width: 1024px;
+	margin: 0 auto;
+}
+
+.characterList{
+	width: 1024px;
+	margin: 0 auto;	
+	position: relative;
+
+}
+
+.characterList h2{
+	position: absolute;
+	left: 10px;
+	top: 0;
+	color: #eee;
+	font-size: 22pt;
+}
+
+.characterList a{
+	padding: 2px;
+	border-radius: 5px;
+	color: #333;
+	text-decoration: none;
+}
+
+.charListContainer {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	padding: 0;
+	background-color: #af0000;
+	text-align: center;
+	position: relative;
+	background: #a90329; /* Old browsers */
+	background: #8e021a; /* Old browsers */
+	background: -moz-linear-gradient(top, #8e021a 0%, #a90329 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8e021a), color-stop(100%,#a90329)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #8e021a 0%,#a90329 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #8e021a 0%,#a90329 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #8e021a 0%,#a90329 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #8e021a 0%,#a90329 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8e021a', endColorstr='#a90329',GradientType=0 ); /* IE6-9 */
+	box-shadow: 0 1px 0 0 rgba(0,0,0,0.5), 0 2px 0 0 rgba(255,255,255,0.4);
+	z-index: 100;
+}
+
+.characterList button, .characterList a{
+	padding:8px;
+	border-radius: 3px;
+	margin: 5px;
+	color: #eee;
+	background: #777777; /* Old browsers */
+	background: -moz-linear-gradient(top, #777777 0%, #5e5e5e 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#777777), color-stop(100%,#5e5e5e)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #777777 0%,#5e5e5e 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #777777 0%,#5e5e5e 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #777777 0%,#5e5e5e 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #777777 0%,#5e5e5e 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#777777', endColorstr='#5e5e5e',GradientType=0 ); /* IE6-9 */
+	box-shadow: 0 -1px 0 0 rgba(0,0,0,0.6), 0 1px 1px 0 rgba(255,255,255,.5), 0 1px 0 0 rgba(255,255,255,.75) inset, 0 -1px 1px 0 rgba(0,0,0,0.8) inset;
+	text-shadow: 0 1px 0 rgba(255,255,255,.8);
+}
+
+.characterList a.active{
+	background: #FFC13C;
+	color: #333;
+	box-shadow: 0 -1px 0 0 rgba(0,0,0,0.6), 0 0 2px 1px rgba(255,255,255,.5), 0 0 4px 2px rgba(255,50,50,1), 0 1px 0 0 rgba(255,255,255,.75) inset, 0 -1px 1px 0 rgba(0,0,0,0.8) inset, 0 0 10px 1px #ff5d00 inset;
+	text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+}
+
+.characters{
+	display: inline-block;
+	text-align: center;
+}
+
+.character>div{
+	margin: 15px 0;
+}
+
+.characterInfo{
+	width: 100%;
+	height: 200px;
+	border-radius: 0 0 30px 30px;
+	text-align: left;
+	position: relative;
+	color: #eee;
+	background-color: #333;
+}
+
+.characterInfo .characterBadge{
+	height: 100%;
+	width: 200px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	border-left: 4px solid #aaa;
+	border-radius: 0 0 30px 0;
+	overflow: hidden;
+}
+
+
+
+.characterInfo .characterBadge h1{
+	position: absolute;
+	bottom: 0;
+	padding: 3px 0 10px;
+	text-align: center;
+	background-color: rgba(0,0,0,0.75);
+	color: #b2e6ff;
+	font-size: 18pt;
+	width: 100%;
+	margin: 0;
+} 
+
+.characterInfo .characterBadge img{
+	max-height: 150%;
+	max-width: 150%;
+}
+
+.characterInfo table{
+	width: 370px;
+	vertical-align: middle;
+	margin: 10px 20px;
+	min-width: 200px;
+	border-spacing: 0 !important;
+
+}
+
+.characterInfo table tr{
+	width: 100%;
+}
+
+.characterInfo table tr td{
+	border-top: 1px solid #888;
+	border-bottom: 0;
+}
+
+.characterInfo table td.col1{
+	text-align: left;
+}
+
+.characterInfo table tr td.fieldLabel{
+	color: #aaa;
+	width: 70%
+}
+
+.characterInfo table tr td.field{
+	text-align: right;
+	padding: 0 10px;
+	font-size: 22pt;
+	font-weight: bold;
+}
+
+.character .characterInfo table tr td.field {
+	padding: 0;
+}
+
+.character .characterInfo td.field input.edit {
+	font-size: 16pt;
+	height: 100%;
+	text-align: right;
+	background: #444;
+	border: 0;
+	color: #ddd;
+	position: relative;
+	top: -2px;
+	padding: 0 10px;
+	margin: 0;
+	font-weight: bold;
+}
+
+.character .characterInfo .characterBadge input.edit{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	font-size: 18pt;
+	padding: 3px 0 10px;
+	color: #ddd;
+	font-weight: bold;
+	background: rgba(0,0,0,0.75);
+	border: 0;
+	width: 100%;
+	text-align: center;
+}
+
+.character .characterInfo .characterBadge input.edit.editImageURL{
+	font-size: 10pt;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border: 1px solid #ccc;
+	height: 1em;
+}
+
+.character input.edit{
+	text-align: center;
+}
+.character .col1 input.edit{
+	text-align: left;
+	width: 60%;
+}
+
+.character div.twoUp{
+	width: 47%;
+	display: inline-block;
+	vertical-align: top;
+	margin-bottom: 10px;
+}
+
+.character div.twoUp:nth-child(even){
+	margin-left: 20px;
+}
+
+.character>div.characterCharacteristics{
+	width: 100%;
+	text-align: center;
+	margin: 10px 0 0px;
+}
+
+.characterCharacteristics .characteristicBox{
+	display: inline-block;
+	width: 120px;
+	margin: 0 10px;
+}
+
+.characterCharacteristics .characteristicBox .characteristicValue{
+	font-weight: bold;
+	font-size: 38pt;
+	color: #333;
+	border-radius: 50%;
+	border: 6px solid #9e0017;
+	width: 60px;
+	height: 60px;
+	padding: 10px;
+	margin: 0 auto;
+	line-height: 60px;
+}
+
+.character .characterCharacteristics .characteristicBox .characteristicValue input.edit{
+	width: 100%;
+	height: 100%;
+	border: 0;
+	margin: 0;
+	padding: 5px;
+	position: relative;
+	left: -5px;
+	top: -5px;
+	background: rgba(0,0,0,0.2);
+	border-radius: 50%;
+	text-align: center;
+	font-weight: bold;
+}
+
+.characterCharacteristics .characteristicBox .characteristicLabel{
+	background-color: #333;
+	color: #eee;
+	display: inline-block;
+	position: relative;
+	top: -20px;
+	padding: 5px;
+	border-radius: 10px;
+	border:2px solid #9e0017;
+	width: 70%;
+}
+
+.characterStats{
+	width: 100%;
+	text-align: center;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.statBox{
+	display: inline-block;
+	border-radius: 20px 20px;
+	overflow: hidden;
+	margin: 3px 0;
+	width: 190px;
+}
+
+.statRow{
+	text-align: center;
+	background-color: #ccc;
+	height: 52px;
+}
+
+.statRow.bottom{
+	height: auto;
+}
+
+.statRow div{
+	display: inline-block;
+	text-align: center;
+}
+
+.statLeft, .statRight{
+	width: 50%;
+	font-size: 22pt;
+	font-weight: bold;
+	background-color: #ccc;
+}
+
+.statBox.solo .statLeft{
+	width: 100%;
+}
+
+.threshold{
+	background-color: #770000;
+	color: #eee;
+}
+
+.current{
+	background-color: #007700;
+	color: #eee;
+}
+
+.melee{
+	background-color: #000077;
+	color: #eee;
+}
+
+.ranged{
+	background-color: #db7800;
+	color: #eee;
+}
+
+.statLabel{
+	background-color: #666;
+	width: 100%;
+	color: #eee;
+}
+
+.setbackDice{
+	color: #333;
+	text-shadow: 0 0 2px rgba(255, 255, 255, 1), 0 0 2px rgba(255, 255, 255, 1);
+}
+
+.boostDice{
+	color: #63cbff;
+}
+
+.statRow div.statBoxLabel{
+	background-color: rgba(0,0,0,0.6);
+	font-size: 10pt;
+	display: block;
+	font-weight: 100;
+	width: 100%;
+	color: #eee;
+}
+
+.characterEquipment, .characterMiscInfo{
+	display: inline-block;
+	vertical-align: top;
+	width: 100%;
+	text-align: center;
+}
+
+.characterWeaponsContainer{
+	margin-right: 10px;
+	text-align: center;
+}
+
+.characterWeapons{
+	display: inline-block;
+	width: 97%;
+	text-align: left;
+}
+
+.characterEquipment>div, .characterMiscInfo>div{
+	width: 47%;
+	text-align: left;
+	display: inline-block;
+	margin-bottom: 20px;
+}
+
+table{
+	width: 100%;
+}
+
+.characterEquipment table>tr>td.col1{
+	width: 75%;
+}
+
+table td.col1{
+	text-align: left;
+}
+
+table thead{
+	font-weight: bold;
+	background-color: #333;
+	color: #eee;
+}
+
+
+table .col2{
+	
+}
+
+table>tbody>tr:hover td, table>tbody>tr:active td{
+	background-color: #eee;
+	color: #333 !important;
+}
+
+
+table tr td{
+	border-bottom: 1px solid #eee;
+	text-align: center;
+}
+
+.characterSkills > div{
+	width: 490px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.contentBlock{
+	margin: 0 9px;
+}
+
+.contentBlock.col2 td{
+	width: 50%;
+}
+
+.contentBlock.col3 td{
+	width: 33%;
+}
+
+.contentBlock.col4 td{
+	width: 25%;
+}
+
+.contentBlock.col5 td{
+	width: 20%;
+}
+
+.contentBlock.col6 td{
+	width: 16%;
+}
+
+.contentBlock input{
+	max-width: 80%;
+}
+
+.characterSkills table{
+	width: 100%;
+}
+
+.characterSkills h2{
+	margin-top: 20px;
+}
+
+.characterSkills table td.col1{
+	width: 60%;
+}
+
+.characterMiscInfo .col1{
+	width: 25%;
+}
+
+//Media queries
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) {
+
+
+}
+
+@media only screen 
+and (max-device-width : 767px) 
+{
+
+.characterList {
+	width: 100%;
+}
+
+.character{
+	width: 100%;
+}
+
+.characterInfo .characterBadge{
+	height: 100%;
+	width: 25%;
+}
+
+.characterInfo table{
+	width: 32%;
+
+}
+
+.character>div.characterCharacteristics{
+	width: 60%;
+	margin: 0 auto;
+}
+
+.characterSkills{
+	margin: 0 auto;
+	text-align: center;
+	font-size: 1.4em;
+}
+
+.characterSkills > div {
+	width: 95%;
+	margin: 0 auto;
+
+}
+
+}
