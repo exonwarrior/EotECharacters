@@ -13,9 +13,9 @@
 	<body>
 		<!-- Fixed navbar repeated code because we need to change active page. -->
 		<div id="wrap">
-			<div class="banner-top">
+			<!--<div class="banner-top">
 				<img class="img-responsive img-center" src="./images/acog-logo.png" />
-			</div>
+			</div>-->
 
 
 			<div class="container">
@@ -92,7 +92,7 @@
 								$username=$_POST['username'];
 								$password=$_POST['password'];
 								$encrypt_pass=md5($password);								
-								mysql_query("INSERT INTO exon_player(username, email, password)VALUES('$username', '$email', '$encrypt_pass')");
+								mysql_query("INSERT INTO exon_player(Username, Email, PasswordHash)VALUES('$username', '$email', '$encrypt_pass')");
 								$result = mysql_query("SELECT DBKey FROM exon_player WHERE Username ='$username'");
 								if (mysql_num_rows($result)>0){
 									while($row = mysql_fetch_row($result)) {
