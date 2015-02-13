@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 
-		<title>Aberystwyth Community of Gamers Tournament Software</title>
+		<title>Exon9's Online Edge of the Empire Character Portfolio</title>
 		<style>
 			.error {color: #FF0000;}
 		</style>
