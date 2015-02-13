@@ -44,7 +44,7 @@
 
 	//Create query
 	$encrypt_pass=md5($password);
-	$qry="SELECT * FROM member WHERE username='$username' AND password='$encrypt_pass'";
+	$qry="SELECT * FROM exon_player WHERE Username='$username' AND PasswordHash='$encrypt_pass'";
 	$result=mysql_query($qry);
 
 	//Check whether the query was successful or not
@@ -52,12 +52,11 @@
 		if(mysql_num_rows($result) > 0) {
 			//Login Successful
 			session_regenerate_id();
-			$member = mysql_fetch_assoc($result);
-			$_SESSION['SESS_MEMBER_ID'] = $member['mem_id'];
-			$_SESSION['SESS_FIRST_NAME'] = $member['username'];
-			$_SESSION['SESS_LAST_NAME'] = $member['password'];
+			$exon_player = mysql_fetch_assoc($result);
+			$_SESSION['SESS_MEMBER_ID'] = $exon_player['mem_id'];
+			$_SESSION['SESS_FIRST_NAME'] = $exon_player['username'];
+			$_SESSION['SESS_LAST_NAME'] = $exon_player['password'];
 			$_SESSION['loggedin'] = true;
-			$_SESSION['isAdmin'] = $member['admin'];
 			session_write_close();
 			header("location: profile.php");
 			exit();
