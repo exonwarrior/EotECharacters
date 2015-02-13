@@ -23,11 +23,11 @@
 					<?php
 						require_once('connection.php');
 						// define variables and set to empty values
-						$fnameErr = $lnameErr = $emailErr = $usernameErr = $passwordErr = $conpasswordErr = "";
+						$emailErr = $usernameErr = $passwordErr = $conpasswordErr = "";
 						$name = $email = $gender = $comment = $website = "";
 
 						if ($_SERVER["REQUEST_METHOD"] == "POST") {
-							if (empty($_POST["fname"])) {
+							/*if (empty($_POST["fname"])) {
 								$fnameErr = "First name is required";
 							} else {
 								$fname = test_input($_POST["fname"]);
@@ -43,6 +43,20 @@
 								if (!preg_match("/^[a-zA-Z-]*$/",$lname)) {
 									$lnameErr = "Only letters and hyphens allowed"; 
 								}
+							}*/
+
+}
+							if (empty($_POST["username"])) {
+								$usernameErr = "Username is required";
+							} else {
+								$username = test_input($_POST["username"]);
+								if (!preg_match("/^[a-zA-Z0-9]*$/",$username)) {
+									$usernameErr = "Only letters and numbers allowed"; 
+								}
+								$sql=mysql_query("SELECT * FROM member WHERE username='$username'");
+								if(mysql_num_rows($sql)>=1) {
+									$usernameErr = "Username exists";
+								}
 							}
 
 							if (empty($_POST["email"])) {
@@ -56,19 +70,7 @@
 								if(mysql_num_rows($sql)>=1) {
 									$emailErr = "Email already in use";
 								}
-							}
-							if (empty($_POST["username"])) {
-								$usernameErr = "Username is required";
-							} else {
-								$username = test_input($_POST["username"]);
-								if (!preg_match("/^[a-zA-Z0-9]*$/",$username)) {
-									$usernameErr = "Only letters and numbers allowed"; 
-								}
-								$sql=mysql_query("SELECT * FROM member WHERE username='$username'");
-								if(mysql_num_rows($sql)>=1) {
-									$usernameErr = "Username exists";
-								}
-							}
+							
 							if (empty($_POST["password"])) {
 								$passwordErr = "Password is required";
 							} else {
@@ -85,23 +87,18 @@
 									$conpasswordErr = "Passwords do not match"; 
 								}
 							}
-							if($fnameErr == "" && $lnameErr == "" && $emailErr == "" && $usernameErr == "" && $passwordErr == "" && $conpasswordErr == ""){
-								$fname=$_POST['fname'];
-								$lname=$_POST['lname'];
+							if($emailErr == "" && $usernameErr == "" && $passwordErr == "" && $conpasswordErr == ""){
 								$email=$_POST['email'];
 								$username=$_POST['username'];
 								$password=$_POST['password'];
 								$encrypt_pass=md5($password);								
-								mysql_query("INSERT INTO member(fname, lname, email, username, password)VALUES('$fname', '$lname', '$email', '$username', '$encrypt_pass')");
-								$result = mysql_query("SELECT mem_id FROM member WHERE username ='$username'");
+								mysql_query("INSERT INTO exon_player(username, email, password)VALUES('$username', '$email', '$encrypt_pass')");
+								$result = mysql_query("SELECT DBKey FROM exon_player WHERE Username ='$username'");
 								if (mysql_num_rows($result)>0){
 									while($row = mysql_fetch_row($result)) {
 										$userid=$row[0];
 									}
 								}								
-								$fullname=$fname.' '.$lname;
-								$points = 0;
-								mysql_query("INSERT INTO leaderboard_2014(userid, Name, Points)VALUES('$userid', '$fullname', '$points')");
 								header("Location: login.php?remarks=success");
 								mysql_close($con);
 							}		
@@ -136,16 +133,6 @@
 					</div>
 					<form name="reg" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
 						<table width="750" border="0" align="center" cellpadding="2" cellspacing="0">
-							<tr>
-								<td width="180"><div align="right">First Name:</div></td>
-								<td width="170"><input type="text" name="fname" value="<?php echo $fname;?>" /></td>
-								<?php echo'<td><span class="error">* '.$fnameErr.'</span></td>';?>
-							</tr>
-							<tr>
-								<td width="180"><div align="right">Last Name:</div></td>
-								<td width="170"><input type="text" name="lname" value="<?php echo $lname;?>" /></td>
-								<?php echo'<td><span class="error">* '.$lnameErr.'</span></td>';?>
-							</tr>
 							<tr>
 								<td width="180"><div align="right">Email:</div></td>
 								<td width="170"><input type="test" name="email" value="<?php echo $email;?>" /></td>
