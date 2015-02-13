@@ -9,7 +9,7 @@
 			if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 			?>
 				<ul>
-					<li><a href="leaderboard.php" class="right-list">Characters</a></li>
+					<li><a href="characters.php" class="right-list">Characters</a></li>
 					<li><a href="profile.php" class="right-list">My Characters</a></li>
 					<li><a href="logout.php" class="right-list">Logout</a></li>
 				</ul>
@@ -17,7 +17,7 @@
 			} else {
 			?>
 				<ul>
-					<li><a href="leaderboard.php" class="right-list">Characters</a></li>
+					<li><a href="characters.php" class="right-list">Characters</a></li>
 					<li><a href="login.php" class="right-list">Login</a></li>
 					<li><a href="register.php" class="right-list">Register</a></li>
 				</ul>

@@ -9,7 +9,7 @@
 			if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 			?>
 				<ul>
-					<li><a href="leaderboard.php" class="right-list">Leaderboard</a></li>
+					<li><a href="leaderboard.php" class="right-list">Characters</a></li>
 					<li><a href="profile.php" class="right-list">My Characters</a></li>
 					<li><a href="logout.php" class="right-list">Logout</a></li>
 				</ul>
