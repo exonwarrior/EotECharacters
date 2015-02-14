@@ -668,7 +668,7 @@ require_once('connection.php');
 						$weaponKey = $row1[1];
 						$weaponName = $row1[3];
 						$weaponSkill = $row1[4];
-						$weaponDamange = $row1[5];
+						$weaponDamage = $row1[5];
 						$weaponRange = $row1[6];
 						$weaponCrit = $row1[7];
 						$weaponSpecial = $row1[8];
