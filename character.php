@@ -297,8 +297,6 @@ require_once('connection.php');
 	      		</div>
 	      		<div class="statRow bottom">
 				<div class="statLabel">Strain
-					<div class="statBoxLabel">Brawn+Bonus
-					</div>
 				</div>
 			</div>
 		</div>
@@ -327,6 +325,8 @@ require_once('connection.php');
 		<div class="statBox solo">
 			<div class="row statRow">
 				<div class="statLeft"><?php echo ($brawn+$soakBonus);?>
+					<div class="statBoxLabel">Brawn+Bonus
+					</div>
 				</div>
 			</div>
 			<div class="statRow bottom">
