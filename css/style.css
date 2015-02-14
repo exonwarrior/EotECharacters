@@ -156,6 +156,23 @@ header{
 	text-shadow: 0 1px 0 rgba(255,255,255,.8);
 }
 
+.characterListName{
+	padding:8px;
+	border-radius: 3px;
+	margin: 5px;
+	color: #eee;
+	background: #777777; /* Old browsers */
+	background: -moz-linear-gradient(top, #777777 0%, #5e5e5e 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#777777), color-stop(100%,#5e5e5e)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #777777 0%,#5e5e5e 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #777777 0%,#5e5e5e 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #777777 0%,#5e5e5e 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #777777 0%,#5e5e5e 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#777777', endColorstr='#5e5e5e',GradientType=0 ); /* IE6-9 */
+	box-shadow: 0 -1px 0 0 rgba(0,0,0,0.6), 0 1px 1px 0 rgba(255,255,255,.5), 0 1px 0 0 rgba(255,255,255,.75) inset, 0 -1px 1px 0 rgba(0,0,0,0.8) inset;
+	text-shadow: 0 1px 0 rgba(255,255,255,.8);
+}
+
 .characterList a.active{
 	background: #FFC13C;
 	color: #333;
@@ -513,7 +530,7 @@ table tr td{
 }
 
 .contentBlock.col2 td{
-	width: 50%;
+	width: 75%;
 }
 
 .contentBlock.col3 td{
