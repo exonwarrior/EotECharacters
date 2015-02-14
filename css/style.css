@@ -525,11 +525,11 @@ table tr td{
 	vertical-align: top;
 }
 
-.characterTalents > div{
+/*.characterTalents > div{
 	width: 490px;
 	display: inline-block;
 	vertical-align: top;
-}
+}*/
 
 .contentBlock{
 	margin: 0 9px;
