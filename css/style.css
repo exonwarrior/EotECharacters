@@ -52,6 +52,11 @@ header{
 	position: relative;
 }
 
+header.characterInfo{
+	position: relative;
+	height:200px;
+}
+
 .editButtons{
 	font-size: 18pt;
 	color: #eee;
@@ -88,12 +93,6 @@ header{
 .inlineBlock{
 	display: inline-block;
 	vertical-align: middle;
-}
-
-.inlineBlock characterInfo{
-	display: inline-block;
-	vertical-align: middle;
-	height: 100px;
 }
 
 .character{
