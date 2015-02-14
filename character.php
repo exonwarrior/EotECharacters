@@ -39,6 +39,8 @@ require_once('connection.php');
 					$willpower = "";
 					$presence = "";
 					$imageURL = "";
+					$xpTotal = "";
+					$xpAvailable = "";
 					// create query 
 					$query = "SELECT * FROM exon_character";
 
@@ -65,6 +67,8 @@ require_once('connection.php');
 							$cunning = $row[17];
 							$willpower = $row[18];
 							$presence = $row[19];
+							$xpTotal = $row[20];
+							$xpAvailable = $row[20];
 							$imageURL = $row[22];
 							echo '<div class="characterListName">'.$name.'</div>';
 						}
@@ -335,11 +339,11 @@ require_once('connection.php');
                 {{/each}}-->
                  <tr class="total">
                   <td class="col1"><strong>Total XP</strong></td>
-                  <td class="col2"><strong>{{totalXP}}</strong></td> 
+                  <td class="col2"><strong><?php echo $xpTotal; ?></strong></td> 
                 </tr>
                 <tr>
                   <td class="col1"><strong>Available XP</strong></td>
-                  <td class="col2"><strong>{{availableXP}}</strong></td>
+                  <td class="col2"><strong><?php echo $xpAvailable; ?></strong></td>
                 </tr>
               </tbody>
             </table>
