@@ -279,10 +279,10 @@ require_once('connection.php');
 						}
 						else {
 							$skillRank = 0;
-						}						
+						}					
 						echo '<tr>';
 						echo '<td style="text-align:left">'.$skillCombined.'</td>';
-						echo '<td style="text-align:center">'.$skillRank.'</td>';
+						echo '<td style="text-align:center">'.$skillRank.''.$skillKey2'</td>';
 						echo '</tr>';
 					}
 				}
