@@ -1,0 +1,95 @@
+
+
+/*
+species
+career
+gender
+age
+height
+hair
+eyes
+notableFeatures
+build
+playerName
+name
+woundsCurrent
+woundsThreshold
+strainCurrent
+strainThreshold
+defenseMelee
+defenseRanged
+soak
+boostSetbackdice
+brawn
+agility
+intellect
+cunning
+willpower
+presence
+skillAstrogation
+	rank
+skillAthletics
+	rank
+skillCharm
+	rank
+skillCoercion
+	rank
+skillComputers
+	rank
+skillCool
+	rank
+skillCoordination
+	rank
+skillDeception
+	rank
+skillDiscipline
+	rank
+skillLeadership
+	rank
+skillMechanics
+	rank
+skillMedicine
+	rank
+skillNegotiation
+	rank
+skillPerception
+	rank
+skillPilotingPlanetary
+	rank
+skillPilotingSpace
+	rank
+skillResilience
+	rank
+skillSkullduggery
+	rank
+skillStealth
+	rank
+skillStreetwise
+	rank
+skillSurvival
+	rank
+skillVigilance
+	rank
+skillBrawl
+	rank
+skillGunnery
+	rank
+skillMelee
+	rank
+skillRangedLight
+	rank
+skillRangedHeavy
+	rank
+skillCoreWorlds
+	rank
+skillEducation
+	rank
+skillLore
+	rank
+skillOuterRim
+	rank
+skillUnderworld
+	rank
+skillXenology
+	rank
+*/
