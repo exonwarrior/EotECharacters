@@ -217,14 +217,14 @@ require_once('connection.php');
         <h1>Current Stats</h1>
 		<div class="statBox dual">
       			<div class="row statRow">
-				<div class="statLeft current"><?php echo $wounds;?>
+				<div class="statLeft current"><?php echo $wounds+$brawn;?>
 					<div class="statBoxLabel">
 						<button {{action 'addToStat' "woundsCurrent" 1}}>[+]</button> 
 						Current 
 						<button {{action 'addToStat' "woundsCurrent" -1}}>[-]</button>
 					</div>
 				</div>
-				<div class="statRight threshold"><?php echo $speciesWounds;?>
+				<div class="statRight threshold"><?php echo ($speciesWounds+$brawn);?>
 					<div class="statBoxLabel">
 						<button {{action 'addToStat' "woundsThreshold" 1}}>[+]</button> 
 						Threshold 
@@ -246,7 +246,7 @@ require_once('connection.php');
 						<button {{action 'addToStat' "strainCurrent" -1}}>[-]</button>
 					</div>
 				</div>
-				<div class="statRight threshold"><?php echo $speciesStrain;?>
+				<div class="statRight threshold"><?php echo ($speciesStrain+$brawn);?>
 					<div class="statBoxLabel">
 						<button {{action 'addToStat' "strainThreshold" 1}}>[+]</button> 
 						Threshold 
