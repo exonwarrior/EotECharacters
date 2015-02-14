@@ -393,7 +393,7 @@ require_once('connection.php');
 				}
 			}
 
-			echo '<td>'.$motivationType.'</td>';
+			echo '<td align="left">'.$motivationType.'</td>';
 			echo '<td>'.$motivationDesc.'</td>';
 		?></tr>
             </tbody>
@@ -446,7 +446,7 @@ require_once('connection.php');
 				}
 			}
 
-			echo '<td>'.$obligationType.'</td>';
+			echo '<td align="left">'.$obligationType.'</td>';
 			echo '<td>'.$obligationMagnitude.'</td>';
 			echo '<td>'.$obligationDesc.'</td>';
 		?></tr>
