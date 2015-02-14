@@ -264,11 +264,11 @@ require_once('connection.php');
 
 				// execute query 
 				$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
-				$result2 = mysql_query($query2) or die ("Error in query: $query2. ".mysql_error()); 
 
 				// see if any rows were returned 
 				if (mysql_num_rows($result1) > 0) {
 					while($row1 = mysql_fetch_row($result1)) {
+						$result2 = mysql_query($query2) or die ("Error in query: $query2. ".mysql_error()); 
 						$skillKey1 = $row1[0];
 						while($row2 = mysql_fetch_row($result2)){
 							$skillKey2 = $row2[2];
