@@ -19,7 +19,7 @@ require_once('connection.php');
 			<div class="characters">
 				<?php
 					// create query 
-					$query = "SELECT Name FROM exon_character";
+					$query = "SELECT * FROM exon_character";
 
 					// execute query 
 					$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
@@ -27,7 +27,7 @@ require_once('connection.php');
 					// see if any rows were returned 
 					if (mysql_num_rows($result) > 0) {
 						while($row = mysql_fetch_row($result)) {
-							echo "<h3>".$row[Name]."<h3>";
+							echo "<h3>".$row[0]."<h3>";
 						}
 					}
 				?>
