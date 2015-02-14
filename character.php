@@ -268,21 +268,24 @@ require_once('connection.php');
 
 				// see if any rows were returned 
 				if (mysql_num_rows($result1) > 0) {
-					while($row1 = mysql_fetch_row($result1) or $row2 = mysql_fetch_row($result2)) {
+					while($row1 = mysql_fetch_row($result1)) {
 						$skillKey1 = $row1[0];
-						$skillKey2 = $row2[2];
+						while($row2 = mysql_fetch_row($result2)){
+							$skillKey2 = $row2[2];
+							if($skillKey1 = $skillKey2){
+								$skillRank = $row2[4];
+								break;
+							}
+							else {
+								$skillRank = 0;
+							}
+						}
 						$skillName = $row1[1];
 						$skillCharacteristic = $row1[2];
-						$skillCombined = $skillName.' ('.$skillCharacteristic.')';
-						if($skillKey1 = $skillKey2){
-							$skillRank = $row2[4];
-						}
-						else {
-							$skillRank = 0;
-						}					
+						$skillCombined = $skillName.' ('.$skillCharacteristic.')';					
 						echo '<tr>';
 						echo '<td style="text-align:left">'.$skillCombined.'</td>';
-						echo '<td style="text-align:center">'.$skillRank.''.$skillKey2.'</td>';
+						echo '<td style="text-align:center">'.$skillRank.'</td>';
 						echo '</tr>';
 					}
 				}
