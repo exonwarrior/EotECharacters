@@ -269,8 +269,10 @@ require_once('connection.php');
 					while($row1 = mysql_fetch_row($result1)) {
 						$skillName = $row1[1];
 						$skillCharacteristic = $row1[2];
-						$skillCombined = $skillname.' ('.$skillCharacteristic.')';
+						$skillCombined = $skillName.' ('.$skillCharacteristic.')';
+						echo '<tr>';
 						echo '<td style="text-align:left">'.$skillCombined.'</td>';
+						echo '</tr>';
 					}
 				}
 			?>
