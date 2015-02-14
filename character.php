@@ -447,7 +447,7 @@ require_once('connection.php');
 			}
 
 			echo '<td>'.$obligationType.'</td>';
-			echo '<td>'.$obligationMagnitutde.'</td>';
+			echo '<td>'.$obligationMagnitude.'</td>';
 			echo '<td>'.$obligationDesc.'</td>';
 		?></tr>
               </tbody>
