@@ -90,6 +90,12 @@ header{
 	vertical-align: middle;
 }
 
+.inlineBlock characterInfo{
+	display: inline-block;
+	vertical-align: middle;
+	height: 100px;
+}
+
 .character{
 	width: 1024px;
 	margin: 0 auto;
