@@ -435,6 +435,46 @@ require_once('connection.php');
 					</tr>
 				</thead>
 				<tbody>
+					<?php
+						//initializing variables needed to display talents
+						$talentKey = "";//DBKey from exon_talent
+						//$talentKey2 = "";//DBParentSkillKey from exon_character_talent
+						$talentName = "";
+						$talentActivation = "";
+						$talentRanked = "";
+						$talentPage = "";
+						$talentRank = "";
+
+						// create query from exon_character_talent
+						$query1 = "SELECT * FROM exon_character_talent WHERE DBParentCharacterKey='$characterKey'";
+
+						// execute query 
+						$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
+
+						// see if any rows were returned 
+						if (mysql_num_rows($result1) > 0) {
+							while($row1 = mysql_fetch_row($result1)) {
+								$talentKey = $row1[0];
+								$query2 = "SELECT Name,Activation,Ranked,Page FROM exon_talent WHERE DBKey='$talentKey'";
+								$result2 = mysql_query($query2) or die ("Error in query: $query2. ".mysql_error());
+								$row2 = mysql_fetch_row($result2)
+								$talentName = $row2[0];
+								$talentActivation = $row2[1];
+								$talentPage = $row2[3];
+								if($row2[2]=="Yes"){
+									$talentRank = $row1[3];
+								} else {
+									$talentRank = "";
+								}				
+								echo '<tr>';
+								echo '<td style="text-align:left">'.$talentName.'</td>';
+								echo '<td style="text-align:center">'.$talentActivation.'</td>';
+								echo '<td style="text-align:center">'.$talentRank.'</td>';
+								echo '<td style="text-align:center">'.$talentPage.'</td>';
+								echo '</tr>';
+							}
+						}
+					?>
 				</tbody>
 			</table>
 		</div>
