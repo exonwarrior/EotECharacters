@@ -27,7 +27,7 @@ require_once('connection.php');
 					// see if any rows were returned 
 					if (mysql_num_rows($result) > 0) {
 						while($row = mysql_fetch_row($result)) {
-							echo '<div class="characterList">'.$row[2].'</div>';
+							echo '<div class="characterListName">'.$row[2].'</div>'"\r\n";
 						}
 					}
 				?>
