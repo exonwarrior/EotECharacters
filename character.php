@@ -68,7 +68,7 @@ require_once('connection.php');
 							$willpower = $row[18];
 							$presence = $row[19];
 							$xpTotal = $row[20];
-							$xpAvailable = $row[20];
+							$xpAvailable = $row[21];
 							$imageURL = $row[22];
 							echo '<div class="characterListName">'.$name.'</div>';
 						}
@@ -352,10 +352,50 @@ require_once('connection.php');
         <div class="characterMotivation twoUp">
           <h1>Motivations <button {{action 'createMotivation'}}>[+]</button></h1>
           <table>
+              <thead>
+                <tr>
+                  <td class="col1">Type</td>
+                  <td class="col3">Details</td>
+                </tr>
+              </thead>
             <tbody>
-              <!--{{#each item in motivation}}
-                {{control "motivation" item}}
-              {{/each}}-->
+		<tr>
+              <?php
+			//Initializing extra variables for player<->motivation matching
+			$motivationKey = "";
+			$motivationType = "";
+			$motivationDesc = "";
+
+			// create query to find Motivation Key from exon_character_motivation (stores pairs of Character and Motivation Keys)
+			$query = "SELECT DBParentMotivationKey FROM exon_character_motivation WHERE DBParentCharacterKey ='$characterKey'";
+
+			// execute above query 
+			$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+
+			// see if any rows were returned 
+			if (mysql_num_rows($result) > 0) {
+				while($row = mysql_fetch_row($result)) {
+					$motivationKey = $row[0];
+				}
+			}
+
+			// create query to find Motivation Type and Description from exon_motivation, based on previously selected DBParentMotivationKey
+			$query = "SELECT Type,Description FROM exon_motivation WHERE DBKey ='$motivationKey'";
+
+			// execute above query 
+			$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+
+			// see if any rows were returned 
+			if (mysql_num_rows($result) > 0) {
+				while($row = mysql_fetch_row($result)) {
+					$motivationType = $row[0];
+					$motivationDesc = $row[1];
+				}
+			}
+
+			echo '<td>'.$motivationType.'</td>';
+			echo '<td>'.$motivationDesc.'</td>';
+		?></tr>
             </tbody>
           </table>
         </div>
@@ -371,9 +411,45 @@ require_once('connection.php');
                 </tr>
               </thead>
               <tbody>
-                <!--{{#each item in obligation}}
-                  {{control "obligation" item}}
-                {{/each}}-->
+                <?php
+			//Initializing extra variables for player<->obligation matching
+			$obligationKey = "";
+			$obligationType = "";
+			$obligationMagnitude = "";
+			$obligationDesc = "";
+
+			// create query to find Motivation Key from exon_character_obligation (stores pairs of Character and Obligation Keys)
+			$query = "SELECT DBParentObligationKey FROM exon_character_obligation WHERE DBParentCharacterKey ='$characterKey'";
+
+			// execute above query 
+			$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+
+			// see if any rows were returned 
+			if (mysql_num_rows($result) > 0) {
+				while($row = mysql_fetch_row($result)) {
+					$obligationKey = $row[0];
+				}
+			}
+
+			// create query to find Obligation Type, Magnitude and Description from exon_obligation, based on previously selected DBParentObligationKey
+			$query = "SELECT Type,Magnitude,Description FROM exon_obligation WHERE DBKey ='$obligationKey'";
+
+			// execute above query 
+			$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+
+			// see if any rows were returned 
+			if (mysql_num_rows($result) > 0) {
+				while($row = mysql_fetch_row($result)) {
+					$obligationType = $row[0];
+					$obligationMagnitude = $row[1];
+					$obligationDesc = $row[2];
+				}
+			}
+
+			echo '<td>'.$motivationType.'</td>';
+			echo '<td>'.$motivationMagnitutde.'</td>';
+			echo '<td>'.$motivationDesc.'</td>';
+		?></tr>
               </tbody>
             </table>
           </div>
