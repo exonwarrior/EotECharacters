@@ -237,8 +237,71 @@ require_once('connection.php');
       <div class="characterSkills">
         <h1>Skills</h1>
         <div class="characterGeneralSkills contentBlock">
+		<h2>General Skills</h2>
+		<table class="">
+			<thead>
+				<tr>
+					<td class="col1">Skill</td>
+					<td class="col2 adjustRank"></td>
+					<td class="col3">Rank</td>
+					<td class="col4">Dice Pool</td>
+				</tr>
+			</thead>
+			<tbody>
+			<!--{{#each rank in generalSkills}}
+			{{control "rank" rank}}
+			{{/each}}-->
+			</tbody>
+    		</table>
         </div>
         <div class="characterOtherSkills contentBlock">
+		<h2>Combat Skills</h2>
+		<table class="">
+			<thead>
+			<tr>
+				<td class="col1">Skill</td>
+				<td class="col2 adjustRank"></td>
+				<td class="col3">Rank</td>
+				<td class="col4">Dice Pool</td>
+			</tr>
+			</thead>
+			<tbody>
+			<!--{{#each rank in combatSkills}}
+			{{control "rank" rank}}
+			{{/each}}-->
+			</tbody>
+		</table>
+
+		<h2>Knowledge Skills</h2>
+		<table class="">
+			<thead>
+				<tr>
+					<td class="col1">Skill</td>
+					<td class="col2 adjustRank"></td>
+					<td class="col3">Rank</td>
+					<td class="col4">Dice Pool</td>
+				</tr>
+			</thead>
+			<tbody>
+			<!--{{#each rank in knowledgeSkills}}
+			{{control "rank" rank}}
+			{{/each}}-->
+			</tbody>
+		</table>
+		<!--<h2>Custom Skills [+]</h2>
+		<table class="">
+		<thead>
+		<tr>
+		<td class="col1">Skill</td>
+		<td class="col2">Rank</td>
+		</tr>
+		</thead>
+		<tbody>
+		<!--{{#each rank in customSkills}}
+		{{control "rank" rank}}
+		{{/each}}-->
+		</tbody>
+		</table>-->
         </div>
       </div>
       <div class="characterWeaponsContainer">
