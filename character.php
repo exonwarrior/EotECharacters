@@ -274,7 +274,7 @@ require_once('connection.php');
 							$skillKey2 = $row2[2];
 							if($skillKey1 == $skillKey2){
 								$skillRank = $row2[4];
-								break;
+								break 1;
 							}
 							else {
 								$skillRank = 0;
