@@ -422,22 +422,7 @@ require_once('connection.php');
 		</table>-->
         </div>
       </div>
-	<div class="characterTalents">
-        <h1>Talents</h1>
-        	<div class="characterTalents contentBlock">
-			<table class="">
-				<thead>
-					<tr>
-						<td class="col1">Talent</td>
-						<td class="col2">Activation</td>
-						<td class="col3">Rank</td>
-						<td class="col4">Page</td>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-		</div>
-	</div>
+	
       <div class="characterWeaponsContainer">
         <div class="characterWeapons">
           <h1>Weapons <button {{action createWeapon}}>[+]</button></h1>
