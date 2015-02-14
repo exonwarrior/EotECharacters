@@ -406,7 +406,7 @@ header{
 }
 
 .statLeft, .statRight{
-	width: 50%;
+	width: 40%;
 	font-size: 22pt;
 	font-weight: bold;
 	background-color: #ccc;
