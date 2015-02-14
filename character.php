@@ -206,7 +206,109 @@ require_once('connection.php');
     <div class="character">
       <!--{{partial "header"}}-->
       <div class="characterStats">
-        <!--{{partial currentStats}}-->
+        <h1>Current Stats</h1>
+		<div class="statBox dual">
+      			<div class="row statRow">
+				<div class="statLeft current">{{woundsCurrent}}
+					<div class="statBoxLabel">
+						<button {{action 'addToStat' "woundsCurrent" 1}}>[+]</button> 
+						Current 
+						<button {{action 'addToStat' "woundsCurrent" -1}}>[-]</button>
+					</div>
+				</div>
+				<div class="statRight threshold">{{woundsThreshold}}
+					<div class="statBoxLabel">
+						<button {{action 'addToStat' "woundsThreshold" 1}}>[+]</button> 
+						Threshold 
+						<button {{action 'addToStat' "woundsThreshold" -1}}>[-]</button>
+					</div>
+				</div>
+			</div>
+      			<div class="statRow bottom">
+        			<div class="statLabel">Wounds
+				</div>
+      			</div>
+    		</div>
+	    	<div class="statBox dual">
+	      		<div class="row statRow">
+				<div class="statLeft current">{{strainCurrent}}
+					<div class="statBoxLabel">
+						<button {{action 'addToStat' "strainCurrent" 1}}>[+]</button> 
+						Current 
+						<button {{action 'addToStat' "strainCurrent" -1}}>[-]</button>
+					</div>
+				</div>
+				<div class="statRight threshold">{{strainThreshold}}
+					<div class="statBoxLabel">
+						<button {{action 'addToStat' "strainThreshold" 1}}>[+]</button> 
+						Threshold 
+						<button {{action 'addToStat' "strainThreshold" -1}}>[-]</button>
+					</div>
+				</div>
+	      		</div>
+	      		<div class="statRow bottom">
+				<div class="statLabel">Strain
+				</div>
+			</div>
+		</div>
+		<div class="statBox dual">
+			<div class="row statRow">
+				<div class="statLeft ranged">{{defenseRanged}}
+					<div class="statBoxLabel">
+						<button {{action 'addToStat' "defenseRanged" 1}}>[+]</button> 
+						Ranged 
+						<button {{action 'addToStat' "defenseRanged" -1}}>[-]</button>
+					</div>
+				</div>
+				<div class="statRight melee">{{defenseMelee}}
+					<div class="statBoxLabel">
+						<button {{action 'addToStat' "defenseMelee" 1}}>[+]</button> 
+						Melee 
+						<button {{action 'addToStat' "defenseMelee" -1}}>[-]</button>
+					</div>
+				</div>
+			</div>
+			<div class="statRow bottom">
+				<div class="statLabel">Defense
+				</div>
+			</div>
+		</div>
+		<div class="statBox solo">
+			<div class="row statRow">
+				<div class="statLeft">{{currentSoak}}
+					<div class="statBoxLabel">{{#if soakModded}}( {{soakModdedPref}}{{soakMod}} ){{else}}&nbsp;{{/if}}
+					</div>
+				</div>
+			</div>
+			<div class="statRow bottom">
+				<div class="statLabel">
+					<button {{action 'addToSoak' 1}}>[+]</button>
+					Soak 
+					<button {{action 'addToSoak' -1}}>[-]</button> 
+				</div>
+			</div>
+		</div>
+		<div class="statBox solo">
+			<div class="row statRow">
+				<div class="statLeft">{{#if boostSetbackDice}}{{dice boostSetbackDice}}{{else}}&nbsp;{{/if}}
+					<div class="statBoxLabel">&nbsp;
+					</div>
+				</div>
+			</div>
+			<div class="statRow bottom">
+				<div class="statLabel">
+					<span class="boostDice">
+						<button {{action 'addDice' 1 "b"}}>[+]</button> 
+						<button {{action 'addDice' -1 "b"}}>[-]</button>
+					</span> 
+					Boost/Setback 
+					<span class="setbackDice">
+						<button {{action 'addDice' 1 "s"}}>[+]</button> 
+						<button {{action 'addDice' -1 "s"}}>[-]</button>
+					</span>
+				</div>
+			</div>
+		</div>
       </div> 
       <div class="characterCharacteristics">
         <div class="characteristicBox">
