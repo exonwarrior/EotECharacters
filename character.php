@@ -32,6 +32,12 @@ require_once('connection.php');
 					$hair = "";
 					$eyes = "";
 					$features = "";
+					$brawn = "";
+					$agility = "";
+					$intellect = "";
+					$cunning = "";
+					$willpower = "";
+					$presence = "";
 					// create query 
 					$query = "SELECT * FROM exon_character";
 
@@ -52,6 +58,12 @@ require_once('connection.php');
 							$hair = $row[8];
 							$eyes = $row[9];
 							$features = $row[10];
+							$brawn = $row[14];
+							$agility = $row[15];
+							$intellect = $row[16];
+							$cunning = $row[17];
+							$willpower = $row[18];
+							$presence = $row[19];
 							echo '<div class="characterListName">'.$name.'</div>';
 						}
 					}
@@ -62,57 +74,33 @@ require_once('connection.php');
 	</div>
 
     <div class="character">
-      {{partial "header"}}
+      <!--{{partial "header"}}-->
       <div class="characterStats">
-        {{partial currentStats}}     
+        <!--{{partial currentStats}}-->
       </div> 
       <div class="characterCharacteristics">
         <div class="characteristicBox">
-          <div class="characteristicValue">{{#if isEditing}}
-              {{view App.CharacteristicView min="0" max="6" step="1" maxlength="1" valueBinding="brawn"}}
-            {{else}}
-              {{brawn}}
-            {{/if}}</div>
+          <div class="characteristicValue"><?php echo $brawn;?></div>
           <div class="characteristicLabel">Brawn</div>
         </div>
         <div class="characteristicBox">
-          <div class="characteristicValue">{{#if isEditing}}
-              {{view App.CharacteristicView min="0" max="6" step="1" maxlength="1" valueBinding="agility"}}
-            {{else}}
-              {{agility}}
-            {{/if}}</div>
+          <div class="characteristicValue"><?php echo $agility;?></div>
           <div class="characteristicLabel">Agility</div>
         </div>
         <div class="characteristicBox">
-          <div class="characteristicValue">{{#if isEditing}}
-              {{view App.CharacteristicView min="0" max="6" step="1" maxlength="1" valueBinding="intellect"}}
-            {{else}}
-              {{intellect}}
-            {{/if}}</div>
+          <div class="characteristicValue"><?php echo $intellect;?></div>
           <div class="characteristicLabel">Intellect</div>
         </div>
         <div class="characteristicBox">
-          <div class="characteristicValue">{{#if isEditing}}
-              {{view App.CharacteristicView min="0" max="6" step="1" maxlength="1" valueBinding="cunning"}}
-            {{else}}
-              {{cunning}}
-            {{/if}}</div>
+          <div class="characteristicValue"><?php echo $cunning;?></div>
           <div class="characteristicLabel">Cunning</div>
         </div>
         <div class="characteristicBox">
-          <div class="characteristicValue">{{#if isEditing}}
-              {{view App.CharacteristicView min="0" max="6" step="1" maxlength="1" valueBinding="willpower"}}
-            {{else}}
-              {{willpower}}
-            {{/if}}</div>
+          <div class="characteristicValue"><?php echo $willpower;?></div>
           <div class="characteristicLabel">Willpower</div>
         </div>
         <div class="characteristicBox">
-          <div class="characteristicValue">{{#if isEditing}}
-              {{view App.CharacteristicView min="0" max="6" step="1" valueBinding="presence"}}
-            {{else}}
-              {{presence}}
-            {{/if}}</div>
+          <div class="characteristicValue"><?php echo $presence;?></div>
           <div class="characteristicLabel">Presence</div>
         </div>
       </div>
@@ -443,7 +431,7 @@ require_once('connection.php');
           </tr>
           <tr>
             <td class="fieldLabel col1">Height</td>
-            <td class="field col2"><?php echo $height;?></td>
+            <td class="field col2"><?php echo $height.' cm';?></td>
           </tr>
         </tbody>
       </table>
