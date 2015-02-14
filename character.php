@@ -1,37 +1,41 @@
+<?php
+require_once('connection.php');
+?>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>Dossier</title>
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/fontello.css">
-  <script src="//use.edgefonts.net/advent-pro.js"></script>
-  <meta name="viewport" content="width=device-width initial-scale=1.0, user-scalable=no">
-</head>
+	<head>
+		<meta charset="utf-8">
+		<title>Dossier</title>
+		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/fontello.css">
+		<script src="//use.edgefonts.net/advent-pro.js"></script>
+		<meta name="viewport" content="width=device-width initial-scale=1.0, user-scalable=no">
+	</head>
 <body>
-  <script type="text/x-handlebars" data-template-name="application">
-    {{ outlet }}
-  </script>
+	<div class="charListContainer">
+		<div class="characterList">
+			<h2>Characters</h2>
+			<div class="characters">
+				<?php
+					// create query 
+					$query = "SELECT Name FROM exon_character";
 
-  <!--<script type="text/x-handlebars" data-template-name="characters">
-    <!--<span style="font-size: 7pt;">charactersTemplate</span><br>-->
-    <div class="charListContainer">
-      <div class="characterList">
-        <h2>Characters</h2>
-        <div class="characters">
-          {{#each character in controller}}
-            {{#linkTo "character" character}}{{ character.name }}{{/linkTo}}
-          {{/each}}
-          <button {{action 'createCharacter'}} class="icon-plus"></button>
-        </div>
-      </div>
-    </div>
-    {{ outlet }}
-  <!--</script>-->
+					// execute query 
+					$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
 
-  <script type="text/x-handlebars" data-template-name="character">
-    <!--<span style="font-size: 7pt;">characterTemplate</span><br>-->
+					// see if any rows were returned 
+					if (mysql_num_rows($result) > 0) {
+						while($row = mysql_fetch_row($result)) {
+							echo $row['Name'];
+						}
+					}
+				?>
+				<button {{action 'createCharacter'}} class="icon-plus"></button>
+			</div>
+		</div>
+	</div>
+
     <div class="character">
       {{partial "header"}}
       <div class="characterStats">
