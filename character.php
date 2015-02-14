@@ -250,6 +250,8 @@ require_once('connection.php');
 			<tbody>
 			<?php
 				//initializing variables needed to display skills
+				$skillKey1 = "";//DBKey from exon_skill
+				$skillKey2 = "";//DBParentSkillKey from exon_character_skill
 				$skillName = "";
 				$skillType = "";
 				$skillCharacteristic = "";
@@ -266,12 +268,21 @@ require_once('connection.php');
 
 				// see if any rows were returned 
 				if (mysql_num_rows($result1) > 0) {
-					while($row1 = mysql_fetch_row($result1)) {
+					while($row1 = mysql_fetch_row($result1) or $row2 = mysql_fetch_row($result2)) {
+						$skillKey1 = $row1[0];
+						$skillKey2 = $row2[2];
 						$skillName = $row1[1];
 						$skillCharacteristic = $row1[2];
 						$skillCombined = $skillName.' ('.$skillCharacteristic.')';
+						if($skillKey1 = $skillKey2){
+							$skillRank = $row2[4];
+						}
+						else {
+							$skillRank = 0;
+						}						
 						echo '<tr>';
 						echo '<td style="text-align:left">'.$skillCombined.'</td>';
+						echo '<td style="text-align:center">'.$skillRank.'</td>';
 						echo '</tr>';
 					}
 				}
