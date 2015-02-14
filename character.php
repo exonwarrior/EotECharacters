@@ -286,7 +286,7 @@ require_once('connection.php');
 						$skillCombined = $skillName.' ('.$skillCharacteristic.')';					
 						echo '<tr>';
 						echo '<td style="text-align:left">'.$skillCombined.'</td>';
-						echo '<td style="text-align:center">'.$skillRank.'</td>';
+						echo '<td style="text-align:center">'.$skillRank.''.$skillKey1.'</td>';
 						echo '</tr>';
 					}
 				}
