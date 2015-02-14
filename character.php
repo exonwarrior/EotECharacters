@@ -14,7 +14,7 @@
     {{ outlet }}
   </script>
 
-  <script type="text/x-handlebars" data-template-name="characters">
+  <!--<script type="text/x-handlebars" data-template-name="characters">
     <!--<span style="font-size: 7pt;">charactersTemplate</span><br>-->
     <div class="charListContainer">
       <div class="characterList">
@@ -28,7 +28,7 @@
       </div>
     </div>
     {{ outlet }}
-  </script>
+  <!--</script>-->
 
   <script type="text/x-handlebars" data-template-name="character">
     <!--<span style="font-size: 7pt;">characterTemplate</span><br>-->
