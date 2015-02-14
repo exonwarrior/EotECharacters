@@ -306,8 +306,48 @@ require_once('connection.php');
 			</tr>
 			</thead>
 			<tbody>
-				<td style="text-align:left">Skill</td>
-				<td style="text-align:center">Rank</td>
+			<?php
+				//initializing variables needed to display skills
+				$skillKey1 = "";//DBKey from exon_skill
+				$skillKey2 = "";//DBParentSkillKey from exon_character_skill
+				$skillName = "";
+				$skillType = "";
+				$skillCharacteristic = "";
+				$skillRank = "";
+				$skillCombined = "";
+
+				// create queries - first of all skills, then of player skills
+				$query1 = "SELECT * FROM exon_skill WHERE Type='Combat'";
+				$query2 = "SELECT * FROM exon_character_skill WHERE DBParentCharacterKey='$characterKey'";
+
+				// execute query 
+				$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
+
+				// see if any rows were returned 
+				if (mysql_num_rows($result1) > 0) {
+					while($row1 = mysql_fetch_row($result1)) {
+						$result2 = mysql_query($query2) or die ("Error in query: $query2. ".mysql_error()); 
+						$skillKey1 = $row1[0];
+						while($row2 = mysql_fetch_row($result2)){
+							$skillKey2 = $row2[2];
+							if($skillKey1 == $skillKey2){						
+								$skillRank = $row2[4];
+								break 1;
+							}
+							else {
+								$skillRank = 0;
+							}
+						}
+						$skillName = $row1[1];
+						$skillCharacteristic = $row1[2];
+						$skillCombined = $skillName.' ('.$skillCharacteristic.')';					
+						echo '<tr>';
+						echo '<td style="text-align:left">'.$skillCombined.'</td>';
+						echo '<td style="text-align:center">'.$skillRank.'</td>';
+						echo '</tr>';
+					}
+				}
+			?>
 			</tbody>
 		</table>
 
@@ -322,8 +362,48 @@ require_once('connection.php');
 				</tr>
 			</thead>
 			<tbody>
-				<td style="text-align:left">Skill</td>
-				<td style="text-align:center">Rank</td>
+			<?php
+				//initializing variables needed to display skills
+				$skillKey1 = "";//DBKey from exon_skill
+				$skillKey2 = "";//DBParentSkillKey from exon_character_skill
+				$skillName = "";
+				$skillType = "";
+				$skillCharacteristic = "";
+				$skillRank = "";
+				$skillCombined = "";
+
+				// create queries - first of all skills, then of player skills
+				$query1 = "SELECT * FROM exon_skill WHERE Type='Knowledge'";
+				$query2 = "SELECT * FROM exon_character_skill WHERE DBParentCharacterKey='$characterKey'";
+
+				// execute query 
+				$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
+
+				// see if any rows were returned 
+				if (mysql_num_rows($result1) > 0) {
+					while($row1 = mysql_fetch_row($result1)) {
+						$result2 = mysql_query($query2) or die ("Error in query: $query2. ".mysql_error()); 
+						$skillKey1 = $row1[0];
+						while($row2 = mysql_fetch_row($result2)){
+							$skillKey2 = $row2[2];
+							if($skillKey1 == $skillKey2){						
+								$skillRank = $row2[4];
+								break 1;
+							}
+							else {
+								$skillRank = 0;
+							}
+						}
+						$skillName = $row1[1];
+						$skillCharacteristic = $row1[2];
+						$skillCombined = $skillName.' ('.$skillCharacteristic.')';					
+						echo '<tr>';
+						echo '<td style="text-align:left">'.$skillCombined.'</td>';
+						echo '<td style="text-align:center">'.$skillRank.'</td>';
+						echo '</tr>';
+					}
+				}
+			?>
 			</tbody>
 		</table>
 		<!--<h2>Custom Skills [+]</h2>
