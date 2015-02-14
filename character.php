@@ -18,6 +18,18 @@ require_once('connection.php');
 			<h2>Characters</h2>
 			<div class="characters">
 				<?php
+					//initializing variables
+					$player = "";
+					$name = "";
+					$speciesKey = "";
+					$speciesName = "";
+					$gender = "";
+					$age = "";
+					$height = "";
+					$build = "";
+					$hair = "";
+					$eyes = "";
+					$features = "";
 					// create query 
 					$query = "SELECT * FROM exon_character";
 
@@ -27,7 +39,17 @@ require_once('connection.php');
 					// see if any rows were returned 
 					if (mysql_num_rows($result) > 0) {
 						while($row = mysql_fetch_row($result)) {
-							echo '<div class="characterListName">'.$row[2].'</div>';
+							$player = $row[1];
+							$name = $row[2];
+							$speciesKey = $row[3];
+							$gender = $row[4];
+							$age = $row[5];
+							$height = $row[6];
+							$build = $row[7];
+							$hair = $row[8];
+							$eyes = $row[9];
+							$features = $row[10];
+							echo '<div class="characterListName">'.$name.'</div>';
 						}
 					}
 				?>
@@ -348,27 +370,33 @@ require_once('connection.php');
 		</div>
 	</script> 
 
-  <script type="text/x-handlebars" data-template-name="_header">
+  <!--<script type="text/x-handlebars" data-template-name="_header">-->
     <header class="characterInfo">
       <table class="inlineBlock">
         <tbody>
           <tr>
             <td class="fieldLabel col1">Species</td>
             <td class="field col2">
-            {{#if isEditing}}
-              {{view App.EditTextView valueBinding="species"}}
-            {{else}}
-              {{species}}
-            {{/if}}
+            	<?php
+			// create query 
+			$query = "SELECT * FROM exon_species WHERE Name ='$speciesKey'";
+
+			// execute query 
+			$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+
+			// see if any rows were returned 
+			if (mysql_num_rows($result) > 0) {
+				while($row = mysql_fetch_row($result)) {
+					$speciesName = $row[1];
+				}
+			}
+			echo $speciesName;
+		?>
             </td>
           </tr>
           <tr>
             <td class="fieldLabel col1">Career</td>
-            <td class="field col2">{{#if isEditing}}
-              {{view App.EditTextView valueBinding="career"}}
-            {{else}}
-              {{career}}
-            {{/if}}</td>
+            <td class="field col2"></td>
           </tr>
           <tr>
             <td class="fieldLabel col1">Gender</td>
@@ -453,10 +481,7 @@ require_once('connection.php');
         <div class="editButtons"><button {{action 'editCharacter'}} class="icon-pencil"></button> <button {{action 'deleteCharacter'}} class="icon-cancel"></button></div>
       {{/if}}
     </header>
-    
-
-    
-  </script>
+  <!--</script>-->
 
   <script type="text/x-handlebars" data-template-name="_generalSkills">
     <h2>General Skills</h2>
