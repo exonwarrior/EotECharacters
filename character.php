@@ -646,9 +646,44 @@ require_once('connection.php');
                 </tr>
               </thead>
               <tbody>
-                <!--{{#each weapon in weapons}}
-                  {{control "weapon" weapon}}
-                {{/each}}-->
+			<?php
+				//initializing variables needed to display weapons
+				$weaponKey = "";//DBKey from exon_weapon
+				$weaponName = "";
+				$weaponSkill = "";
+				$weaponDamage = "";
+				$weaponRange = "";
+				$weaponCrit = "";
+				$weaponSpecial = "";
+
+				// create query from exon_character_talent
+				$query1 = "SELECT * FROM exon_weapon WHERE DBParentCharacterKey='$characterKey'";
+
+				// execute query 
+				$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
+
+				// see if any rows were returned 
+				if (mysql_num_rows($result1) > 0) {
+					while($row1 = mysql_fetch_row($result1)) {
+						$weaponKey = $row1[1];
+						$weaponName = $row1[3];
+						$weaponSkill = $row1[4];
+						$weaponDamange = $row1[5];
+						$weaponRange = $row1[6];
+						$weaponCrit = $row1[7];
+						$weaponSpecial = $row1[8];
+						echo '<tr>';
+						echo '<td style="text-align:left">'.$weaponName.'</td>';
+						echo '<td style="text-align:center">'.$weaponSkill.'</td>';
+						echo '<td style="text-align:center">'.$weaponDamage.'</td>';
+						echo '<td style="text-align:center">'.$weaponRange.'</td>';
+						echo '<td style="text-align:center">'.$weaponCrit.'</td>';
+						echo '<td style="text-align:center">'.$weaponSpecial.'</td>';
+						echo '</tr>';
+						}				
+					}
+				}
+			?>
               </tbody>
             </table>
           </div>
