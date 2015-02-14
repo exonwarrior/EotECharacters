@@ -231,11 +231,8 @@ require_once('connection.php');
       <div class="characterSkills">
         <h1>Skills</h1>
         <div class="characterGeneralSkills contentBlock">
-          {{partial generalSkills}}
         </div>
         <div class="characterOtherSkills contentBlock">
-          {{partial combatSkills}}
-          {{partial knowledgeSkills}}
         </div>
       </div>
       <div class="characterWeaponsContainer">
@@ -254,9 +251,9 @@ require_once('connection.php');
                 </tr>
               </thead>
               <tbody>
-                {{#each weapon in weapons}}
+                <!--{{#each weapon in weapons}}
                   {{control "weapon" weapon}}
-                {{/each}}
+                {{/each}}-->
               </tbody>
             </table>
           </div>
@@ -274,9 +271,9 @@ require_once('connection.php');
                 </tr>
               </thead>
               <tbody>
-                {{#each armor in armor}}
+                <!--{{#each armor in armor}}
                   {{control "armor" armor}}
-                {{/each}} 
+                {{/each}}-->
               </tbody>
             </table>
           </div>
@@ -292,9 +289,9 @@ require_once('connection.php');
                 </tr>
               </thead>
               <tbody>
-                {{#each item in inventory}}
+                <!--{{#each item in inventory}}
                   {{control "inventoryItem" item}}
-                {{/each}}
+                {{/each}}-->
               </tbody>
             </table>
           </div>
@@ -313,9 +310,9 @@ require_once('connection.php');
                 </tr>
               </thead>
               <tbody>
-                {{#each item in criticalInjuries}}
+                <!--{{#each item in criticalInjuries}}
                   {{control "criticalInjury" item}}
-                {{/each}}
+                {{/each}}-->
               </tbody>
             </table>
           </div>
@@ -331,9 +328,9 @@ require_once('connection.php');
                 </tr>
               </thead>
               <tbody>
-                {{#each xpItem in xp}}
+                <!--{{#each xpItem in xp}}
                   {{control "xp" xpItem}}
-                {{/each}}
+                {{/each}}-->
                  <tr class="total">
                   <td class="col1"><strong>Total XP</strong></td>
                   <td class="col2"><strong>{{totalXP}}</strong></td> 
@@ -350,9 +347,9 @@ require_once('connection.php');
           <h1>Motivations <button {{action 'createMotivation'}}>[+]</button></h1>
           <table>
             <tbody>
-              {{#each item in motivation}}
+              <!--{{#each item in motivation}}
                 {{control "motivation" item}}
-              {{/each}}
+              {{/each}}-->
             </tbody>
           </table>
         </div>
@@ -368,9 +365,9 @@ require_once('connection.php');
                 </tr>
               </thead>
               <tbody>
-                {{#each item in obligation}}
+                <!--{{#each item in obligation}}
                   {{control "obligation" item}}
-                {{/each}}
+                {{/each}}-->
               </tbody>
             </table>
           </div>
@@ -485,133 +482,6 @@ require_once('connection.php');
 		</div>
 	</script> 
 
-  <!--<script type="text/x-handlebars" data-template-name="_header">-->
-    <header class="characterInfo">
-      <table class="inlineBlock">
-        <tbody>
-          <tr>
-            <td class="fieldLabel col1">Species</td>
-            <td class="field col2">
-            	<?php
-			// create query 
-			$query = "SELECT * FROM exon_species WHERE DBKey ='$speciesKey'";
-
-			// execute query 
-			$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
-
-			// see if any rows were returned 
-			if (mysql_num_rows($result) > 0) {
-				while($row = mysql_fetch_row($result)) {
-					$speciesName = $row[1];
-				}
-			}
-			echo $speciesName;
-		?></td>
-          </tr>
-          <tr>
-            <td class="fieldLabel col1">Career</td>
-            <td class="field col2">
-            	<?php
-			//Initializing extra variables for player<->career matching
-			$careerKey = "";
-			$careerName = "";
-
-			// create query to find Career Key from exon_character_career (stores pairs of Character and Career Keys)
-			$query = "SELECT DBParentCareerKey FROM exon_character_career WHERE DBParentCharacterKey ='$characterKey'";
-
-			// execute above query 
-			$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
-
-			// see if any rows were returned 
-			if (mysql_num_rows($result) > 0) {
-				while($row = mysql_fetch_row($result)) {
-					$careerKey = $row[0];
-				}
-			}
-
-			// create query to find Career Name from exon_career, based on previously selected DBParentCareerKey
-			$query = "SELECT Name FROM exon_career WHERE DBKey ='$careerKey'";
-
-			// execute above query 
-			$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
-
-			// see if any rows were returned 
-			if (mysql_num_rows($result) > 0) {
-				while($row = mysql_fetch_row($result)) {
-					$careerName = $row[0];
-				}
-			}
-
-			echo $careerName;
-		?></td>
-          </tr>
-          <tr>
-            <td class="fieldLabel col1">Gender</td>
-            <td class="field col2"><?php echo $gender;?></td>
-          </tr>
-          <tr>
-            <td class="fieldLabel col1">Age</td>
-            <td class="field col2"><?php echo $age;?></td>
-          </tr>
-          <tr>
-            <td class="fieldLabel col1">Height</td>
-            <td class="field col2"><?php echo $height.' cm';?></td>
-          </tr>
-        </tbody>
-      </table>
-      <table class="inlineBlock">
-        <tbody>
-          <tr>
-            <td class="fieldLabel col1">Hair</td>
-            <td class="field col2"><?php echo $hair;?></td>
-          </tr>
-          <tr>
-            <td class="fieldLabel col1">Eyes</td>
-            <td class="field col2"><?php echo $eyes;?></td>
-          </tr>
-          <tr>
-            <td class="fieldLabel col1">Notable Features</td>
-            <td class="field col2"><?php echo $features;?></td>
-          </tr>
-          <tr>
-            <td class="fieldLabel col1">Build</td>
-            <td class="field col2"><?php echo $build;?></td>
-          </tr>
-          <tr>
-            <td class="fieldLabel col1">Player</td>
-            <td class="field col2">
-            	<?php
-			// create query 
-			$query = "SELECT * FROM exon_player WHERE DBKey ='$playerKey'";
-
-			// execute query 
-			$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
-
-			// see if any rows were returned 
-			if (mysql_num_rows($result) > 0) {
-				while($row = mysql_fetch_row($result)) {
-					$playerName = $row[1];
-				}
-			}
-			echo $playerName;
-		?></td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="characterBadge inlineBlock">
-        <img {{action "editImage" on="doubleClick"}} {{bindAttr src="portraitURL"}} alt="" class="">
-	<h1 class="">
-	<?php echo $name;?>
-	</h1>
-      </div>
-      {{#if isEditing}}
-        <div class="editButtons"><button {{action 'saveCharacter'}} class="icon-ok"></button></div>
-      {{else}}
-        <div class="editButtons"><button {{action 'editCharacter'}} class="icon-pencil"></button> <button {{action 'deleteCharacter'}} class="icon-cancel"></button></div>
-      {{/if}}
-    </header>
-  <!--</script>-->
-
   <script type="text/x-handlebars" data-template-name="_generalSkills">
     <h2>General Skills</h2>
     <table class="">
@@ -624,9 +494,9 @@ require_once('connection.php');
         </tr>
       </thead>
       <tbody>
-        {{#each rank in generalSkills}}
+        <!--{{#each rank in generalSkills}}
           {{control "rank" rank}}
-        {{/each}}
+        {{/each}}-->
       </tbody>
     </table>
   </script>
@@ -637,56 +507,56 @@ require_once('connection.php');
 
   <script type="text/x-handlebars" data-template-name="weapon">
     <tr>
-      <td class="col1">{{#if isEditing}}{{view App.EditTextView valueBinding="name"}} <button {{action 'deleteItem'}}>[x]</button>{{else}}<button {{action "editItem" on="doubleClick"}}>{{name}}</button>{{/if}}</td>
+      <!--<td class="col1">{{#if isEditing}}{{view App.EditTextView valueBinding="name"}} <button {{action 'deleteItem'}}>[x]</button>{{else}}<button {{action "editItem" on="doubleClick"}}>{{name}}</button>{{/if}}</td>
       <td class="col2">{{#if isEditing}}{{view App.EditTextView valueBinding="id"}}{{else}}<button {{action "editItem" on="doubleClick"}}>{{id}}</button>{{/if}}</td>
       <td class="col3">{{#if isEditing}}{{view App.EditTextView valueBinding="damage"}}{{else}}<button {{action "editItem" on="doubleClick"}}>{{damage}}</button>{{/if}}</td>
       <td class="col4">{{#if isEditing}}{{view App.EditTextView valueBinding="range"}}{{else}}<button {{action "editItem" on="doubleClick"}}>{{range}}</button>{{/if}}</td>
       <td class="col5">{{#if isEditing}}{{view App.EditTextView valueBinding="crit"}}{{else}}<button {{action "editItem" on="doubleClick"}}>{{crit}}</button>{{/if}}</td> 
-      <td class="col6">{{#if isEditing}}{{view App.EditTextView valueBinding="special"}}{{else}}<button {{action "editItem" on="doubleClick"}}>{{special}}</button>{{/if}}</td>
+      <td class="col6">{{#if isEditing}}{{view App.EditTextView valueBinding="special"}}{{else}}<button {{action "editItem" on="doubleClick"}}>{{special}}</button>{{/if}}</td>-->
     </tr>
   </script>
 
   <script type="text/x-handlebars" data-template-name="armor">
     <tr>
-      <td class="itemName col1">{{#if isEditing}}{{view App.EditTextView valueBinding="name"}} <button {{action 'deleteItem'}}>[x]</button>{{else}}<button {{action "editItem" on="doubleClick"}}>{{name}}</button>{{/if}}</td>
-      <td class="armorStats col2">{{#if isEditing}}{{view App.EditTextView valueBinding="stats"}}{{else}}<button {{action "editItem" on="doubleClick"}}>{{stats}}</button>{{/if}}</td>
+      <!--<td class="itemName col1">{{#if isEditing}}{{view App.EditTextView valueBinding="name"}} <button {{action 'deleteItem'}}>[x]</button>{{else}}<button {{action "editItem" on="doubleClick"}}>{{name}}</button>{{/if}}</td>
+      <td class="armorStats col2">{{#if isEditing}}{{view App.EditTextView valueBinding="stats"}}{{else}}<button {{action "editItem" on="doubleClick"}}>{{stats}}</button>{{/if}}</td>-->
     </tr>   
   </script>
 
   <script type="text/x-handlebars" data-template-name="inventoryItem">
     <tr>
-      <td class="itemName col1">{{#if isEditing}}{{view App.EditTextView valueBinding="name"}} <button {{action 'deleteItem'}}>[x]</button>{{else}}<button {{action "editItem" on="doubleClick"}}>{{name}}</button>{{/if}}</td>
-      <td class="itemStats col2">{{#if isEditing}}{{view App.EditTextView valueBinding="description"}} <button {{action 'deleteItem'}}>[x]</button>{{else}}<button {{action "editItem" on="doubleClick"}}>{{description}}</button>{{/if}}</td>
+      <!--<td class="itemName col1">{{#if isEditing}}{{view App.EditTextView valueBinding="name"}} <button {{action 'deleteItem'}}>[x]</button>{{else}}<button {{action "editItem" on="doubleClick"}}>{{name}}</button>{{/if}}</td>
+      <td class="itemStats col2">{{#if isEditing}}{{view App.EditTextView valueBinding="description"}} <button {{action 'deleteItem'}}>[x]</button>{{else}}<button {{action "editItem" on="doubleClick"}}>{{description}}</button>{{/if}}</td>-->
     </tr>   
   </script>
 
   <script type="text/x-handlebars" data-template-name="criticalInjury">
     <tr>
-      <td class="col1">{{#if isEditing}}{{view App.EditTextView valueBinding="injury"}} <button {{action 'deleteItem'}}>[x]</button>{{else}}<button {{action "editItem" on="doubleClick"}}>{{injury}}</button>{{/if}}</td>
+      <!--<td class="col1">{{#if isEditing}}{{view App.EditTextView valueBinding="injury"}} <button {{action 'deleteItem'}}>[x]</button>{{else}}<button {{action "editItem" on="doubleClick"}}>{{injury}}</button>{{/if}}</td>
       <td class="col2">{{#if isEditing}}{{view App.EditTextView valueBinding="severity"}} {{else}}<button {{action "editItem" on="doubleClick"}}>{{severity}}</button>{{/if}}</td>
-      <td class="col3">{{#if isEditing}}{{view App.EditTextView valueBinding="result"}} {{else}}<button {{action "editItem" on="doubleClick"}}>{{result}}</button>{{/if}}</td>
+      <td class="col3">{{#if isEditing}}{{view App.EditTextView valueBinding="result"}} {{else}}<button {{action "editItem" on="doubleClick"}}>{{result}}</button>{{/if}}</td>-->
     </tr>
   </script>
 
 <script type="text/x-handlebars" data-template-name="xp">
   <tr>
-    <td class="col1">{{#if isEditing}}{{view App.EditTextView valueBinding="source"}} <button {{action 'deleteItem'}}>[x]</button>{{else}}<button {{action "editItem" on="doubleClick"}}>{{source}}</button>{{/if}}</td>
-    <td class="col2">{{#if isEditing}}{{view App.EditTextView valueBinding="amount"}} {{else}}<button {{action "editItem" on="doubleClick"}}>{{amount}}</button>{{/if}}</td>
+    <!--<td class="col1">{{#if isEditing}}{{view App.EditTextView valueBinding="source"}} <button {{action 'deleteItem'}}>[x]</button>{{else}}<button {{action "editItem" on="doubleClick"}}>{{source}}</button>{{/if}}</td>
+    <td class="col2">{{#if isEditing}}{{view App.EditTextView valueBinding="amount"}} {{else}}<button {{action "editItem" on="doubleClick"}}>{{amount}}</button>{{/if}}</td>-->
   </tr>
 </script>
 
 <script type="text/x-handlebars" data-template-name="motivation">
     <tr>
-      <td class="col1">{{#if isEditing}}{{view App.EditTextView valueBinding="motivation"}} <button {{action 'deleteItem'}}>[x]</button>{{else}}<button {{action "editItem" on="doubleClick"}}>{{motivation}}</button>{{/if}}</td>
-      <td class="col2">{{#if isEditing}}{{view App.EditTextView valueBinding="description"}} {{else}}<button {{action "editItem" on="doubleClick"}}>{{description}}</button>{{/if}}</td>
+     <!--<td class="col1">{{#if isEditing}}{{view App.EditTextView valueBinding="motivation"}} <button {{action 'deleteItem'}}>[x]</button>{{else}}<button {{action "editItem" on="doubleClick"}}>{{motivation}}</button>{{/if}}</td>
+      <td class="col2">{{#if isEditing}}{{view App.EditTextView valueBinding="description"}} {{else}}<button {{action "editItem" on="doubleClick"}}>{{description}}</button>{{/if}}</td>-->
     </tr>
 </script>
 
 <script type="text/x-handlebars" data-template-name="obligation">
     <tr>
-      <td class="col1">{{#if isEditing}}{{view App.EditTextView valueBinding="type"}} <button {{action 'deleteItem'}}>[x]</button>{{else}}<button {{action "editItem" on="doubleClick"}}>{{type}}</button>{{/if}}</td>
+      <!--<td class="col1">{{#if isEditing}}{{view App.EditTextView valueBinding="type"}} <button {{action 'deleteItem'}}>[x]</button>{{else}}<button {{action "editItem" on="doubleClick"}}>{{type}}</button>{{/if}}</td>
       <td class="col2">{{#if isEditing}}{{view App.EditTextView valueBinding="magnitude"}} {{else}}<button {{action "editItem" on="doubleClick"}}>{{magnitude}}</button>{{/if}}</td>
-      <td>{{#if isEditing}}{{view App.EditTextView valueBinding="details"}} {{else}}<button {{action "editItem" on="doubleClick"}}>{{details}}</button>{{/if}}</td>
+      <td>{{#if isEditing}}{{view App.EditTextView valueBinding="details"}} {{else}}<button {{action "editItem" on="doubleClick"}}>{{details}}</button>{{/if}}</td>-->
     </tr>
 </script>
 
@@ -704,9 +574,9 @@ require_once('connection.php');
        </tr>
      </thead>
      <tbody>
-        {{#each rank in combatSkills}}
+        <!--{{#each rank in combatSkills}}
           {{control "rank" rank}}
-        {{/each}}
+        {{/each}}-->
      </tbody>
     </table>
   </script>
@@ -722,9 +592,9 @@ require_once('connection.php');
        </tr>
      </thead>
      <tbody>
-        {{#each rank in knowledgeSkills}}
+        <!--{{#each rank in knowledgeSkills}}
          {{control "rank" rank}}
-        {{/each}}
+        {{/each}}-->
      </tbody>
     </table>
     <!--<h2>Custom Skills [+]</h2>
@@ -736,9 +606,9 @@ require_once('connection.php');
        </tr>
      </thead>
      <tbody>
-       {{#each rank in customSkills}}
+       <!--{{#each rank in customSkills}}
           {{control "rank" rank}}
-        {{/each}}
+        {{/each}}-->
      </tbody>
     </table>-->
   </script>
