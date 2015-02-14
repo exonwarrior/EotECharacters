@@ -525,11 +525,11 @@ table tr td{
 	vertical-align: top;
 }
 
-/*.characterTalents > div{
+.characterTalents > div{
 	width: 490px;
 	display: inline-block;
 	vertical-align: top;
-}*/
+}
 
 .contentBlock{
 	margin: 0 9px;
@@ -571,7 +571,7 @@ table tr td{
 	width: 60%;
 }
 
-/*.characterTalents table{
+.characterTalents table{
 	width: 100%;
 }
 
@@ -581,7 +581,7 @@ table tr td{
 
 .characterTalents table td.col1{
 	width: 60%;
-}*/
+}
 
 .characterMiscInfo .col1{
 	width: 25%;
@@ -635,7 +635,7 @@ and (max-device-width : 767px)
 
 }
 
-/*.characterTalents{
+.characterTalents{
 	margin: 0 auto;
 	text-align: center;
 	font-size: 1.4em;
@@ -645,6 +645,6 @@ and (max-device-width : 767px)
 	width: 95%;
 	margin: 0 auto;
 
-}*/
+}
 
 }
