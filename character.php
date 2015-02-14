@@ -272,7 +272,7 @@ require_once('connection.php');
 						$skillKey1 = $row1[0];
 						while($row2 = mysql_fetch_row($result2)){
 							$skillKey2 = $row2[2];
-							if($skillKey1 == $skillKey2){
+							if($skillKey1 == $row2[2]){
 								$skillRank = 1;								
 								//$skillRank = $row2[4];
 								break 1;
