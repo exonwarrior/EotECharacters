@@ -220,7 +220,7 @@ require_once('connection.php');
 						<button {{action 'addToStat' "woundsCurrent" -1}}>[-]</button>
 					</div>
 				</div>
-				<div class="statRight threshold">{{woundsThreshold}}
+				<div class="statRight threshold">0
 					<div class="statBoxLabel">
 						<button {{action 'addToStat' "woundsThreshold" 1}}>[+]</button> 
 						Threshold 
@@ -242,7 +242,7 @@ require_once('connection.php');
 						<button {{action 'addToStat' "strainCurrent" -1}}>[-]</button>
 					</div>
 				</div>
-				<div class="statRight threshold">{{strainThreshold}}
+				<div class="statRight threshold">0
 					<div class="statBoxLabel">
 						<button {{action 'addToStat' "strainThreshold" 1}}>[+]</button> 
 						Threshold 
