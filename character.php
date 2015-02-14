@@ -379,7 +379,7 @@ require_once('connection.php');
             <td class="field col2">
             	<?php
 			// create query 
-			$query = "SELECT * FROM exon_species WHERE Name ='$speciesKey'";
+			$query = "SELECT * FROM exon_species WHERE DBKey ='$speciesKey'";
 
 			// execute query 
 			$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
