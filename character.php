@@ -146,6 +146,43 @@ require_once('connection.php');
 		?></td>
           </tr>
           <tr>
+            <td class="fieldLabel col1">Specialization</td>
+            <td class="field col2">
+            	<?php
+			//Initializing extra variables for player<->specialization matching
+			$specKey = "";
+			$specName = "";
+
+			// create query to find Career Key from exon_character_career (stores pairs of Character and Career Keys)
+			$query = "SELECT DBParentSpecializationKey FROM exon_character_specialization WHERE DBParentCharacterKey ='$characterKey'";
+
+			// execute above query 
+			$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+
+			// see if any rows were returned 
+			if (mysql_num_rows($result) > 0) {
+				while($row = mysql_fetch_row($result)) {
+					$specKey = $row[0];
+				}
+			}
+
+			// create query to find Career Name from exon_career, based on previously selected DBParentCareerKey
+			$query = "SELECT Name FROM exon_specialization WHERE DBKey ='$specKey'";
+
+			// execute above query 
+			$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+
+			// see if any rows were returned 
+			if (mysql_num_rows($result) > 0) {
+				while($row = mysql_fetch_row($result)) {
+					$specName = $row[0];
+				}
+			}
+
+			echo $specName;
+		?></td>
+          </tr>
+          <tr>
             <td class="fieldLabel col1">Gender</td>
             <td class="field col2"><?php echo $gender;?></td>
           </tr>
