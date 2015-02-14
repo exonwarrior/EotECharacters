@@ -679,8 +679,7 @@ require_once('connection.php');
 						echo '<td style="text-align:center">'.$weaponRange.'</td>';
 						echo '<td style="text-align:center">'.$weaponCrit.'</td>';
 						echo '<td style="text-align:center">'.$weaponSpecial.'</td>';
-						echo '</tr>';
-						}				
+						echo '</tr>';			
 					}
 				}
 			?>
