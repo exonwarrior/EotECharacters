@@ -668,7 +668,11 @@ require_once('connection.php');
 						$weaponKey = $row1[1];
 						$weaponName = $row1[3];
 						$weaponSkill = $row1[4];
-						$weaponDamage = $row1[5];
+						if($weaponSkill == "Melee" or $weaponSkill == "Brawl"){
+							$weaponDamage = $brawn+$row1[5];
+						} else {
+							$weaponDamage = $row1[5];
+						}
 						$weaponRange = $row1[6];
 						$weaponCrit = $row1[7];
 						$weaponSpecial = $row1[8];
