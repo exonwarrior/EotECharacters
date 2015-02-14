@@ -282,7 +282,7 @@ require_once('connection.php');
 						}					
 						echo '<tr>';
 						echo '<td style="text-align:left">'.$skillCombined.'</td>';
-						echo '<td style="text-align:center">'.$skillRank.''.$skillKey2'</td>';
+						echo '<td style="text-align:center">'.$skillRank.''.$skillKey2.'</td>';
 						echo '</tr>';
 					}
 				}
