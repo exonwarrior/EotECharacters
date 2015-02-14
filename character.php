@@ -721,14 +721,13 @@ require_once('connection.php');
 			// see if any rows were returned 
 			if (mysql_num_rows($result1) > 0) {
 				while($row1 = mysql_fetch_row($result1)) {
-					$armorKey = $row1[1];
 					$armorType = $row1[2];
 					$armorDefense = $row1[4];
 					$armorSoak = $row1[5];
 					echo '<tr>';
 					echo '<td style="text-align:left">'.$armorType.'</td>';
 					echo '<td style="text-align:center">'.$armorDefense.'</td>';
-					echo '<td style="text-align:center">'.$armorSoak'</td>';
+					echo '<td style="text-align:center">'.$armorSoak.'</td>';
 					echo '</tr>';			
 				}
 			}
