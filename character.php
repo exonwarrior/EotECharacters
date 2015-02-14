@@ -455,23 +455,25 @@ require_once('connection.php');
 						if (mysql_num_rows($result1) > 0) {
 							while($row1 = mysql_fetch_row($result1)) {
 								$talentKey = $row1[0];
-								$query2 = "SELECT Name,Activation,Ranked,Page FROM exon_talent WHERE DBKey='$talentKey'";
+								$query2 = "SELECT DBKey,Name,Activation,Ranked,Page FROM exon_talent WHERE DBKey='$talentKey'";
 								$result2 = mysql_query($query2) or die ("Error in query: $query2. ".mysql_error());
 								$row2 = mysql_fetch_row($result2);
-								$talentName = $row2[0];
-								$talentActivation = $row2[1];
-								$talentPage = $row2[3];
-								if($row2[2]=="Yes"){
-									$talentRank = $row1[3];
-								} else {
-									$talentRank = "";
+								if($talentKey == $row1[2]){
+									$talentName = $row2[1];
+									$talentActivation = $row2[2];
+									$talentPage = $row2[4];
+									if($row2[2]=="Yes"){
+										$talentRank = $row1[3];
+									} else {
+										$talentRank = "";
+									}
+									echo '<tr>';
+									echo '<td style="text-align:left">'.$talentName.'</td>';
+									echo '<td style="text-align:center">'.$talentActivation.'</td>';
+									echo '<td style="text-align:center">'.$talentRank.'</td>';
+									echo '<td style="text-align:center">'.$talentPage.'</td>';
+									echo '</tr>';
 								}				
-								echo '<tr>';
-								echo '<td style="text-align:left">'.$talentName.'</td>';
-								echo '<td style="text-align:center">'.$talentActivation.'</td>';
-								echo '<td style="text-align:center">'.$talentRank.'</td>';
-								echo '<td style="text-align:center">'.$talentPage.'</td>';
-								echo '</tr>';
 							}
 						}
 					?>
