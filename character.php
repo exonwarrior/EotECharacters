@@ -27,11 +27,11 @@ require_once('connection.php');
 					// see if any rows were returned 
 					if (mysql_num_rows($result) > 0) {
 						while($row = mysql_fetch_row($result)) {
-							echo '<div class="characterListName">'.$row[2].'</div>'"\r\n";
+							echo '<div class="characterListName">'.$row[2].'</div>';
 						}
 					}
 				?>
-				<button {{action 'createCharacter'}} class="icon-plus"></button>
+				<!--<button {{action 'createCharacter'}} class="icon-plus"></button>-->
 			</div>
 		</div>
 	</div>
