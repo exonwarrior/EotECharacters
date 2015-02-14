@@ -38,6 +38,7 @@ require_once('connection.php');
 					$cunning = "";
 					$willpower = "";
 					$presence = "";
+					$imageURL = "";
 					// create query 
 					$query = "SELECT * FROM exon_character";
 
@@ -64,6 +65,7 @@ require_once('connection.php');
 							$cunning = $row[17];
 							$willpower = $row[18];
 							$presence = $row[19];
+							$imageURL = $row[22];
 							echo '<div class="characterListName">'.$name.'</div>';
 						}
 					}
@@ -185,7 +187,7 @@ require_once('connection.php');
         </tbody>
       </table>
       <div class="characterBadge inlineBlock">
-        <img {{action "editImage" on="doubleClick"}} {{bindAttr src="portraitURL"}} alt="" class="">
+        <?php echo '<img src="'.$imageURL.'" alt="" class="">'?>
 	<h1 class="">
 	<?php echo $name;?>
 	</h1>
