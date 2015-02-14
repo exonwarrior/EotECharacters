@@ -190,11 +190,11 @@ require_once('connection.php');
 	<?php echo $name;?>
 	</h1>
       </div>
-      {{#if isEditing}}
+      <!--{{#if isEditing}}
         <div class="editButtons"><button {{action 'saveCharacter'}} class="icon-ok"></button></div>
       {{else}}
         <div class="editButtons"><button {{action 'editCharacter'}} class="icon-pencil"></button> <button {{action 'deleteCharacter'}} class="icon-cancel"></button></div>
-      {{/if}}
+      {{/if}}-->
     </header>
 
     <div class="character">
