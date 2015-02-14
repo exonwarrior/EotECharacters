@@ -278,7 +278,7 @@ require_once('connection.php');
 								break 1;
 							}
 							else {
-								$skillRank = 0;
+								$skillRank = 2;
 							}
 						}
 						$skillName = $row1[1];
@@ -286,7 +286,7 @@ require_once('connection.php');
 						$skillCombined = $skillName.' ('.$skillCharacteristic.')';					
 						echo '<tr>';
 						echo '<td style="text-align:left">'.$skillCombined.'</td>';
-						echo '<td style="text-align:center">'.$skillRank.''.$skillKey1.'</td>';
+						echo '<td style="text-align:center">'.$skillRank.'</td>';
 						echo '</tr>';
 					}
 				}
