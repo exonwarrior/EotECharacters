@@ -573,7 +573,7 @@ require_once('connection.php');
       </div>
 	<div class="characterTalents">
         <h1>Talents</h1>
-        	<div class="characterTalents contentBlock">
+        	<div class="characterTalents contentBlock col4">
 			<table class="">
 				<thead>
 					<tr>
@@ -695,7 +695,7 @@ require_once('connection.php');
       <div class="characterEquipment">
         <div class="characterArmor twoUp">
           <h1>Armor <button {{action 'createArmor'}}>[+]</button></h1>
-          <div class="contentBlock col2">
+          <div class="contentBlock col4">
             <table>
               <thead>
                 <tr>
