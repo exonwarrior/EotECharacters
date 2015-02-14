@@ -446,9 +446,9 @@ require_once('connection.php');
 				}
 			}
 
-			echo '<td>'.$motivationType.'</td>';
-			echo '<td>'.$motivationMagnitutde.'</td>';
-			echo '<td>'.$motivationDesc.'</td>';
+			echo '<td>'.$obligationType.'</td>';
+			echo '<td>'.$obligationMagnitutde.'</td>';
+			echo '<td>'.$obligationDesc.'</td>';
 		?></tr>
               </tbody>
             </table>
