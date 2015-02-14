@@ -41,6 +41,8 @@ require_once('connection.php');
 					$imageURL = "";
 					$xpTotal = "";
 					$xpAvailable = "";
+					$wounds = "";
+					$strain = "";
 					// create query 
 					$query = "SELECT * FROM exon_character";
 
@@ -61,6 +63,8 @@ require_once('connection.php');
 							$hair = $row[8];
 							$eyes = $row[9];
 							$features = $row[10];
+							$wounds = $row[12];
+							$strain = $row[13];
 							$brawn = $row[14];
 							$agility = $row[15];
 							$intellect = $row[16];
@@ -209,7 +213,7 @@ require_once('connection.php');
         <h1>Current Stats</h1>
 		<div class="statBox dual">
       			<div class="row statRow">
-				<div class="statLeft current">{{woundsCurrent}}
+				<div class="statLeft current"><?php echo $wounds;?>
 					<div class="statBoxLabel">
 						<button {{action 'addToStat' "woundsCurrent" 1}}>[+]</button> 
 						Current 
@@ -231,7 +235,7 @@ require_once('connection.php');
     		</div>
 	    	<div class="statBox dual">
 	      		<div class="row statRow">
-				<div class="statLeft current">{{strainCurrent}}
+				<div class="statLeft current"><?php echo $strain;?>
 					<div class="statBoxLabel">
 						<button {{action 'addToStat' "strainCurrent" 1}}>[+]</button> 
 						Current 
