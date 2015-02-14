@@ -390,7 +390,7 @@ require_once('connection.php');
 					$speciesName = $row[1];
 				}
 			}
-			echo $speciesName;
+			echo "<p>".$speciesName."</p>";
 		?>
             </td>
           </tr>
