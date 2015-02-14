@@ -242,9 +242,9 @@ require_once('connection.php');
 			<thead>
 				<tr>
 					<td class="col1">Skill</td>
-					<td class="col2 adjustRank"></td>
+					<!--<td class="col2 adjustRank"></td>-->
 					<td class="col3">Rank</td>
-					<td class="col4">Dice Pool</td>
+					<!--<td class="col4">Dice Pool</td>-->
 				</tr>
 			</thead>
 			<tbody>
