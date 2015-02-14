@@ -248,9 +248,33 @@ require_once('connection.php');
 				</tr>
 			</thead>
 			<tbody>
-			<!--{{#each rank in generalSkills}}
-			{{control "rank" rank}}
-			{{/each}}-->
+			<?php
+				//initializing variables needed to display skills
+				$skillName = "";
+				$skillType = "";
+				$skillCharacteristic = "";
+				$skillRank = "";
+				$skillCombined = "";
+
+				// create queries - first of all skills, then of player skills
+				$query1 = "SELECT * FROM exon_skill WHERE Type='General'";
+				$query2 = "SELECT * FROM exon_character_skill WHERE DBParentCharacterKey='$characterKey'";
+
+				// execute query 
+				$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
+				$result2 = mysql_query($query2) or die ("Error in query: $query2. ".mysql_error()); 
+
+				// see if any rows were returned 
+				if (mysql_num_rows($result1) > 0) {
+					while($row1 = mysql_fetch_row($result1)) {
+						$skillName = $row1[1];
+						$skillCharacteristic = $row1[2];
+						$skillCombined = $skillname.' ('.$skillCharacteristic.')';
+					}
+				}
+				echo '<td style="text-align:left">'.$skillCombined.'</td>';
+			?>
+				<!--<td style="text-align:center">Rank</td>-->
 			</tbody>
     		</table>
         </div>
@@ -266,9 +290,8 @@ require_once('connection.php');
 			</tr>
 			</thead>
 			<tbody>
-			<!--{{#each rank in combatSkills}}
-			{{control "rank" rank}}
-			{{/each}}-->
+				<td style="text-align:left">Skill</td>
+				<td style="text-align:center">Rank</td>
 			</tbody>
 		</table>
 
@@ -283,9 +306,8 @@ require_once('connection.php');
 				</tr>
 			</thead>
 			<tbody>
-			<!--{{#each rank in knowledgeSkills}}
-			{{control "rank" rank}}
-			{{/each}}-->
+				<td style="text-align:left">Skill</td>
+				<td style="text-align:center">Rank</td>
 			</tbody>
 		</table>
 		<!--<h2>Custom Skills [+]</h2>
@@ -299,7 +321,7 @@ require_once('connection.php');
 		<tbody>
 		<!--{{#each rank in customSkills}}
 		{{control "rank" rank}}
-		{{/each}}-->
+		{{/each}}
 		</tbody>
 		</table>-->
         </div>
