@@ -45,6 +45,10 @@ require_once('connection.php');
 					$xpAvailable = "";
 					$wounds = "";
 					$strain = "";
+					$defenseMelee = 0;
+					$defenseRanged = 0;
+					$soakBonus = 0;
+
 					// create query 
 					$query = "SELECT * FROM exon_character";
 
@@ -298,14 +302,14 @@ require_once('connection.php');
 		</div>
 		<div class="statBox dual">
 			<div class="row statRow">
-				<div class="statLeft ranged">{{defenseRanged}}
+				<div class="statLeft ranged"><?php echo $defenseRanged;?>
 					<div class="statBoxLabel">
 						<button {{action 'addToStat' "defenseRanged" 1}}>[+]</button> 
 						Ranged 
 						<button {{action 'addToStat' "defenseRanged" -1}}>[-]</button>
 					</div>
 				</div>
-				<div class="statRight melee">{{defenseMelee}}
+				<div class="statRight melee"><?php echo $defenseMelee;?>
 					<div class="statBoxLabel">
 						<button {{action 'addToStat' "defenseMelee" 1}}>[+]</button> 
 						Melee 
@@ -320,20 +324,16 @@ require_once('connection.php');
 		</div>
 		<div class="statBox solo">
 			<div class="row statRow">
-				<div class="statLeft">{{currentSoak}}
-					<div class="statBoxLabel">{{#if soakModded}}( {{soakModdedPref}}{{soakMod}} ){{else}}&nbsp;{{/if}}
-					</div>
+				<div class="statLeft"><?php echo ($brawn+$soakBonus);?>
 				</div>
 			</div>
 			<div class="statRow bottom">
 				<div class="statLabel">
-					<button {{action 'addToSoak' 1}}>[+]</button>
-					Soak 
-					<button {{action 'addToSoak' -1}}>[-]</button> 
+					Soak
 				</div>
 			</div>
 		</div>
-		<div class="statBox solo">
+		<!--<div class="statBox solo">
 			<div class="row statRow">
 				<div class="statLeft">{{#if boostSetbackDice}}{{dice boostSetbackDice}}{{else}}&nbsp;{{/if}}
 					<div class="statBoxLabel">&nbsp;
@@ -353,7 +353,7 @@ require_once('connection.php');
 					</span>
 				</div>
 			</div>
-		</div>
+		</div>-->
       </div> 
       <div class="characterCharacteristics">
         <div class="characteristicBox">
