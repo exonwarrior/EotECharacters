@@ -27,7 +27,7 @@ require_once('connection.php');
 					// see if any rows were returned 
 					if (mysql_num_rows($result) > 0) {
 						while($row = mysql_fetch_row($result)) {
-							echo "<h3>".$row[2]."<h3>";
+							echo '{{#linkTo "character" character}}{{'.$row[2].'}}{{/linkTo}}';
 						}
 					}
 				?>
