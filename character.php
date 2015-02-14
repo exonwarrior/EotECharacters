@@ -25,6 +25,8 @@ require_once('connection.php');
 					$name = "";
 					$speciesKey = "";
 					$speciesName = "";
+					$speciesWounds = "";
+					$speciesStrain = "";
 					$gender = "";
 					$age = "";
 					$height = "";
@@ -99,6 +101,8 @@ require_once('connection.php');
 			if (mysql_num_rows($result) > 0) {
 				while($row = mysql_fetch_row($result)) {
 					$speciesName = $row[1];
+					$speciesWounds = $row[8];
+					$speciesStrain = $row[9];
 				}
 			}
 			echo $speciesName;
@@ -220,7 +224,7 @@ require_once('connection.php');
 						<button {{action 'addToStat' "woundsCurrent" -1}}>[-]</button>
 					</div>
 				</div>
-				<div class="statRight threshold">0
+				<div class="statRight threshold"><?php echo $speciesWounds;?>
 					<div class="statBoxLabel">
 						<button {{action 'addToStat' "woundsThreshold" 1}}>[+]</button> 
 						Threshold 
@@ -242,7 +246,7 @@ require_once('connection.php');
 						<button {{action 'addToStat' "strainCurrent" -1}}>[-]</button>
 					</div>
 				</div>
-				<div class="statRight threshold">0
+				<div class="statRight threshold"><?php echo $speciesStrain;?>
 					<div class="statBoxLabel">
 						<button {{action 'addToStat' "strainThreshold" 1}}>[+]</button> 
 						Threshold 
