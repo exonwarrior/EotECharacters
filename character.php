@@ -297,6 +297,8 @@ require_once('connection.php');
 	      		</div>
 	      		<div class="statRow bottom">
 				<div class="statLabel">Strain
+					<div class="statBoxLabel">Brawn+Bonus
+					</div>
 				</div>
 			</div>
 		</div>
