@@ -72,6 +72,130 @@ require_once('connection.php');
 			</div>
 		</div>
 	</div>
+<header class="characterInfo">
+      <table class="inlineBlock">
+        <tbody>
+          <tr>
+            <td class="fieldLabel col1">Species</td>
+            <td class="field col2">
+            	<?php
+			// create query 
+			$query = "SELECT * FROM exon_species WHERE DBKey ='$speciesKey'";
+
+			// execute query 
+			$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+
+			// see if any rows were returned 
+			if (mysql_num_rows($result) > 0) {
+				while($row = mysql_fetch_row($result)) {
+					$speciesName = $row[1];
+				}
+			}
+			echo $speciesName;
+		?></td>
+          </tr>
+          <tr>
+            <td class="fieldLabel col1">Career</td>
+            <td class="field col2">
+            	<?php
+			//Initializing extra variables for player<->career matching
+			$careerKey = "";
+			$careerName = "";
+
+			// create query to find Career Key from exon_character_career (stores pairs of Character and Career Keys)
+			$query = "SELECT DBParentCareerKey FROM exon_character_career WHERE DBParentCharacterKey ='$characterKey'";
+
+			// execute above query 
+			$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+
+			// see if any rows were returned 
+			if (mysql_num_rows($result) > 0) {
+				while($row = mysql_fetch_row($result)) {
+					$careerKey = $row[0];
+				}
+			}
+
+			// create query to find Career Name from exon_career, based on previously selected DBParentCareerKey
+			$query = "SELECT Name FROM exon_career WHERE DBKey ='$careerKey'";
+
+			// execute above query 
+			$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+
+			// see if any rows were returned 
+			if (mysql_num_rows($result) > 0) {
+				while($row = mysql_fetch_row($result)) {
+					$careerName = $row[0];
+				}
+			}
+
+			echo $careerName;
+		?></td>
+          </tr>
+          <tr>
+            <td class="fieldLabel col1">Gender</td>
+            <td class="field col2"><?php echo $gender;?></td>
+          </tr>
+          <tr>
+            <td class="fieldLabel col1">Age</td>
+            <td class="field col2"><?php echo $age;?></td>
+          </tr>
+          <tr>
+            <td class="fieldLabel col1">Height</td>
+            <td class="field col2"><?php echo $height.' cm';?></td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="inlineBlock">
+        <tbody>
+          <tr>
+            <td class="fieldLabel col1">Hair</td>
+            <td class="field col2"><?php echo $hair;?></td>
+          </tr>
+          <tr>
+            <td class="fieldLabel col1">Eyes</td>
+            <td class="field col2"><?php echo $eyes;?></td>
+          </tr>
+          <tr>
+            <td class="fieldLabel col1">Notable Features</td>
+            <td class="field col2"><?php echo $features;?></td>
+          </tr>
+          <tr>
+            <td class="fieldLabel col1">Build</td>
+            <td class="field col2"><?php echo $build;?></td>
+          </tr>
+          <tr>
+            <td class="fieldLabel col1">Player</td>
+            <td class="field col2">
+            	<?php
+			// create query 
+			$query = "SELECT * FROM exon_player WHERE DBKey ='$playerKey'";
+
+			// execute query 
+			$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+
+			// see if any rows were returned 
+			if (mysql_num_rows($result) > 0) {
+				while($row = mysql_fetch_row($result)) {
+					$playerName = $row[1];
+				}
+			}
+			echo $playerName;
+		?></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="characterBadge inlineBlock">
+        <img {{action "editImage" on="doubleClick"}} {{bindAttr src="portraitURL"}} alt="" class="">
+	<h1 class="">
+	<?php echo $name;?>
+	</h1>
+      </div>
+      {{#if isEditing}}
+        <div class="editButtons"><button {{action 'saveCharacter'}} class="icon-ok"></button></div>
+      {{else}}
+        <div class="editButtons"><button {{action 'editCharacter'}} class="icon-pencil"></button> <button {{action 'deleteCharacter'}} class="icon-cancel"></button></div>
+      {{/if}}
+    </header>
 
     <div class="character">
       <!--{{partial "header"}}-->
