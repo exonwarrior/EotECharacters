@@ -635,7 +635,7 @@ and (max-device-width : 767px)
 
 }
 
-.characterTalents{
+/*.characterTalents{
 	margin: 0 auto;
 	text-align: center;
 	font-size: 1.4em;
@@ -645,6 +645,6 @@ and (max-device-width : 767px)
 	width: 95%;
 	margin: 0 auto;
 
-}
+}*/
 
 }
