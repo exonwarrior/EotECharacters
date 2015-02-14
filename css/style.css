@@ -525,6 +525,12 @@ table tr td{
 	vertical-align: top;
 }
 
+.characterTalents > div{
+	width: 490px;
+	display: inline-block;
+	vertical-align: top;
+}
+
 .contentBlock{
 	margin: 0 9px;
 }
@@ -562,6 +568,18 @@ table tr td{
 }
 
 .characterSkills table td.col1{
+	width: 60%;
+}
+
+.characterTalents table{
+	width: 100%;
+}
+
+.characterTalents h2{
+	margin-top: 20px;
+}
+
+.characterTalents table td.col1{
 	width: 60%;
 }
 
@@ -612,6 +630,18 @@ and (max-device-width : 767px)
 }
 
 .characterSkills > div {
+	width: 95%;
+	margin: 0 auto;
+
+}
+
+.characterTalents{
+	margin: 0 auto;
+	text-align: center;
+	font-size: 1.4em;
+}
+
+.characterTalents > div {
 	width: 95%;
 	margin: 0 auto;
 
