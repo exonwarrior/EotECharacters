@@ -454,7 +454,7 @@ require_once('connection.php');
 						// see if any rows were returned 
 						if (mysql_num_rows($result1) > 0) {
 							while($row1 = mysql_fetch_row($result1)) {
-								$talentKey = $row1[0];
+								$talentKey = $row1[2];
 								$query2 = "SELECT DBKey,Name,Activation,Ranked,Page FROM exon_talent WHERE DBKey='$talentKey'";
 								$result2 = mysql_query($query2) or die ("Error in query: $query2. ".mysql_error());
 								$row2 = mysql_fetch_row($result2);
