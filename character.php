@@ -457,7 +457,7 @@ require_once('connection.php');
 								$talentKey = $row1[0];
 								$query2 = "SELECT Name,Activation,Ranked,Page FROM exon_talent WHERE DBKey='$talentKey'";
 								$result2 = mysql_query($query2) or die ("Error in query: $query2. ".mysql_error());
-								$row2 = mysql_fetch_row($result2)
+								$row2 = mysql_fetch_row($result2);
 								$talentName = $row2[0];
 								$talentActivation = $row2[1];
 								$talentPage = $row2[3];
