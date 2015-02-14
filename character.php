@@ -699,14 +699,40 @@ require_once('connection.php');
             <table>
               <thead>
                 <tr>
-                  <td class="col1">Name</td>
-                  <td class="col2">Stats</td>
+                  <td class="col1">Type</td>
+                  <td class="col2">Defense</td>
+                  <td class="col3">Soak</td>
                 </tr>
               </thead>
               <tbody>
-                <!--{{#each armor in armor}}
-                  {{control "armor" armor}}
-                {{/each}}-->
+               <?php
+			//initializing variables needed to display armor
+			$armorKey = "";//DBKey from exon_armor
+			$armorType = "";
+			$armorDefense = "";
+			$armorSoak = "";
+
+			// create query from exon_character_talent
+			$query1 = "SELECT * FROM exon_armor WHERE DBParentCharacterKey='$characterKey'";
+
+			// execute query 
+			$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
+
+			// see if any rows were returned 
+			if (mysql_num_rows($result1) > 0) {
+				while($row1 = mysql_fetch_row($result1)) {
+					$armorKey = $row1[1];
+					$armorType = $row1[2];
+					$armorDefense = $row1[4];
+					$armorSoak = $row1[5];
+					echo '<tr>';
+					echo '<td style="text-align:left">'.$armorType.'</td>';
+					echo '<td style="text-align:center">'.$armorDefense.'</td>';
+					echo '<td style="text-align:center">'.$armorSoak'</td>';
+					echo '</tr>';			
+				}
+			}
+		?>
               </tbody>
             </table>
           </div>
