@@ -270,9 +270,9 @@ require_once('connection.php');
 						$skillName = $row1[1];
 						$skillCharacteristic = $row1[2];
 						$skillCombined = $skillname.' ('.$skillCharacteristic.')';
+						echo '<td style="text-align:left">'.$skillCombined.'</td>';
 					}
 				}
-				echo '<td style="text-align:left">'.$skillCombined.'</td>';
 			?>
 				<!--<td style="text-align:center">Rank</td>-->
 			</tbody>
