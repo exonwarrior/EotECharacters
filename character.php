@@ -700,8 +700,9 @@ require_once('connection.php');
               <thead>
                 <tr>
                   <td class="col1">Type</td>
-                  <td class="col2">Defense</td>
-                  <td class="col3">Soak</td>
+                  <td class="col2">Model</td>
+                  <td class="col3">Defense</td>
+                  <td class="col4">Soak</td>
                 </tr>
               </thead>
               <tbody>
@@ -709,6 +710,7 @@ require_once('connection.php');
 			//initializing variables needed to display armor
 			$armorKey = "";//DBKey from exon_armor
 			$armorType = "";
+			$armorModel = "";
 			$armorDefense = "";
 			$armorSoak = "";
 
@@ -722,10 +724,12 @@ require_once('connection.php');
 			if (mysql_num_rows($result1) > 0) {
 				while($row1 = mysql_fetch_row($result1)) {
 					$armorType = $row1[2];
+					$armorModel = $row1[3];
 					$armorDefense = $row1[4];
 					$armorSoak = $row1[5];
 					echo '<tr>';
 					echo '<td style="text-align:left">'.$armorType.'</td>';
+					echo '<td style="text-align:left">'.$armorModel.'</td>';
 					echo '<td style="text-align:center">'.$armorDefense.'</td>';
 					echo '<td style="text-align:center">'.$armorSoak.'</td>';
 					echo '</tr>';			
