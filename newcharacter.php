@@ -62,7 +62,7 @@
 										while($row = mysql_fetch_array($result, MYSQL_BOTH)) {
 											$speciesKey = $row["DBKey"];
 											$speciesName = $row["Name"];
-											echo '<option value="'.$speciesKey.'">'.$speciesName.'</option>'
+											echo '<option value="'.$speciesKey.'">'.$speciesName.'</option>';
 										}
 									}
 								?>
