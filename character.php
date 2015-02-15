@@ -48,6 +48,10 @@ require_once('connection.php');
 					$defenseMelee = 0;
 					$defenseRanged = 0;
 					$soakBonus = 0;
+					$armorType = "";
+					$armorModel = "";
+					$armorDefense = "";
+					$armorSoak = "";
 
 					// create query 
 					$query = "SELECT * FROM exon_character";
@@ -81,6 +85,24 @@ require_once('connection.php');
 							$xpAvailable = $row[21];
 							$imageURL = $row[22];
 							echo '<div class="characterListName">'.$name.'</div>';
+						}
+					}
+					// create query from exon_character_talent
+					$query1 = "SELECT * FROM exon_armor WHERE DBParentCharacterKey='$characterKey'";
+
+					// execute query 
+					$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
+
+					// see if any rows were returned 
+					if (mysql_num_rows($result1) > 0) {
+						while($row1 = mysql_fetch_row($result1)) {
+							$armorType = $row1[2];
+							$armorModel = $row1[3];
+							$armorDefense = $row1[4];
+							$armorSoak = $row1[5];
+							$soakBonus = $armorSoak;
+							$defenseMelee = $armorDefense;
+							$defenseRanged = $armorDefense;
 						}
 					}
 				?>
@@ -707,37 +729,12 @@ require_once('connection.php');
               </thead>
               <tbody>
                <?php
-			//initializing variables needed to display armor
-			$armorKey = "";//DBKey from exon_armor
-			$armorType = "";
-			$armorModel = "";
-			$armorDefense = "";
-			$armorSoak = "";
-
-			// create query from exon_character_talent
-			$query1 = "SELECT * FROM exon_armor WHERE DBParentCharacterKey='$characterKey'";
-
-			// execute query 
-			$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
-
-			// see if any rows were returned 
-			if (mysql_num_rows($result1) > 0) {
-				while($row1 = mysql_fetch_row($result1)) {
-					$armorType = $row1[2];
-					$armorModel = $row1[3];
-					$armorDefense = $row1[4];
-					$armorSoak = $row1[5];
-					$soakBonus = $armorSoak;
-					$defenseMelee = $armorDefense;
-					$defenseRanged = $armorDefense;
-					echo '<tr>';
-					echo '<td style="text-align:left">'.$armorType.'</td>';
-					echo '<td style="text-align:center">'.$armorModel.'</td>';
-					echo '<td style="text-align:center">'.$armorDefense.'</td>';
-					echo '<td style="text-align:center">'.$armorSoak.'</td>';
-					echo '</tr>';			
-				}
-			}
+			echo '<tr>';
+			echo '<td style="text-align:left">'.$armorType.'</td>';
+			echo '<td style="text-align:center">'.$armorModel.'</td>';
+			echo '<td style="text-align:center">'.$armorDefense.'</td>';
+			echo '<td style="text-align:center">'.$armorSoak.'</td>';
+			echo '</tr>';
 		?>
               </tbody>
             </table>
