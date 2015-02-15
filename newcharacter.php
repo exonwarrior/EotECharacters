@@ -59,7 +59,7 @@
 
 									// see if any rows were returned 
 									if (mysql_num_rows($result) > 0) {
-										while($row = mysql_fetch_array($result, MYSQL_BOTH)) {
+										while($row = mysql_fetch_row($result)) {
 											$speciesKey = $row[0];
 											$speciesName = $row[1];
 											echo '<option value="'.$speciesKey.'">'.$speciesName.'</option>';
