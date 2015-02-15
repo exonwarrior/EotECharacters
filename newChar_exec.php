@@ -78,6 +78,13 @@
 	mysql_query("INSERT INTO exon_character(Name,DBParentSpeciesKey,Gender,Age,Height,Build,Hair,Eyes,Features)
 	VALUES('$charName','$charSpeciesKey','$charGender','$charAge','$charHeight','$charBuild','$charHair','$charEyes','$charFeatures')");
 	
+	$result = mysql_query("SELECT DBKey FROM exon_character WHERE DBKey=(SELECT MAX(DBKey) FROM exon_character)");
+	if (mysql_num_rows($result)>0){
+		while($row = mysql_fetch_row($result)) {
+			$charKey=$row[0];
+		}
+	}
+	
 	$result = mysql_query("SELECT * FROM exon_species WHERE DBKey='$charSpeciesKey'");
 	if (mysql_num_rows($result)>0){
 		while($row = mysql_fetch_row($result)) {
@@ -92,13 +99,7 @@
 			}
 		}
 	}
-	
-	$result = mysql_query("SELECT DBKey FROM exon_character WHERE DBKey=(SELECT MAX(DBKey) FROM exon_character)");
-	if (mysql_num_rows($result)>0){
-		while($row = mysql_fetch_row($result)) {
-			$charKey=$row[0];
-		}
-	}
+
 	mysql_query("INSERT INTO exon_character_career(DBParentCharacterKey,DBParentCareerKey)VALUES('$charKey','$charCareerKey')");
 	mysql_query("INSERT INTO exon_character_specialization(DBParentCharacterKey,DBParentSpecializationKey)VALUES('$charKey','$charSpecializationKey')");
 	
