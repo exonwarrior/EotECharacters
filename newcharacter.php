@@ -118,10 +118,10 @@
 							
 							<tr>
 								<td width="116"><div align="right">Gender</div></td>
-								<td><select>
-									<option value="male">Male</option>
-									<option value="female">Female</option>
-									<option value="other">Other</option>
+								<td><select name="charGender">
+									<option value="M">Male</option>
+									<option value="F">Female</option>
+									<option value="O">Other</option>
 								</select></td>
 							</tr>
 							<!-- TODO for Age and height - number verification -->
