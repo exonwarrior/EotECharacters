@@ -49,7 +49,7 @@
 
 							<tr>
 								<td width="120"><div align="right">Species</div></td>
-								<td><select name="charSpecies>
+								<td><select name="charSpecies">
 								<?php
 									$speciesName = "";
 									//Select Available species from exon_species

@@ -23,7 +23,7 @@
 	//Sanitize the POST values and shorten Key strings to remove "XKey=" from beginning
 	$charName = clean($_POST['charName']);
 	$charSpeciesKeyLong = clean($_POST['charSpecies']);
-	echo $charSpecializationKeyLong;
+	echo $charSpeciesKeyLong;
 	$charSpeciesKey = substr($charSpeciesKeyLong,11);
 	$charCareerKeyLong = clean($_POST['charCareer']);
 	echo $charCareerKeyLong;
