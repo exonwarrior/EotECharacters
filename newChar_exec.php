@@ -35,6 +35,7 @@
 	$charEyes = clean($_POST['charEyes']);
 	$charFeatures = clean($_POST['charFeatures']);
 	$charBuild = clean($_POST['charBuild']);
+	$speciesSkillKey = "";
 
 	//Input Validations
 	if($charName == '') {
@@ -76,6 +77,18 @@
 
 	mysql_query("INSERT INTO exon_character(Name,DBParentSpeciesKey,Gender,Age,Height,Build,Hair,Eyes,Features)
 	VALUES('$charName','$charSpeciesKey','$charGender','$charAge','$charHeight','$charBuild','$charHair','$charEyes','$charFeatures')");
+	
+	$result = mysql_query("SELECT * FROM exon_species WHERE DBKey='$speciesKey'");
+	if (mysql_num_rows($result)>0){
+		while($row = mysql_fetch_row($result)) {
+			mysql_query("INSERT INTO exon_character(Brawn,Agility,Intellect,Cunning,Willpower,Presence,XPTotal,XPAvailable)
+			VALUES('$row[2]','$row[3]','$row[4]','$row[5]','$row[6]','$row[7]','$row[10]','$row[10]')");
+			if(!is_null($row[11])){
+				$speciesSkillKey = $row[11];
+			}
+		}
+	}
+	
 	$result = mysql_query("SELECT DBKey FROM exon_character WHERE DBKey=(SELECT MAX(DBKey) FROM exon_character)");
 	if (mysql_num_rows($result)>0){
 		while($row = mysql_fetch_row($result)) {
@@ -87,5 +100,32 @@
 	echo $charSpecializationKey;
 	mysql_query("INSERT INTO exon_character_career(DBParentCharacterKey,DBParentCareerKey)VALUES('$charKey','$charCareerKey')");
 	mysql_query("INSERT INTO exon_character_specialization(DBParentCharacterKey,DBParentSpecializationKey)VALUES('$charKey','$charSpecializationKey')");
+	
+	$fullprice = 1;
+	
+	$result = mysql_query("SELECT * FROM exon_career WHERE DBKey=$charCareerKey");
+	if (mysql_num_rows($result)>0){
+		$i = 2;
+		while($row = mysql_fetch_row($result)) {
+			if($speciesSkillKey == $row[$i]){
+				$fullprice=0;
+			}
+			$i++;
+		}
+	}
+	
+	$result = mysql_query("SELECT DBKey FROM exon_specialization WHERE DBKey=$charSpecializationKey");
+	if (mysql_num_rows($result)>0){
+		$i = 3;
+		while($row = mysql_fetch_row($result)) {
+			if($speciesSkillKey == $row[$i]){
+				$fullprice=0;
+			}
+			$i++;
+		}
+	}
+	
+	mysql_query("INSERT INTO exon_character_skill(DBParentCharacterKey,DBParentSkillKey,FullPrice,Rank)VALUES('$charKey','$speciesSkillKey','$fullprice','1')");
+	
 	mysql_close($con);
 ?>
