@@ -302,14 +302,14 @@ require_once('connection.php');
 		</div>
 		<div class="statBox dual">
 			<div class="row statRow">
-				<div class="statLeft ranged"><?php echo $defenseRanged;?>
+				<div class="statLeft ranged"><?php echo $defenseRanged+$armorDefense;?>
 					<div class="statBoxLabel">
 						<button {{action 'addToStat' "defenseRanged" 1}}>[+]</button> 
 						Ranged 
 						<button {{action 'addToStat' "defenseRanged" -1}}>[-]</button>
 					</div>
 				</div>
-				<div class="statRight melee"><?php echo $defenseMelee;?>
+				<div class="statRight melee"><?php echo $defenseMelee+$armorDefense;?>
 					<div class="statBoxLabel">
 						<button {{action 'addToStat' "defenseMelee" 1}}>[+]</button> 
 						Melee 
@@ -324,7 +324,7 @@ require_once('connection.php');
 		</div>
 		<div class="statBox solo">
 			<div class="row statRow">
-				<div class="statLeft"><?php echo ($brawn+$soakBonus);?>
+				<div class="statLeft"><?php echo ($brawn+$armorSoak);?>
 					<div class="statBoxLabel">Brawn+Bonus
 					</div>
 				</div>
