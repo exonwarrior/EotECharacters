@@ -782,19 +782,46 @@ require_once('connection.php');
       <div class="characterMiscInfo">
         <div class="characterCritInjuries twoUp">
           <h1>Critical Injuries <button {{action 'createCriticalInjury'}}>[+]</button></h1>
-          <div class="contentBlock col3">
+          <div class="contentBlock col4">
             <table>
               <thead>
                 <tr>
-                  <td class="col1">Injury</td>
+                  <td class="col1">Result</td>
                   <td class="col2">Severity</td>
-                  <td class="col3">Result</td>
+                  <td class="col3">Name</td>
+                  <td class="col4">Description</td>
                 </tr>
               </thead>
               <tbody>
-                <!--{{#each item in criticalInjuries}}
-                  {{control "criticalInjury" item}}
-                {{/each}}-->
+		<?php
+			//initializing variables needed to display crits
+			$critName = "";
+			$critResult = "";
+			$critSeverity = "";
+			$critDesc = "";
+
+			// create query from exon_character_talent
+			$query1 = "SELECT * FROM exon_critical WHERE DBParentCharacterKey='$characterKey'";
+
+			// execute query 
+			$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
+
+			// see if any rows were returned 
+			if (mysql_num_rows($result1) > 0) {
+				while($row1 = mysql_fetch_row($result1)) {
+					$critResult = $row1[3];
+					$critSeverity = $row1[4];
+					$critName = $row1[5];
+					$critDesc = $row1[6];
+					echo '<tr>';
+					echo '<td style="text-align:left">'.$critResult.'</td>';
+					echo '<td style="text-align:center">'.$critSeverity.'</td>';
+					echo '<td style="text-align:center">'.$critName.'</td>';
+					echo '<td style="text-align:center">'.$critDesc.'</td>';
+					echo '</tr>';			
+				}
+			}
+		?>
               </tbody>
             </table>
           </div>
