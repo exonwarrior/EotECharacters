@@ -49,10 +49,23 @@
 							<tr>
 								<td><div align="right">Character Species</div></td>
 								<td><select>
-								  <option value="volvo">Volvo</option>
-								  <option value="saab">Saab</option>
-								  <option value="opel">Opel</option>
-								  <option value="audi">Audi</option>
+								<?php
+									$speciesName = "";
+									//Select Available species from exon_species
+									$query = "SELECT * FROM exon_species";
+
+									// execute above query 
+									$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+
+									// see if any rows were returned 
+									if (mysql_num_rows($result) > 0) {
+										while($row = mysql_fetch_array($result, MYSQL_BOTH)) {
+											$speciesKey = $row["DBKey"];
+											$speciesName = $row["Name"];
+											echo '<option value="'.$speciesKey.'">'.$speciesName.'</option>'
+										}
+									}
+								?>
 								</select></td>
 							</tr>
 
