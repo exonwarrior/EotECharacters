@@ -43,6 +43,7 @@ require_once('connection.php');
 					$imageURL = "";
 					$xpTotal = "";
 					$xpAvailable = "";
+					$credits = "";
 					$wounds = "";
 					$strain = "";
 					$defenseMelee = 0;
@@ -73,6 +74,7 @@ require_once('connection.php');
 							$hair = $row[8];
 							$eyes = $row[9];
 							$features = $row[10];
+							$credits = $row[11];
 							$wounds = $row[12];
 							$strain = $row[13];
 							$brawn = $row[14];
@@ -534,7 +536,7 @@ require_once('connection.php');
 			</thead>
 			<tbody>
 			<?php
-				//initializing variables needed to display skills
+				 //initializing variables needed to display skills
 				$skillKey1 = "";//DBKey from exon_skill
 				$skillKey2 = "";//DBParentSkillKey from exon_character_skill
 				$skillName = "";
@@ -593,6 +595,7 @@ require_once('connection.php');
 		</table>-->
         </div>
       </div>
+      <div class="characterWeaponsContainer">
 	<div class="characterTalents">
         <h1>Talents</h1>
         	<div class="characterTalents contentBlock col4">
@@ -651,6 +654,7 @@ require_once('connection.php');
 				</tbody>
 			</table>
 		</div>
+	</div>
 	</div>
       <div class="characterWeaponsContainer">
         <div class="characterWeapons">
@@ -827,19 +831,30 @@ require_once('connection.php');
           </div>
         </div>
         <div class="characterXP twoUp">
-          <h1>XP <button {{action 'createXPItem'}}>[+]</button></h1>
+          <h1>XP and Credits<button {{action 'createXPItem'}}>[+]</button></h1>
           <div class="contentBlock col2">
+		<table>
+              <thead>
+                <tr>
+                  <td class="col1">Credits</td>
+                  <td class="col2"></td>
+                </tr>
+              </thead>
+              <tbody>
+                 <tr class="total">
+                  <td class="col1"><strong><?php echo $credits; ?></strong></td>
+                  <td class="col2"><strong></strong></td> 
+                </tr>
+              </tbody>
+            </table>
             <table>
               <thead>
                 <tr>
-                  <td class="col1">Source</td>
+                  <td class="col1"></td>
                   <td class="col2">Amount</td>
                 </tr>
               </thead>
               <tbody>
-                <!--{{#each xpItem in xp}}
-                  {{control "xp" xpItem}}
-                {{/each}}-->
                  <tr class="total">
                   <td class="col1"><strong>Total XP</strong></td>
                   <td class="col2"><strong><?php echo $xpTotal; ?></strong></td> 
@@ -852,7 +867,7 @@ require_once('connection.php');
             </table>
           </div>
         </div>
-        <div class="characterMotivation twoUp">
+          <div class="characterMotivation twoUp">
           <h1>Motivations <button {{action 'createMotivation'}}>[+]</button></h1>
           <table>
               <thead>
