@@ -302,14 +302,14 @@ require_once('connection.php');
 		</div>
 		<div class="statBox dual">
 			<div class="row statRow">
-				<div class="statLeft ranged"><?php echo $defenseRanged+$armorDefense;?>
+				<div class="statLeft ranged"><?php echo $defenseRanged;?>
 					<div class="statBoxLabel">
 						<button {{action 'addToStat' "defenseRanged" 1}}>[+]</button> 
 						Ranged 
 						<button {{action 'addToStat' "defenseRanged" -1}}>[-]</button>
 					</div>
 				</div>
-				<div class="statRight melee"><?php echo $defenseMelee+$armorDefense;?>
+				<div class="statRight melee"><?php echo $defenseMelee;?>
 					<div class="statBoxLabel">
 						<button {{action 'addToStat' "defenseMelee" 1}}>[+]</button> 
 						Melee 
@@ -324,7 +324,7 @@ require_once('connection.php');
 		</div>
 		<div class="statBox solo">
 			<div class="row statRow">
-				<div class="statLeft"><?php echo ($brawn+$armorSoak);?>
+				<div class="statLeft"><?php echo ($brawn+$soakBonus);?>
 					<div class="statBoxLabel">Brawn+Bonus
 					</div>
 				</div>
@@ -727,6 +727,9 @@ require_once('connection.php');
 					$armorModel = $row1[3];
 					$armorDefense = $row1[4];
 					$armorSoak = $row1[5];
+					$soakBonus = $armorSoak;
+					$defenseMelee = $armorDefense;
+					$defenseRanged = $armorDefense;
 					echo '<tr>';
 					echo '<td style="text-align:left">'.$armorType.'</td>';
 					echo '<td style="text-align:center">'.$armorModel.'</td>';
