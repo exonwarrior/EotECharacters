@@ -471,14 +471,12 @@ require_once('connection.php');
 								while($row1 = mysql_fetch_row($result1)) {
 									$result2 = mysql_query($query2) or die ("Error in query: $query2. ".mysql_error()); 
 									$skillKey1 = $row1[0];
+									$skillRank = 0;
 									while($row2 = mysql_fetch_row($result2)){
 										$skillKey2 = $row2[2];
 										if($skillKey1 == $skillKey2){						
 											$skillRank = $row2[4];
 											break 1;
-										}
-										else {
-											$skillRank = 0;
 										}
 									}
 									$skillName = $row1[1];
@@ -527,14 +525,12 @@ require_once('connection.php');
 						while($row1 = mysql_fetch_row($result1)) {
 							$result2 = mysql_query($query2) or die ("Error in query: $query2. ".mysql_error()); 
 							$skillKey1 = $row1[0];
+							$skillRank = 0;
 							while($row2 = mysql_fetch_row($result2)){
 								$skillKey2 = $row2[2];
 								if($skillKey1 == $skillKey2){						
 									$skillRank = $row2[4];
 									break 1;
-								}
-								else {
-									$skillRank = 0;
 								}
 							}
 							$skillName = $row1[1];
