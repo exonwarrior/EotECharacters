@@ -729,7 +729,7 @@ require_once('connection.php');
 					$armorSoak = $row1[5];
 					echo '<tr>';
 					echo '<td style="text-align:left">'.$armorType.'</td>';
-					echo '<td style="text-align:left">'.$armorModel.'</td>';
+					echo '<td style="text-align:center">'.$armorModel.'</td>';
 					echo '<td style="text-align:center">'.$armorDefense.'</td>';
 					echo '<td style="text-align:center">'.$armorSoak.'</td>';
 					echo '</tr>';			
@@ -747,13 +747,33 @@ require_once('connection.php');
               <thead>
                 <tr>
                   <td class="col1">Name</td>
-                  <td class="col2">Description</td>
+                  <td class="col2">Type</td>
                 </tr>
               </thead>
               <tbody>
-                <!--{{#each item in inventory}}
-                  {{control "inventoryItem" item}}
-                {{/each}}-->
+               <?php
+			//initializing variables needed to display gear
+			$gearName = "";
+			$gearType = "";
+
+			// create query from exon_gear
+			$query1 = "SELECT * FROM exon_gear WHERE DBParentCharacterKey='$characterKey'";
+
+			// execute query 
+			$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
+
+			// see if any rows were returned 
+			if (mysql_num_rows($result1) > 0) {
+				while($row1 = mysql_fetch_row($result1)) {
+					$gearName = $row1[3];
+					$gearType = $row1[4];
+					echo '<tr>';
+					echo '<td style="text-align:left">'.$gearName.'</td>';
+					echo '<td style="text-align:center">'.$gearType.'</td>';
+					echo '</tr>';			
+				}
+			}
+		?>
               </tbody>
             </table>
           </div>
