@@ -78,7 +78,7 @@
 	mysql_query("INSERT INTO exon_character(Name,DBParentSpeciesKey,Gender,Age,Height,Build,Hair,Eyes,Features)
 	VALUES('$charName','$charSpeciesKey','$charGender','$charAge','$charHeight','$charBuild','$charHair','$charEyes','$charFeatures')");
 	
-	$result = mysql_query("SELECT * FROM exon_species WHERE DBKey='$speciesKey'");
+	$result = mysql_query("SELECT * FROM exon_species WHERE DBKey='$charSpeciesKey'");
 	if (mysql_num_rows($result)>0){
 		while($row = mysql_fetch_row($result)) {
 			mysql_query("UPDATE exon_character SET Brawn='$row[2]',Agility='$row[3]',Intellect='$row[4]',Cunning='$row[5]',Willpower='$row[6]',Presence='$row[7]',XPTotal='$row[10]',XPAvailable='$row[10]' WHERE DBKey='$charKey'");
