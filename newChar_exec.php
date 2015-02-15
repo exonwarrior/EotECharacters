@@ -35,7 +35,7 @@
 	$charEyes = clean($_POST['charEyes']);
 	$charFeatures = clean($_POST['charFeatures']);
 	$charBuild = clean($_POST['charBuild']);
-	$speciesSkillKey = "";
+	$speciesSkillKey = 0;
 
 	//Input Validations
 	if($charName == '') {
@@ -81,8 +81,7 @@
 	$result = mysql_query("SELECT * FROM exon_species WHERE DBKey='$speciesKey'");
 	if (mysql_num_rows($result)>0){
 		while($row = mysql_fetch_row($result)) {
-			mysql_query("INSERT INTO exon_character(Brawn,Agility,Intellect,Cunning,Willpower,Presence,XPTotal,XPAvailable)
-			VALUES('$row[2]','$row[3]','$row[4]','$row[5]','$row[6]','$row[7]','$row[10]','$row[10]')");
+			mysql_query("UPDATE exon_character SET Brawn='$row[2]',Agility='$row[3]',Intellect='$row[4]',Cunning='$row[5]',Willpower='$row[6]',Presence='$row[7]',XPTotal='$row[10]',XPAvailable='$row[10]' WHERE DBKey='$charKey'");
 			if(!is_null($row[11])){
 				$speciesSkillKey = $row[11];
 			}
@@ -125,7 +124,9 @@
 		}
 	}
 	
-	mysql_query("INSERT INTO exon_character_skill(DBParentCharacterKey,DBParentSkillKey,FullPrice,Rank)VALUES('$charKey','$speciesSkillKey','$fullprice','1')");
+	if($speciesSkillKey > 0){
+		mysql_query("INSERT INTO exon_character_skill(DBParentCharacterKey,DBParentSkillKey,FullPrice,Rank)VALUES('$charKey','$speciesSkillKey','$fullprice','1')");
+	}
 	
 	mysql_close($con);
 ?>
