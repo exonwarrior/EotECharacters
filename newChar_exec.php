@@ -23,13 +23,10 @@
 	//Sanitize the POST values and shorten Key strings to remove "XKey=" from beginning
 	$charName = clean($_POST['charName']);
 	$charSpeciesKeyLong = clean($_POST['charSpecies']);
-	echo $charSpeciesKeyLong;
 	$charSpeciesKey = substr($charSpeciesKeyLong,11);
 	$charCareerKeyLong = clean($_POST['charCareer']);
-	echo $charCareerKeyLong;
 	$charCareerKey = substr($charCareerKeyLong,10);
 	$charSpecializationKeyLong = clean($_POST['charSpecialization']);
-	echo $charSpecializationKeyLong;
 	$charSpecializationKey = substr($charSpecializationKeyLong,8);
 	$charGender = clean($_POST['charGender']);
 	$charAge = clean($_POST['charAge']);
@@ -79,7 +76,7 @@
 
 	mysql_query("INSERT INTO exon_character(Name,DBParentSpeciesKey,Gender,Age,Height,Build,Hair,Eyes,Features)
 	VALUES('$charName','$charSpeciesKey','$charGender','$charAge','$charHeight','$charBuild','$charHair','$charEyes','$charFeatures')");
-	$result = mysql_query("SELECT DBKey FROM exon_character WHERE Name='$charName'");
+	$result = mysql_query("SELECT DBKey FROM exon_character WHERE DBKey=(SELECT MAX(DBKey) FROM exon_character)");
 	if (mysql_num_rows($result)>0){
 		while($row = mysql_fetch_row($result)) {
 			$charKey=$row[0];
