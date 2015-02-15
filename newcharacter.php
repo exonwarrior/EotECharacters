@@ -49,7 +49,7 @@
 
 							<tr>
 								<td width="120"><div align="right">Species</div></td>
-								<td><select>
+								<td><select name="charSpecies>
 								<?php
 									$speciesName = "";
 									//Select Available species from exon_species
@@ -63,7 +63,7 @@
 										while($row = mysql_fetch_row($result)) {
 											$speciesKey = $row[0];
 											$speciesName = $row[1];
-											echo '<option value="'.$speciesKey.'">'.$speciesName.'</option>';
+											echo '<option value="SpeciesKey='.$speciesKey.'">'.$speciesName.'</option>';
 										}
 									}
 								?>
@@ -72,7 +72,7 @@
 							
 							<tr>
 								<td width="120"><div align="right">Career</div></td>
-								<td><select>
+								<td><select name="charCareer">
 								<?php
 									$careerName = "";
 									//Select Available species from exon_species
@@ -86,7 +86,7 @@
 										while($row = mysql_fetch_row($result)) {
 											$careerKey = $row[0];
 											$careerName = $row[1];
-											echo '<option value="'.$careerKey.'">'.$careerName.'</option>';
+											echo '<option value="CareerKey='.$careerKey.'">'.$careerName.'</option>';
 										}
 									}
 								?>
@@ -95,7 +95,7 @@
 							
 							<tr>
 								<td width="120"><div align="right">Specialization</div></td>
-								<td><select>
+								<td><select name="charSpecialization">
 								<?php
 									$specializationName = "";
 									//Select Available species from exon_specialization
@@ -109,7 +109,7 @@
 										while($row = mysql_fetch_row($result)) {
 											$specializationKey = $row[0];
 											$specializationName = $row[2];
-											echo '<option value="'.$specializationKey.'">'.$specializationName.'</option>';
+											echo '<option value="SpecKey='.$specializationKey.'">'.$specializationName.'</option>';
 										}
 									}
 								?>
