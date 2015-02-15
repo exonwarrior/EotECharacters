@@ -18,7 +18,7 @@
 		<!-- Fixed navbar repeated code because we need to change active page. -->
 		<div id="wrap">
 			<div class="banner-top">
-				<img class="img-responsive img-center" src="http://i.imgur.com/CXMCO0r.jpg?1" />
+				<img class="img-responsive img-center" src="http://i.imgur.com/CXMCO0r.jpg?1" width="100%"/>
 			</div>
 
 			<div class="container">
