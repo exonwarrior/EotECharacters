@@ -108,7 +108,7 @@
 									if (mysql_num_rows($result) > 0) {
 										while($row = mysql_fetch_row($result)) {
 											$specializationKey = $row[0];
-											$specializationName = $row[1];
+											$specializationName = $row[2];
 											echo '<option value="'.$specializationKey.'">'.$specializationName.'</option>';
 										}
 									}
