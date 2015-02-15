@@ -43,12 +43,12 @@
 							</tr>
 
 							<tr>
-								<td width="116"><div align="right">Character Name</div></td>
+								<td width="116"><div align="right">Name</div></td>
 								<td width="177"><input name="charName" type="text" /></td>
 							</tr>
 
 							<tr>
-								<td><div align="right">Character Species</div></td>
+								<td width="120"><div align="right">Species</div></td>
 								<td><select>
 								<?php
 									$speciesName = "";
@@ -68,6 +68,91 @@
 									}
 								?>
 								</select></td>
+							</tr>
+							
+							<tr>
+								<td width="120"><div align="right">Career</div></td>
+								<td><select>
+								<?php
+									$careerName = "";
+									//Select Available species from exon_species
+									$query = "SELECT * FROM exon_career";
+
+									// execute above query 
+									$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+
+									// see if any rows were returned 
+									if (mysql_num_rows($result) > 0) {
+										while($row = mysql_fetch_row($result)) {
+											$careerKey = $row[0];
+											$careerName = $row[1];
+											echo '<option value="'.$careerKey.'">'.$careerName.'</option>';
+										}
+									}
+								?>
+								</select></td>
+							</tr>
+							
+							<tr>
+								<td width="120"><div align="right">Specialization</div></td>
+								<td><select>
+								<?php
+									$specializationName = "";
+									//Select Available species from exon_specialization
+									$query = "SELECT * FROM exon_specialization";
+
+									// execute above query 
+									$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+
+									// see if any rows were returned 
+									if (mysql_num_rows($result) > 0) {
+										while($row = mysql_fetch_row($result)) {
+											$specializationKey = $row[0];
+											$specializationName = $row[1];
+											echo '<option value="'.$specializationKey.'">'.$specializationName.'</option>';
+										}
+									}
+								?>
+								</select></td>
+							</tr>
+							
+							<tr>
+								<td width="116"><div align="right">Gender</div></td>
+								<td><select>
+									<option value="male">Male</option>
+									<option value="female">Female</option>
+									<option value="other">Other</option>
+								</select></td>
+							</tr>
+							<!-- TODO for Age and height - number verification -->
+							<tr>
+								<td width="116"><div align="right">Age</div></td>
+								<td width="177"><input name="charAge" type="text" /></td>
+							</tr>
+							
+							<tr>
+								<td width="116"><div align="right">Height</div></td>
+								<td width="177"><input name="charHeight" type="text" /></td>
+							</tr>
+							
+							<tr>
+								<td width="116"><div align="right">Hair</div></td>
+								<td width="177"><input name="charHair" type="text" /></td>
+							</tr>
+							
+							<tr>
+								<td width="116"><div align="right">Eyes</div></td>
+								<td width="177"><input name="charEyes" type="text" /></td>
+							</tr>
+							
+							<tr>
+								<td width="116"><div align="right">Notable Features</div></td>
+								<td width="177"><input name="charFeatures" type="text" /></td>
+							</tr>
+							
+							<tr>
+								<td width="116"><div align="right">Build</div></td>
+								<td width="177"><input name="charBuild" type="text" /></td>
 							</tr>
 
 							<tr>
