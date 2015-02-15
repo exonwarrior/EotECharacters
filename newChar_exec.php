@@ -81,6 +81,11 @@
 	$result = mysql_query("SELECT * FROM exon_species WHERE DBKey='$charSpeciesKey'");
 	if (mysql_num_rows($result)>0){
 		while($row = mysql_fetch_row($result)) {
+			$i = 2;
+			while($i<8){
+				echo 'Char'.$i.'='.$row[$i];
+				$i++;
+			}
 			mysql_query("UPDATE exon_character SET Brawn=$row[2],Agility=$row[3],Intellect=$row[4],Cunning=$row[5],Willpower=$row[6],Presence=$row[7],XPTotal=$row[10],XPAvailable=$row[10] WHERE DBKey='$charKey'") or die(mysql_error());
 			if(!is_null($row[11])){
 				$speciesSkillKey = $row[11];
