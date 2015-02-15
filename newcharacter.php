@@ -1,8 +1,6 @@
 <?php
 	//Start session
-	session_start();	
-	//Unset the variables stored in session
-	unset($_SESSION['SESS_PLAYER_ID']);
+	session_start();
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +14,6 @@
 		<!-- Bootstrap core CSS -->
 		<link href="./css/bootstrap.css" rel="stylesheet">
 	</head>
-	
 	<body>
 		<!-- Fixed navbar repeated code because we need to change active page. -->
 		<div id="wrap">
@@ -24,10 +21,9 @@
 				<img class="img-responsive img-center" src="http://i.imgur.com/CXMCO0r.jpg?1" />
 			</div>
 
-
 			<div class="container">
 				<div class="jumbotron">
-					<form name="loginform" action="login_exec.php" method="post">
+					<form name="newCharForm" action="newChar_exec.php" method="post">
 						<table width="309" border="0" align="center" cellpadding="2" cellspacing="5">
 							<tr>
 								<td colspan="2">
@@ -46,18 +42,23 @@
 							</tr>
 
 							<tr>
-								<td width="116"><div align="right">Username</div></td>
-								<td width="177"><input name="username" type="text" /></td>
+								<td width="116"><div align="right">Character Name</div></td>
+								<td width="177"><input name="charName" type="text" /></td>
 							</tr>
 
 							<tr>
-								<td><div align="right">Password</div></td>
-								<td><input name="password" type="password" /></td>
+								<td><div align="right">Character Species</div></td>
+								<td><select>
+								  <option value="volvo">Volvo</option>
+								  <option value="saab">Saab</option>
+								  <option value="opel">Opel</option>
+								  <option value="audi">Audi</option>
+								</select></td>
 							</tr>
 
 							<tr>
 								<td><div align="right"></div></td>
-								<td><input name="" type="submit" value="Login" /></td>
+								<td><input name="" type="submit" value="CreateChar" /></td>
 							</tr>
 						</table>
 					</form>
