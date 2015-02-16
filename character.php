@@ -561,67 +561,70 @@ require_once('connection.php');
 			</table>-->
 			</div>
 		  </div>
-		  <div class="characterWeaponsContainer">
-		<div class="characterTalents">
-			<h1>Talents</h1>
-				<div class="contentBlock col4">
-				<table class="">
-					<thead>
-						<tr>
-							<td class="col1">Talent</td>
-							<td class="col2">Activation</td>
-							<td class="col3">Rank</td>
-							<td class="col4">Page</td>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-							//initializing variables needed to display talents
-							$talentKey = "";//DBKey from exon_talent
-							//$talentKey2 = "";//DBParentSkillKey from exon_character_talent
-							$talentName = "";
-							$talentActivation = "";
-							$talentRanked = "";
-							$talentPage = "";
-							$talentRank = "";
+			<!--<div class="characterWeaponsContainer">-->
+				<div class="characterTalents">
+					<h1>Talents</h1>
+						<div class="contentBlock col5">
+							<table class="">
+								<thead>
+									<tr>
+										<td class="col1">Talent</td>
+										<td class="col2">Activation</td>
+										<td class="col3">Rank</td>
+										<td class="col4">Page</td>
+										<td class="col5">Description</td>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+										//initializing variables needed to display talents
+										$talentKey = "";//DBKey from exon_talent
+										//$talentKey2 = "";//DBParentSkillKey from exon_character_talent
+										$talentName = "";
+										$talentActivation = "";
+										$talentRanked = "";
+										$talentPage = "";
+										$talentRank = "";
 
-							// create query from exon_character_talent
-							$query1 = "SELECT * FROM exon_character_talent WHERE DBParentCharacterKey='$characterKey'";
+										// create query from exon_character_talent
+										$query1 = "SELECT * FROM exon_character_talent WHERE DBParentCharacterKey='$characterKey'";
 
-							// execute query 
-							$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
+										// execute query 
+										$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
 
-							// see if any rows were returned 
-							if (mysql_num_rows($result1) > 0) {
-								while($row1 = mysql_fetch_row($result1)) {
-									$talentKey = $row1[2];
-									$query2 = "SELECT DBKey,Name,Activation,Ranked,Page FROM exon_talent WHERE DBKey='$talentKey'";
-									$result2 = mysql_query($query2) or die ("Error in query: $query2. ".mysql_error());
-									$row2 = mysql_fetch_row($result2);
-									if($talentKey == $row2[0]){
-										$talentName = $row2[1];
-										$talentActivation = $row2[2];
-										$talentPage = $row2[4];
-										if($row2[2]=="Yes"){
-											$talentRank = $row1[3];
-										} else {
-											$talentRank = "";
+										// see if any rows were returned 
+										if (mysql_num_rows($result1) > 0) {
+											while($row1 = mysql_fetch_row($result1)) {
+												$talentKey = $row1[2];
+												$query2 = "SELECT DBKey,Name,Activation,Ranked,Page FROM exon_talent WHERE DBKey='$talentKey'";
+												$result2 = mysql_query($query2) or die ("Error in query: $query2. ".mysql_error());
+												$row2 = mysql_fetch_row($result2);
+												if($talentKey == $row2[0]){
+													$talentName = $row2[1];
+													$talentActivation = $row2[2];
+													$talentPage = $row2[4];
+													$talentDesc = $row[5];
+													if($row2[2]=="Yes"){
+														$talentRank = $row1[3];
+													} else {
+														$talentRank = "";
+													}
+													echo '<tr>';
+													echo '<td style="text-align:left">'.$talentName.'</td>';
+													echo '<td style="text-align:center">'.$talentActivation.'</td>';
+													echo '<td style="text-align:center">'.$talentRank.'</td>';
+													echo '<td style="text-align:center">'.$talentPage.'</td>';
+													echo '<td style="text-align:right">'.$talentDesc.'</td>';
+													echo '</tr>';
+												}				
+											}
 										}
-										echo '<tr>';
-										echo '<td style="text-align:left">'.$talentName.'</td>';
-										echo '<td style="text-align:center">'.$talentActivation.'</td>';
-										echo '<td style="text-align:center">'.$talentRank.'</td>';
-										echo '<td style="text-align:center">'.$talentPage.'</td>';
-										echo '</tr>';
-									}				
-								}
-							}
-						?>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		</div>
+									?>
+								</tbody>
+							</table>
+					</div>
+				</div>
+			<!--</div>-->
 		  <div class="characterWeaponsContainer">
 			<div class="characterWeapons">
 			  <h1>Weapons <button {{action createWeapon}}>[+]</button></h1>
