@@ -564,7 +564,7 @@ require_once('connection.php');
 		  <div class="characterWeaponsContainer">
 		<div class="characterTalents">
 			<h1>Talents</h1>
-				<div class="characterTalents contentBlock col4">
+				<div class="contentBlock col4">
 				<table class="">
 					<thead>
 						<tr>
