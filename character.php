@@ -276,7 +276,7 @@ require_once('connection.php');
 				<h1>Current Stats</h1>
 				<div class="statBox dual">
 					<div class="row statRow">
-						<div class="statLeft current"><?php echo $wounds+$brawn;?>
+						<div class="statLeft current"><?php echo $wounds;?>
 							<div class="statBoxLabel">
 								<button {{action 'addToStat' "woundsCurrent" 1}}>[+]</button> 
 								Current 
@@ -844,7 +844,7 @@ require_once('connection.php');
 				  </thead>
 				<tbody>
 			<tr>
-				  <?php
+			  <?php
 				//Initializing extra variables for player<->motivation matching
 				$motivationKey = "";
 				$motivationType = "";
@@ -860,25 +860,24 @@ require_once('connection.php');
 				if (mysql_num_rows($result) > 0) {
 					while($row = mysql_fetch_row($result)) {
 						$motivationKey = $row[0];
+						// create query to find Motivation Type and Description from exon_motivation, based on previously selected DBParentMotivationKey
+						$query2 = "SELECT Type,Description FROM exon_motivation WHERE DBKey ='$motivationKey'";
+
+						// execute above query 
+						$result2 = mysql_query($query2) or die ("Error in query: $query. ".mysql_error()); 
+
+						// see if any rows were returned 
+						if (mysql_num_rows($result2) > 0) {
+							while($row2 = mysql_fetch_row($result2)) {
+								$motivationType = $row2[0];
+								$motivationDesc = $row2[1];
+							}
+						}
+
+						echo '<td style="text-align:left">'.$motivationType.'</td>';
+						echo '<td>'.$motivationDesc.'</td>';
 					}
 				}
-
-				// create query to find Motivation Type and Description from exon_motivation, based on previously selected DBParentMotivationKey
-				$query = "SELECT Type,Description FROM exon_motivation WHERE DBKey ='$motivationKey'";
-
-				// execute above query 
-				$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
-
-				// see if any rows were returned 
-				if (mysql_num_rows($result) > 0) {
-					while($row = mysql_fetch_row($result)) {
-						$motivationType = $row[0];
-						$motivationDesc = $row[1];
-					}
-				}
-
-				echo '<td style="text-align:left">'.$motivationType.'</td>';
-				echo '<td>'.$motivationDesc.'</td>';
 			?></tr>
 				</tbody>
 			  </table>
@@ -912,27 +911,27 @@ require_once('connection.php');
 						if (mysql_num_rows($result) > 0) {
 							while($row = mysql_fetch_row($result)) {
 								$obligationKey = $row[0];
+								
+								// create query to find Obligation Type, Magnitude and Description from exon_obligation, based on previously selected DBParentObligationKey
+								$query2 = "SELECT Type,Magnitude,Description FROM exon_obligation WHERE DBKey ='$obligationKey'";
+
+								// execute above query 
+								$result2 = mysql_query($query2) or die ("Error in query: $query. ".mysql_error()); 
+
+								// see if any rows were returned 
+								if (mysql_num_rows($result2) > 0) {
+									while($row2 = mysql_fetch_row($result2)) {
+										$obligationType = $row2[0];
+										$obligationMagnitude = $row2[1];
+										$obligationDesc = $row2[2];
+									}
+								}
+
+								echo '<td style="text-align:left">'.$obligationType.'</td>';
+								echo '<td>'.$obligationMagnitude.'</td>';
+								echo '<td>'.$obligationDesc.'</td>';
 							}
 						}
-
-						// create query to find Obligation Type, Magnitude and Description from exon_obligation, based on previously selected DBParentObligationKey
-						$query = "SELECT Type,Magnitude,Description FROM exon_obligation WHERE DBKey ='$obligationKey'";
-
-						// execute above query 
-						$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
-
-						// see if any rows were returned 
-						if (mysql_num_rows($result) > 0) {
-							while($row = mysql_fetch_row($result)) {
-								$obligationType = $row[0];
-								$obligationMagnitude = $row[1];
-								$obligationDesc = $row[2];
-							}
-						}
-
-						echo '<td style="text-align:left">'.$obligationType.'</td>';
-						echo '<td>'.$obligationMagnitude.'</td>';
-						echo '<td>'.$obligationDesc.'</td>';
 					?></tr>
 				  </tbody>
 				</table>

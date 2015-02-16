@@ -157,7 +157,7 @@
 
 							<tr>
 								<td><div align="right"></div></td>
-								<td><input name="" type="submit" value="CreateChar" /></td>
+								<td><input name="CreateChar" type="submit" value="Create Character" /></td>
 							</tr>
 						</table>
 					</form>
