@@ -843,42 +843,42 @@ require_once('connection.php');
 					</tr>
 				  </thead>
 				<tbody>
-			<tr>
-			  <?php
-				//Initializing extra variables for player<->motivation matching
-				$motivationKey = "";
-				$motivationType = "";
-				$motivationDesc = "";
+				<?php
+					//Initializing extra variables for player<->motivation matching
+					$motivationKey = "";
+					$motivationType = "";
+					$motivationDesc = "";
 
-				// create query to find Motivation Key from exon_character_motivation (stores pairs of Character and Motivation Keys)
-				$query = "SELECT DBParentMotivationKey FROM exon_character_motivation WHERE DBParentCharacterKey ='$characterKey'";
+					// create query to find Motivation Key from exon_character_motivation (stores pairs of Character and Motivation Keys)
+					$query = "SELECT DBParentMotivationKey FROM exon_character_motivation WHERE DBParentCharacterKey ='$characterKey'";
 
-				// execute above query 
-				$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+					// execute above query 
+					$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
 
-				// see if any rows were returned 
-				if (mysql_num_rows($result) > 0) {
-					while($row = mysql_fetch_row($result)) {
-						$motivationKey = $row[0];
-						// create query to find Motivation Type and Description from exon_motivation, based on previously selected DBParentMotivationKey
-						$query2 = "SELECT Type,Description FROM exon_motivation WHERE DBKey ='$motivationKey'";
+					// see if any rows were returned 
+					if (mysql_num_rows($result) > 0) {
+						while($row = mysql_fetch_row($result)) {
+							$motivationKey = $row[0];
+							// create query to find Motivation Type and Description from exon_motivation, based on previously selected DBParentMotivationKey
+							$query2 = "SELECT Type,Description FROM exon_motivation WHERE DBKey ='$motivationKey'";
 
-						// execute above query 
-						$result2 = mysql_query($query2) or die ("Error in query: $query. ".mysql_error()); 
+							// execute above query 
+							$result2 = mysql_query($query2) or die ("Error in query: $query. ".mysql_error()); 
 
-						// see if any rows were returned 
-						if (mysql_num_rows($result2) > 0) {
-							while($row2 = mysql_fetch_row($result2)) {
-								$motivationType = $row2[0];
-								$motivationDesc = $row2[1];
+							// see if any rows were returned 
+							if (mysql_num_rows($result2) > 0) {
+								while($row2 = mysql_fetch_row($result2)) {
+									$motivationType = $row2[0];
+									$motivationDesc = $row2[1];
+								}
 							}
+							echo '<tr>';
+							echo '<td style="text-align:left">'.$motivationType.'</td>';
+							echo '<td>'.$motivationDesc.'</td>';
+							echo '</tr>';
 						}
-
-						echo '<td style="text-align:left">'.$motivationType.'</td>';
-						echo '<td>'.$motivationDesc.'</td>';
 					}
-				}
-			?></tr>
+				?>
 				</tbody>
 			  </table>
 			</div>
@@ -926,10 +926,11 @@ require_once('connection.php');
 										$obligationDesc = $row2[2];
 									}
 								}
-
+								echo '<tr>';
 								echo '<td style="text-align:left">'.$obligationType.'</td>';
 								echo '<td>'.$obligationMagnitude.'</td>';
 								echo '<td>'.$obligationDesc.'</td>';
+								echo '</tr>';
 							}
 						}
 					?></tr>
