@@ -50,17 +50,16 @@
 	$result = mysqli_query($bd, $sql);
 
 	//Check whether the query was successful or not
-	//if($result) {
-		//echo "Result not null";
-		if(mysqli_num_rows($result) > 0) {
+	if($result) {
+		if(mysqli_num_rows($result)>0) {
 			//Login Successful
-			session_regenerate_id();
-			$exon_player = mysqli_fetch_assoc($result);
-			$_SESSION['SESS_MEMBER_ID'] = $exon_player['mem_id'];
+			//session_regenerate_id();
+			//$exon_player = mysqli_fetch_assoc($result);
+			//$_SESSION['SESS_MEMBER_ID'] = $exon_player['mem_id'];
 			//$_SESSION['SESS_FIRST_NAME'] = $exon_player['username'];
 			//$_SESSION['SESS_LAST_NAME'] = $exon_player['password'];
-			$_SESSION['loggedin'] = true;
-			session_write_close();
+			//$_SESSION['loggedin'] = true;
+			//session_write_close();
 			header("location: profile.php");
 			exit();
 		}else {
@@ -74,7 +73,7 @@
 				exit();
 			}
 		}
-	//} else {
-//		die("Query failed");
-//	}
+    } else {
+		die("Query failed");
+	}
 ?>
