@@ -25,27 +25,9 @@
 						// define variables and set to empty values
 						$emailErr = $usernameErr = $passwordErr = $conpasswordErr = "";
 						$name = $email = $gender = $comment = $website = "";
+						$emailPattern = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i";
 
 						if ($_SERVER["REQUEST_METHOD"] == "POST") {
-							/*if (empty($_POST["fname"])) {
-								$fnameErr = "First name is required";
-							} else {
-								$fname = test_input($_POST["fname"]);
-								if (!preg_match("/^[a-zA-Z]*$/",$fname)) {
-									$fnameErr = "Only letters allowed"; 
-								}
-							}
-
-							if (empty($_POST["lname"])) {
-								$lnameErr = "Last name is required";
-							} else {
-								$lname = test_input($_POST["lname"]);
-								if (!preg_match("/^[a-zA-Z-]*$/",$lname)) {
-									$lnameErr = "Only letters and hyphens allowed"; 
-								}
-							}*/
-
-}
 							if (empty($_POST["username"])) {
 								$usernameErr = "Username is required";
 							} else {
@@ -53,8 +35,8 @@
 								if (!preg_match("/^[a-zA-Z0-9]*$/",$username)) {
 									$usernameErr = "Only letters and numbers allowed"; 
 								}
-								$sql=mysql_query("SELECT * FROM member WHERE username='$username'");
-								if(mysql_num_rows($sql)>=1) {
+								$sql=mysqli_query("SELECT * FROM exon_player WHERE username='$username'");
+								if(mysqli_num_rows($sql)>=1) {
 									$usernameErr = "Username exists";
 								}
 							}
@@ -63,14 +45,14 @@
 								$emailErr = "Email is required";
 							} else {
 								$email = test_input($_POST["email"]);
-								if (!preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/",$email)) {
+								if (!preg_match($emailPattern,$email)) {
 									$emailErr = "Invalid email format"; 
 								}
-								$sql=mysql_query("SELECT * FROM member WHERE email='$email'");
-								if(mysql_num_rows($sql)>=1) {
+								$sql=mysqli_query("SELECT * FROM exon_player WHERE email='$email'");
+								if(mysqli_num_rows($sql)>=1) {
 									$emailErr = "Email already in use";
 								}
-							
+							}
 							if (empty($_POST["password"])) {
 								$passwordErr = "Password is required";
 							} else {
@@ -92,15 +74,15 @@
 								$username=$_POST['username'];
 								$password=$_POST['password'];
 								$encrypt_pass=md5($password);								
-								mysql_query("INSERT INTO exon_player(Username, Email, PasswordHash)VALUES('$username', '$email', '$encrypt_pass')");
-								$result = mysql_query("SELECT DBKey FROM exon_player WHERE Username ='$username'");
-								if (mysql_num_rows($result)>0){
-									while($row = mysql_fetch_row($result)) {
+								mysqli_query("INSERT INTO exon_player(Username, Email, PasswordHash) VALUES ('$username', '$email', '$encrypt_pass')");
+								$result = mysqli_query("SELECT DBKey FROM exon_player WHERE Username ='$username'");
+								if (mysqli_num_rows($result)>0){
+									while($row = mysqli_fetch_row($result)) {
 										$userid=$row[0];
 									}
 								}								
 								header("Location: login.php?remarks=success");
-								mysql_close($con);
+								mysqli_close($con);
 							}		
 						}
 
