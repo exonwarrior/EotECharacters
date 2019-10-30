@@ -4,10 +4,12 @@ session_start();
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     // username and password sent from form
-
+    echo "Connected to DB: ".DB_DATABASE;
     $myusername = mysqli_real_escape_string($db,$_POST['username']);
     $mypassword = mysqli_real_escape_string($db,$_POST['password']);
     $encrypt_pass = md5($mypassword);
+
+    echo "User: " . $myusername . "Pass: " . $mypassword . "Encrypt: " . $encrypt_pass;
 
     $sql = "SELECT dbkey FROM exon_player WHERE username = '$myusername' and PasswordHash = '$encryptpass'";
     $result = mysqli_query($db,$sql);
