@@ -11,7 +11,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     echo "User: " . $myusername . "Pass: " . $mypassword . "Encrypt: " . $encrypt_pass;
 
-    $sql = "SELECT dbkey FROM exon_player WHERE username = '$myusername' and PasswordHash = '$encryptpass'";
+    $sql = "SELECT dbkey FROM exon_player WHERE Username='" . $myusername . "' AND PasswordHash='" . $encrypt_pass . "'";
     $result = mysqli_query($db,$sql);
     $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
     $active = $row['active'];
