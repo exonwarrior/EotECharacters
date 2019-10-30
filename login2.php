@@ -11,7 +11,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     echo "User: " . $myusername . "Pass: " . $mypassword . "Encrypt: " . $encrypt_pass;
 
-    $sql = "SELECT dbkey FROM exon_player WHERE Username='" . $myusername . "' AND PasswordHash='" . $encrypt_pass . "'";
+    $sql = "SELECT dbkey FROM exon_player WHERE Username='exon2' and PasswordHash = '0de20eac0e91b29f3784e44fa14c0352'";//'" . $myusername . "' AND PasswordHash='" . $encrypt_pass . "'";
     $result = mysqli_query($db,$sql);
     $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
     $active = $row['active'];
@@ -23,7 +23,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if($count == 1) {
         session_register("myusername");
         $_SESSION['login_user'] = $myusername;
-
         header("location: profile.php");
     }else {
         $error = "Your Login Name or Password is invalid";
