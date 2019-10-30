@@ -12,33 +12,28 @@
 	//Array to store validation errors
 	$errmsg_arr = array();
 
+    //Define variables and set to empty
+     $usernameErr = $passwordErr = "";
+
 	//Validation error flag
 	$errflag = false;
 
-	//Function to sanitize values received from the form. Prevents SQL injection
-	function clean($str) {
-		$str = trim($str);
-		$str = stripslashes($str);
-		return mysqli_real_escape_string($bd,$str);
-	}
-
-	//Sanitize the POST values
-	$username = $_POST['username'];//clean($_POST['username']);
-	$password = $_POST['password'];//clean($_POST['password']);
-
-	//Input Validations
-	if($username == '') {
-		$errmsg_arr[] = 'Username missing';
-		$errflag = true;
-	}
-	if($password == '') {
-		$errmsg_arr[] = 'Password missing';
-		$errflag = true;
-	}
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (empty($_POST["username"])) {
+			$usernameErr = "Username is required";
+        } else {
+            $username = test_input($_POST["username"]);
+        }
+        if (empty($_POST["password"])) {
+            $passwordErr = "Password is required";
+        } else {
+            $password = test_input($_POST["password"]);
+        }
+    }
 
 	//If there are input validations, redirect back to the login form
-	if($errflag) {
-		$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
+	if($usernameErr != "" && $passwordErr != "") {
+		$_SESSION['ERRMSG_ARR'] = $usernameErr . $passwordErr;
 		session_write_close();
 		header("location: login.php");
 		exit();
@@ -53,13 +48,12 @@
 	if($result) {
 		if(mysqli_num_rows($result)>0) {
 			//Login Successful
-			//session_regenerate_id();
-			//$exon_player = mysqli_fetch_assoc($result);
-			//$_SESSION['SESS_MEMBER_ID'] = $exon_player['mem_id'];
-			//$_SESSION['SESS_FIRST_NAME'] = $exon_player['username'];
-			//$_SESSION['SESS_LAST_NAME'] = $exon_player['password'];
-			//$_SESSION['loggedin'] = true;
-			//session_write_close();
+			session_regenerate_id();
+			$exon_player = mysqli_fetch_assoc($result);
+			$_SESSION['SESS_MEMBER_ID'] = $exon_player['dbkey'];
+			$_SESSION['SESS_USERNAME'] = $exon_player['username'];
+			$_SESSION['loggedin'] = true;
+			session_write_close();
 			header("location: profile.php");
 			exit();
 		}else {
@@ -69,11 +63,25 @@
 			if($errflag) {
 				$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
 				session_write_close();
-				header("location: login.php?remarks=" . $sql . ");
+				header("location: login.php");
 				exit();
 			}
 		}
     } else {
 		die("Query failed");
+	}
+
+    function test_input($data) {
+		$data = trim($data);
+		$data = stripslashes($data);
+		$data = htmlspecialchars($data);
+		return $data;
+	}
+
+    //Function to sanitize values received from the form. Prevents SQL injection
+	function clean($str) {
+		$str = trim($str);
+		$str = stripslashes($str);
+		return mysqli_real_escape_string($bd,$str);
 	}
 ?>
