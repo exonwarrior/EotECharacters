@@ -70,7 +70,7 @@
 			if($errflag) {
 				$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
 				session_write_close();
-				header("location: login.php");
+				header("location: login.php?remarks=" . $sql . ");
 				exit();
 			}
 		}
