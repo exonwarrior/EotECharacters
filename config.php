@@ -1,5 +1,5 @@
 <?php
-   define('DB_SERVER', 'localhost:3036');
+   define('DB_SERVER', 'localhost');
    define('DB_USERNAME', 'eote');
    define('DB_PASSWORD', 'C1oudbur5t');
    define('DB_DATABASE', 'edge_of_the_empire');
