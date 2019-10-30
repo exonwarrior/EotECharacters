@@ -10,11 +10,11 @@
 		<title>Aberystwyth Community of Gamers Tournament Software</title>
 
 		<!-- Bootstrap core CSS -->
-		<link href="./css/bootstrap.css" rel="stylesheet">
+		<!-- <link href="./css/bootstrap.css" rel="stylesheet">-->
 	</head>
 
 	<body>
-                <ul>
+            <!-- <ul>
                         <li><a href="http://www.abercog.co.uk" class="left-list">ACOG Home</a></li>
 			<li><a href="logout.php" class="right-list">Logout</a></li>
                         <li><a href="leaderboard.php" class="right-list">Leaderboard</a></li>
@@ -22,13 +22,15 @@
                 <div id="wrap">
 			<div class="banner-top">
 				<img class="img-responsive img-center" src="./images/acog-logo.png" />
-			</div>
+			</div>-->
 
 
 			<div class="container">
 				<div class="jumbotron">
+				
+				<p> You should be logged in now.</p>
 					<?php
-						if (isset($_GET['ID'])==false){
+						/*if (isset($_GET['ID'])==false){
 							$userid = $_SESSION['SESS_MEMBER_ID'];
 							$result = mysql_query("SELECT * FROM member WHERE mem_id = '$userid'");
 							if (mysql_num_rows($result)>0){
@@ -91,7 +93,7 @@
 									echo "\n";
 								}
 							}
-						}
+						}*/
 					?>
 				</div>
 			</div>

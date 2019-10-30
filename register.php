@@ -6,41 +6,38 @@
 		<style>
 			.error {color: #FF0000;}
 		</style>
-		<!-- Bootstrap core CSS -->
-		<link href="./css/bootstrap.css" rel="stylesheet">
 	</head>
-	
+
 	<body>
 		<!-- Fixed navbar repeated code because we need to change active page. -->
 		<div id="wrap">
-			<!--<div class="banner-top">
-				<img class="img-responsive img-center" src="./images/acog-logo.png" />
-			</div>-->
-
-
 			<div class="container">
 				<div class="jumbotron">
 					<?php
-						require_once('connection.php');
+						$mysql_hostname = "localhost";
+						$mysql_user = "eote";
+						$mysql_password = "C1oudbur5t";
+						$mysql_database = "edge_of_the_empire";
+						$bd = mysqli_connect($mysql_hostname, $mysql_user, $mysql_password, $mysql_database);
+						
 						// define variables and set to empty values
 						$emailErr = $usernameErr = $passwordErr = $conpasswordErr = "";
 						$name = $email = $gender = $comment = $website = "";
 						$emailPattern = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i";
-
+						
 						if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							if (empty($_POST["username"])) {
 								$usernameErr = "Username is required";
 							} else {
 								$username = test_input($_POST["username"]);
 								if (!preg_match("/^[a-zA-Z0-9]*$/",$username)) {
-									$usernameErr = "Only letters and numbers allowed"; 
+									$usernameErr = "Only letters and numbers allowed";
 								}
-								$sql=mysqli_query("SELECT * FROM exon_player WHERE username='$username'");
-								if(mysqli_num_rows($sql)>=1) {
+								$result=mysqli_query($bd, "SELECT username FROM exon_player WHERE username='$username'");
+								if(mysqli_num_rows($result)>=1) {
 									$usernameErr = "Username exists";
 								}
 							}
-
 							if (empty($_POST["email"])) {
 								$emailErr = "Email is required";
 							} else {
@@ -48,8 +45,8 @@
 								if (!preg_match($emailPattern,$email)) {
 									$emailErr = "Invalid email format"; 
 								}
-								$sql=mysqli_query("SELECT * FROM exon_player WHERE email='$email'");
-								if(mysqli_num_rows($sql)>=1) {
+								$result=mysqli_query($bd,"SELECT email FROM exon_player WHERE email='$email'");
+								if(mysqli_num_rows($result)>=1) {
 									$emailErr = "Email already in use";
 								}
 							}
@@ -66,26 +63,28 @@
 							} else {
 								$conpassword = test_input($_POST["conpassword"]);
 								if ($password != $conpassword) {
-									$conpasswordErr = "Passwords do not match"; 
+									$conpasswordErr = "Passwords do not match";
 								}
 							}
 							if($emailErr == "" && $usernameErr == "" && $passwordErr == "" && $conpasswordErr == ""){
+								echo "Check it";
 								$email=$_POST['email'];
 								$username=$_POST['username'];
 								$password=$_POST['password'];
 								$encrypt_pass=md5($password);								
-								mysqli_query("INSERT INTO exon_player(Username, Email, PasswordHash) VALUES ('$username', '$email', '$encrypt_pass')");
-								$result = mysqli_query("SELECT DBKey FROM exon_player WHERE Username ='$username'");
+								$sql = "INSERT INTO exon_player (USERNAME, EMAIL, PASSWORDHASH) VALUES ('" . $username . "','" . $email . "','" . $encrypt_pass . "')";
+								mysqli_query($bd,$sql);
+								$sql = "SELECT DBKey FROM exon_player WHERE Username ='$username'";
+								$result = mysqli_query($bd,$sql);
 								if (mysqli_num_rows($result)>0){
 									while($row = mysqli_fetch_row($result)) {
 										$userid=$row[0];
 									}
 								}								
 								header("Location: login.php?remarks=success");
-								mysqli_close($con);
-							}		
+								mysqli_close($bd);
+							}
 						}
-
 						function test_input($data) {
 						   $data = trim($data);
 						   $data = stripslashes($data);
@@ -97,15 +96,10 @@
 							$r1='/[A-Z]/';  //Uppercase
 							$r2='/[a-z]/';  //lowercase
 							$r3='/[0-9]/';  //numbers
-
 							if(preg_match_all($r1,$candidate, $o)<1) return FALSE;
-
 							if(preg_match_all($r2,$candidate, $o)<1) return FALSE;
-
 							if(preg_match_all($r3,$candidate, $o)<1) return FALSE;
-
 							if(strlen($candidate)<8) return FALSE;
-
 							return TRUE;
 						}
 					?>

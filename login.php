@@ -14,7 +14,7 @@
 			.error {color: #FF0000;}
 		</style>
 		<!-- Bootstrap core CSS -->
-		<link href="./css/bootstrap.css" rel="stylesheet">
+		<!--<link href="./css/bootstrap.css" rel="stylesheet">-->
 	</head>
 	
 	<body>
