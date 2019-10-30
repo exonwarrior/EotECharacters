@@ -11,17 +11,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     echo "User: " . $myusername . "Pass: " . $mypassword . "Encrypt: " . $encrypt_pass;
 
-    $sql = "SELECT dbkey FROM exon_player WHERE Username='exon2' and PasswordHash = '0de20eac0e91b29f3784e44fa14c0352'";//'" . $myusername . "' AND PasswordHash='" . $encrypt_pass . "'";
+    $sql = "SELECT DBKey FROM exon_player WHERE Username='exon2' and PasswordHash = '0de20eac0e91b29f3784e44fa14c0352'";//'" . $myusername . "' AND PasswordHash='" . $encrypt_pass . "'";
+	echo $sql;
     $result = mysqli_query($db,$sql);
     $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+    printf ("%s (%s)\n", $row["DBKey"]);
     $active = $row['active'];
 
     $count = mysqli_num_rows($result);
 
+	echo $count;
+
     // If result matched $myusername and $mypassword, table row must be 1 row
 
     if($count == 1) {
-        session_register("myusername");
         $_SESSION['login_user'] = $myusername;
         header("location: profile.php");
     }else {

@@ -1,7 +1,7 @@
 <?php
 	session_start();
-	require_once('auth.php');
-	require_once('connection.php');
+	//require_once('auth.php');
+	include('config.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
