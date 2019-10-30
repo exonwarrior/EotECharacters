@@ -3,7 +3,11 @@
 	session_start();
 
 	//Include database connection details
-	require_once('connection.php');
+	$mysql_hostname = "localhost";
+	$mysql_user = "eote";
+	$mysql_password = "C1oudbur5t";
+	$mysql_database = "edge_of_the_empire";
+	$bd = mysqli_connect($mysql_hostname, $mysql_user, $mysql_password, $mysql_database);
 
 	//Array to store validation errors
 	$errmsg_arr = array();
@@ -13,16 +17,14 @@
 
 	//Function to sanitize values received from the form. Prevents SQL injection
 	function clean($str) {
-		$str = @trim($str);
-		if(get_magic_quotes_gpc()) {
-			$str = stripslashes($str);
-		}
-		return mysql_real_escape_string($str);
+		$str = trim($str);
+		$str = stripslashes($str);
+		return mysqli_real_escape_string($bd,$str);
 	}
 
 	//Sanitize the POST values
-	$username = clean($_POST['username']);
-	$password = clean($_POST['password']);
+	$username = $_POST['username'];//clean($_POST['username']);
+	$password = $_POST['password'];//clean($_POST['password']);
 
 	//Input Validations
 	if($username == '') {
@@ -44,18 +46,19 @@
 
 	//Create query
 	$encrypt_pass=md5($password);
-	$qry="SELECT * FROM exon_player WHERE Username='$username' AND PasswordHash='$encrypt_pass'";
-	$result=mysql_query($qry);
+	$sql = "SELECT * FROM exon_player WHERE Username='" . $username . "' AND PasswordHash='" . $encrypt_pass . "'";
+	$result = mysqli_query($bd, $sql);
 
 	//Check whether the query was successful or not
-	if($result) {
-		if(mysql_num_rows($result) > 0) {
+	//if($result) {
+		//echo "Result not null";
+		if(mysqli_num_rows($result) > 0) {
 			//Login Successful
 			session_regenerate_id();
-			$exon_player = mysql_fetch_assoc($result);
+			$exon_player = mysqli_fetch_assoc($result);
 			$_SESSION['SESS_MEMBER_ID'] = $exon_player['mem_id'];
-			$_SESSION['SESS_FIRST_NAME'] = $exon_player['username'];
-			$_SESSION['SESS_LAST_NAME'] = $exon_player['password'];
+			//$_SESSION['SESS_FIRST_NAME'] = $exon_player['username'];
+			//$_SESSION['SESS_LAST_NAME'] = $exon_player['password'];
 			$_SESSION['loggedin'] = true;
 			session_write_close();
 			header("location: profile.php");
@@ -71,7 +74,7 @@
 				exit();
 			}
 		}
-	}else {
-		die("Query failed");
-	}
+	//} else {
+//		die("Query failed");
+//	}
 ?>
