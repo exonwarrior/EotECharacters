@@ -1,5 +1,5 @@
 <?php
-require_once('connection.php');
+include('config.php');
 ?>
 <!DOCTYPE html>
 <html>

@@ -27,9 +27,10 @@
 
 			<div class="container">
 				<div class="jumbotron">
-				
 				<p> You should be logged in now.</p>
 					<?php
+						echo $_SESSION['login_user'];
+						echo $_SESSION['user_key'];
 						/*if (isset($_GET['ID'])==false){
 							$userid = $_SESSION['SESS_MEMBER_ID'];
 							$result = mysql_query("SELECT * FROM member WHERE mem_id = '$userid'");
