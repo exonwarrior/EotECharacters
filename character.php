@@ -1,7 +1,14 @@
 <?php
+session_start();
 include('config.php');
+
+function nvl($val, $replace)
+{
+    if( is_null($val) || $val === '' )  return $replace;
+    else                                return $val;
+}
 ?>
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -12,16 +19,58 @@ include('config.php');
 		<script src="//use.edgefonts.net/advent-pro.js"></script>
 		<meta name="viewport" content="width=device-width initial-scale=1.0, user-scalable=no">
 	</head>
+	<body>-->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Exon9's Online Edge of the Empire Character Portfolio</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/fontello.css">
+		<script src="//use.edgefonts.net/advent-pro.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	</head>
+	
 	<body>
+	
+		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+			<!-- Brand -->
+			<a class="navbar-brand" href="#">
+				<img src="img/logo_square.jpg" alt="EotE logo" style="width:40px;">
+			</a>
+
+			<!-- Links -->
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="index.php">Main page</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="profile.php">My Characters</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="logout.php">Logout</a>
+				</li>
+			</ul>
+		</nav>
+		
 		<div class="charListContainer">
 			<div class="characterList">
 				<h2>Characters</h2>
 				<div class="characters">
 					<?php
+                        if(!isset($_SESSION['login_user'])) {
+                            header("Location: login.php?location=character.php");
+                        }
+                        $playerKey = $_SESSION['user_key'];
 						//initializing variables
-						$playerKey = "";
 						$playerName = "";
 						$characterKey = "";
+						$characterKey = htmlspecialchars($_GET["char_id"]);
 						$name = "";
 						$speciesKey = "";
 						$speciesName = "";
@@ -49,24 +98,25 @@ include('config.php');
 						$defenseMelee = 0;
 						$defenseRanged = 0;
 						$soakBonus = 0;
+						$armorKey = "";
 						$armorType = "";
 						$armorModel = "";
 						$armorDefense = "";
 						$armorSoak = "";
 
-						// create query 
-						$query = "SELECT * FROM exon_character";
+						// create query
+						$query = "SELECT * FROM exon_character where dbkey = '$characterKey'";
 
-						// execute query 
-						$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+						// execute query
+						$result = mysqli_query($db,$query) or die ("Error in query: $query. ".mysqli_error());
 
-						// see if any rows were returned 
-						if (mysql_num_rows($result) > 0) {
-							while($row = mysql_fetch_row($result)) {
+						// see if any rows were returned
+						if (mysqli_num_rows($result) > 0) {
+							while($row = mysqli_fetch_row($result)) {
 								$characterKey = $row[0];
 								$playerKey = $row[1];
-								$name = $row[2];
-								$speciesKey = $row[3];
+								$name = $row[3];
+								$speciesKey = $row[2];
 								$gender = $row[4];
 								$age = $row[5];
 								$height = $row[6];
@@ -74,37 +124,38 @@ include('config.php');
 								$hair = $row[8];
 								$eyes = $row[9];
 								$features = $row[10];
-								$credits = $row[11];
-								$wounds = $row[12];
-								$strain = $row[13];
-								$brawn = $row[14];
-								$agility = $row[15];
-								$intellect = $row[16];
-								$cunning = $row[17];
-								$willpower = $row[18];
-								$presence = $row[19];
-								$xpTotal = $row[20];
+								//$credits = $row[11];
+								$wounds = $row[17];
+								$strain = $row[19];
+								$brawn = $row[11];
+								$agility = $row[12];
+								$intellect = $row[13];
+								$cunning = $row[14];
+								$willpower = $row[15];
+								$presence = $row[16];
+								//$xpTotal = $row[20];
 								$xpAvailable = $row[21];
-								$imageURL = $row[22];
+								//$imageURL = $row[22];
 								echo '<div class="characterListName">'.$name.'</div>';
 							}
 						}
-						// create query from exon_character_talent
-						$query1 = "SELECT * FROM exon_armor WHERE DBParentCharacterKey='$characterKey'";
+						// create query from exon_gear for given character and only armor kinds
+						$query1 = "SELECT GEAR.DBKey, GEAR.Name, GEAR.Soak, GEAR.DefenseMelee, GEAR.DefenseRanged
+                                    FROM exon_gear GEAR JOIN exon_character_gear CGEAR on CGEAR.DBParentGearKey = GEAR.DBKey
+                                    WHERE GEAR.Type='Armor' AND CGEAR.DBParentCharacterKey='$characterKey'";
 
-						// execute query 
-						$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
+						// execute query
+						$result1 = mysqli_query($db,$query1) or die ("Error in query: $query1. ".mysqli_error());
 
-						// see if any rows were returned 
-						if (mysql_num_rows($result1) > 0) {
-							while($row1 = mysql_fetch_row($result1)) {
-								$armorType = $row1[2];
-								$armorModel = $row1[3];
-								$armorDefense = $row1[4];
-								$armorSoak = $row1[5];
+						// see if any rows were returned
+						if (mysqli_num_rows($result1) > 0) {
+							while($row1 = mysqli_fetch_row($result1)) {
+								$armorKey = $row1[0];
+								$armorModel = $row1[1];
+								$armorSoak = $row1[2];
 								$soakBonus = $armorSoak;
-								$defenseMelee = $armorDefense;
-								$defenseRanged = $armorDefense;
+								$defenseMelee = $row1[3];
+								$defenseRanged = $row1[4];
 							}
 						}
 					?>
@@ -119,96 +170,68 @@ include('config.php');
 						<td class="fieldLabel col1">Species</td>
 						<td class="field col2">
 							<?php
-							// create query 
+							// create query
 							$query = "SELECT * FROM exon_species WHERE DBKey ='$speciesKey'";
 
-							// execute query 
-							$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+							// execute query
+							$result = mysqli_query($db,$query) or die ("Error in query: $query. ".mysqli_error());
 
-							// see if any rows were returned 
-							if (mysql_num_rows($result) > 0) {
-							while($row = mysql_fetch_row($result)) {
-							$speciesName = $row[1];
-							$speciesWounds = $row[8];
-							$speciesStrain = $row[9];
-							}
+							// see if any rows were returned
+							if (mysqli_num_rows($result) > 0) {
+								while($row = mysqli_fetch_row($result)) {
+									$speciesName = $row[1];
+									$speciesWounds = $row[9];
+									$speciesStrain = $row[10];
+								}
 							}
 							echo $speciesName;?>
 						</td>
 					</tr>
 					<tr>
 						<td class="fieldLabel col1">Career</td>
-						<td class="field col2">
-							<?php
+						<td class="field col2"><?php
 							//Initializing extra variables for player<->career matching
 							$careerKey = "";
 							$careerName = "";
 
 							// create query to find Career Key from exon_character_career (stores pairs of Character and Career Keys)
-							$query = "SELECT DBParentCareerKey FROM exon_character_career WHERE DBParentCharacterKey ='$characterKey'";
+							$query = "SELECT CAR.Name from exon_career CAR JOIN exon_character_career CCAR
+                                        ON CCAR.DBParentCareerKey=CAR.DBKey WHERE CCAR.DBParentCharacterKey='$characterKey'";
 
 							// execute above query 
-							$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+							$result = mysqli_query($db,$query) or die ("Error in query: $query. ".mysqli_error());
 
 							// see if any rows were returned 
-							if (mysql_num_rows($result) > 0) {
-							while($row = mysql_fetch_row($result)) {
-							$careerKey = $row[0];
+							if (mysqli_num_rows($result) > 0) {
+							    while($row = mysqli_fetch_row($result)) {
+							        $careerName = $row[0];
+							    }
 							}
-							}
-
-							// create query to find Career Name from exon_career, based on previously selected DBParentCareerKey
-							$query = "SELECT Name FROM exon_career WHERE DBKey ='$careerKey'";
-
-							// execute above query 
-							$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
-
-							// see if any rows were returned 
-							if (mysql_num_rows($result) > 0) {
-							while($row = mysql_fetch_row($result)) {
-							$careerName = $row[0];
-							}
-							}
-
-							echo $careerName;
-							?></td>
+							echo $careerName;?></td>
 					</tr>
 					<tr>
 						<td class="fieldLabel col1">Specialization</td>
-						<td class="field col2">
-							<?php
+						<td class="field col2"><?php
 							//Initializing extra variables for player<->specialization matching
 							$specKey = "";
 							$specName = "";
 
 							// create query to find Career Key from exon_character_career (stores pairs of Character and Career Keys)
-							$query = "SELECT DBParentSpecializationKey FROM exon_character_specialization WHERE DBParentCharacterKey ='$characterKey'";
+							$query = "SELECT SPEC.Name from exon_specialization SPEC
+                                        JOIN exon_character_specialization CSPEC on CSPEC.DBParentSpecializationKey=SPEC.DBKey
+                                        WHERE CSPEC.DBParentCharacterKey='$characterKey'";
 
 							// execute above query 
-							$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+							$result = mysqli_query($db,$query) or die ("Error in query: $query. ".mysqli_error());
 
 							// see if any rows were returned 
-							if (mysql_num_rows($result) > 0) {
-							while($row = mysql_fetch_row($result)) {
-							$specKey = $row[0];
-							}
-							}
-
-							// create query to find Career Name from exon_career, based on previously selected DBParentCareerKey
-							$query = "SELECT Name FROM exon_specialization WHERE DBKey ='$specKey'";
-
-							// execute above query 
-							$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
-
-							// see if any rows were returned 
-							if (mysql_num_rows($result) > 0) {
-							while($row = mysql_fetch_row($result)) {
-							$specName = $row[0];
-							}
+							if (mysqli_num_rows($result) > 0) {
+							    while($row = mysqli_fetch_row($result)) {
+							        $specName = $row[0];
+							    }
 							}
 
-							echo $specName;
-							?></td>
+							echo $specName;?></td>
 					</tr>
 					<tr>
 						<td class="fieldLabel col1">Gender</td>
@@ -250,13 +273,13 @@ include('config.php');
 							$query = "SELECT * FROM exon_player WHERE DBKey ='$playerKey'";
 
 							// execute query 
-							$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+							$result = mysqli_query($db,$query) or die ("Error in query: $query. ".mysqli_error());
 
 							// see if any rows were returned 
-							if (mysql_num_rows($result) > 0) {
-							while($row = mysql_fetch_row($result)) {
-							$playerName = $row[1];
-							}
+							if (mysqli_num_rows($result) > 0) {
+							    while($row = mysqli_fetch_row($result)) {
+							        $playerName = $row[1];
+							    }
 							}
 							echo $playerName;?>
 						</td>
@@ -305,7 +328,7 @@ include('config.php');
 							<button {{action 'addToStat' "strainCurrent" -1}}>[-]</button>
 						</div>
 					</div>
-					<div class="statRight threshold"><?php echo ($speciesStrain+$brawn);?>
+					<div class="statRight threshold"><?php echo ($speciesStrain+$willpower);?>
 						<div class="statBoxLabel">
 							<button {{action 'addToStat' "strainThreshold" 1}}>[+]</button> 
 							Threshold 
@@ -388,6 +411,7 @@ include('config.php');
 					<thead>
 						<tr>
 							<td class="col1">Skill</td>
+                            <td class="col2">Career</td>
 							<!--<td class="col2 adjustRank"></td>-->
 							<td class="col3">Rank</td>
 							<!--<td class="col4">Dice Pool</td>-->
@@ -400,39 +424,47 @@ include('config.php');
 							$skillKey2 = "";//DBParentSkillKey from exon_character_skill
 							$skillName = "";
 							$skillType = "";
+							$skillCareer = "";
 							$skillCharacteristic = "";
 							$skillRank = "";
 							$skillCombined = "";
 
 							// create queries - first of all skills, then of player skills
-							$query1 = "SELECT * FROM exon_skill WHERE Type='General'";
-							$query2 = "SELECT * FROM exon_character_skill WHERE DBParentCharacterKey='$characterKey'";
+                            /*$query = "SELECT SKILL.Name, SKILL.Characteristic, if(CSKILL.Career, 'yes', 'no'), CSKILL.Rank
+                                        FROM exon_skill SKILL JOIN exon_character_skill CSKILL ON CSKILL.DBParentSkillKey = SKILL.DBKEY
+                                        WHERE SKILL.GroupType='General' AND CSKILL.DBParentCharacterKey='$characterKey'";*/
+                        $query1 = "SELECT * FROM exon_skill WHERE GroupType='General'";
+                        $query2 = "SELECT DBKey, DBParentCharacterKey, DBParentSkillKey, if(Career, 'Yes', 'No'), Rank
+                                    FROM exon_character_skill WHERE DBParentCharacterKey='$characterKey'";
 
-							// execute query 
-							$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
+                        // execute query
+                        $result1 = mysqli_query($db,$query1) or die ("Error in query: $query1. ".mysqli_error());
 
-							// see if any rows were returned 
-							if (mysql_num_rows($result1) > 0) {
-								while($row1 = mysql_fetch_row($result1)) {
-									$result2 = mysql_query($query2) or die ("Error in query: $query2. ".mysql_error()); 
-									$skillKey1 = $row1[0];
-									$skillRank = 0;
-									while($row2 = mysql_fetch_row($result2)){
-										$skillKey2 = $row2[2];
-										if($skillKey1 == $skillKey2){						
-											$skillRank = $row2[4];
-											break 1;
-										}
-									}
-									$skillName = $row1[1];
-									$skillCharacteristic = $row1[2];
-									$skillCombined = $skillName.' ('.$skillCharacteristic.')';					
-									echo '<tr>';
-									echo '<td style="text-align:left">'.$skillCombined.'</td>';
-									echo '<td style="text-align:center">'.$skillRank.'</td>';
-									echo '</tr>';
-								}
-							}
+                        // see if any rows were returned
+                        if (mysqli_num_rows($result1) > 0) {
+                            while($row1 = mysqli_fetch_row($result1)) {
+                                $result2 = mysqli_query($db,$query2) or die ("Error in query: $query2. ".mysqli_error());
+                                $skillKey1 = $row1[0];
+                                $skillRank = 0;
+                                $skillCareer = 'No';
+                                while($row2 = mysqli_fetch_row($result2)){
+                                    $skillKey2 = $row2[2];
+                                    if($skillKey1 == $skillKey2){
+                                        $skillRank = $row2[4];
+                                        $skillCareer = $row2[3];
+                                        break 1;
+                                    }
+                                }
+                                $skillName = $row1[1];
+                                $skillCharacteristic = $row1[2];
+                                $skillCombined = $skillName.' ('.$skillCharacteristic.')';
+                                echo '<tr>';
+                                echo '<td style="text-align:left">'.$skillCombined.'</td>';
+                                echo '<td style="text-align:center">'.$skillCareer.'</td>';
+                                echo '<td style="text-align:center">'.$skillRank.'</td>';
+                                echo '</tr>';
+                            }
+                        }
 						?>
 					</tbody>
 				</table>
@@ -460,19 +492,19 @@ include('config.php');
 							$skillCombined = "";
 
 							// create queries - first of all skills, then of player skills
-							$query1 = "SELECT * FROM exon_skill WHERE Type='Combat'";
+							$query1 = "SELECT * FROM exon_skill WHERE GroupType='Combat'";
 							$query2 = "SELECT * FROM exon_character_skill WHERE DBParentCharacterKey='$characterKey'";
 
 							// execute query 
-							$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
+							$result1 = mysqli_query($db,$query1) or die ("Error in query: $query1. ".mysqli_error());
 
 							// see if any rows were returned 
-							if (mysql_num_rows($result1) > 0) {
-								while($row1 = mysql_fetch_row($result1)) {
-									$result2 = mysql_query($query2) or die ("Error in query: $query2. ".mysql_error()); 
+							if (mysqli_num_rows($result1) > 0) {
+								while($row1 = mysqli_fetch_row($result1)) {
+									$result2 = mysqli_query($db,$query2) or die ("Error in query: $query2. ".mysqli_error());
 									$skillKey1 = $row1[0];
 									$skillRank = 0;
-									while($row2 = mysql_fetch_row($result2)){
+									while($row2 = mysqli_fetch_row($result2)){
 										$skillKey2 = $row2[2];
 										if($skillKey1 == $skillKey2){						
 											$skillRank = $row2[4];
@@ -514,19 +546,19 @@ include('config.php');
 					$skillCombined = "";
 
 					// create queries - first of all skills, then of player skills
-					$query1 = "SELECT * FROM exon_skill WHERE Type='Knowledge'";
+					$query1 = "SELECT * FROM exon_skill WHERE GroupType='Knowledge'";
 					$query2 = "SELECT * FROM exon_character_skill WHERE DBParentCharacterKey='$characterKey'";
 
 					// execute query 
-					$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
+					$result1 = mysqli_query($db,$query1) or die ("Error in query: $query1. ".mysqli_error());
 
 					// see if any rows were returned 
-					if (mysql_num_rows($result1) > 0) {
-						while($row1 = mysql_fetch_row($result1)) {
-							$result2 = mysql_query($query2) or die ("Error in query: $query2. ".mysql_error()); 
+					if (mysqli_num_rows($result1) > 0) {
+						while($row1 = mysqli_fetch_row($result1)) {
+							$result2 = mysqli_query($db,$query2) or die ("Error in query: $query2. ".mysqli_error());
 							$skillKey1 = $row1[0];
 							$skillRank = 0;
-							while($row2 = mysql_fetch_row($result2)){
+							while($row2 = mysqli_fetch_row($result2)){
 								$skillKey2 = $row2[2];
 								if($skillKey1 == $skillKey2){						
 									$skillRank = $row2[4];
@@ -590,15 +622,15 @@ include('config.php');
 										$query1 = "SELECT * FROM exon_character_talent WHERE DBParentCharacterKey='$characterKey'";
 
 										// execute query 
-										$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
+										$result1 = mysqli_query($db,$query1) or die ("Error in query: $query1. ".mysqli_error());
 
 										// see if any rows were returned 
-										if (mysql_num_rows($result1) > 0) {
-											while($row1 = mysql_fetch_row($result1)) {
+										if (mysqli_num_rows($result1) > 0) {
+											while($row1 = mysqli_fetch_row($result1)) {
 												$talentKey = $row1[2];
 												$query2 = "SELECT DBKey,Name,Activation,Ranked,Page FROM exon_talent WHERE DBKey='$talentKey'";
-												$result2 = mysql_query($query2) or die ("Error in query: $query2. ".mysql_error());
-												$row2 = mysql_fetch_row($result2);
+												$result2 = mysqli_query($db,$query2) or die ("Error in query: $query2. ".mysqli_error());
+												$row2 = mysqli_fetch_row($result2);
 												if($talentKey == $row2[0]){
 													$talentName = $row2[1];
 													$talentActivation = $row2[2];
@@ -652,25 +684,27 @@ include('config.php');
 					$weaponSpecial = "";
 
 					// create query from exon_character_talent
-					$query1 = "SELECT * FROM exon_weapon WHERE DBParentCharacterKey='$characterKey'";
+					$query1 = "SELECT GEAR.DBKey, GEAR.Name, GEAR.Skill, GEAR.Damage, GEAR.RangeBand, GEAR.Crit, GEAR.Special
+                                FROM exon_gear GEAR JOIN exon_character_gear CGEAR on CGEAR.DBParentGearKey = GEAR.DBKey
+                                WHERE GEAR.Type='Weapon' AND CGEAR.DBParentCharacterKey='$characterKey'";
 
 					// execute query 
-					$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
+					$result1 = mysqli_query($db,$query1) or die ("Error in query: $query1. ".mysqli_error());
 
 					// see if any rows were returned 
-					if (mysql_num_rows($result1) > 0) {
-						while($row1 = mysql_fetch_row($result1)) {
-							$weaponKey = $row1[1];
-							$weaponName = $row1[3];
-							$weaponSkill = $row1[4];
+					if (mysqli_num_rows($result1) > 0) {
+						while($row1 = mysqli_fetch_row($result1)) {
+							$weaponKey = $row1[0];
+							$weaponName = $row1[1];
+							$weaponSkill = $row1[2];
 							if($weaponSkill == "Melee" or $weaponSkill == "Brawl"){
-								$weaponDamage = $brawn+$row1[5];
+								$weaponDamage = $brawn+$row1[3];
 							} else {
-								$weaponDamage = $row1[5];
+								$weaponDamage = $row1[3];
 							}
-							$weaponRange = $row1[6];
-							$weaponCrit = $row1[7];
-							$weaponSpecial = $row1[8];
+							$weaponRange = $row1[4];
+							$weaponCrit = $row1[5];
+							$weaponSpecial = $row1[6];
 							echo '<tr>';
 							echo '<td style="text-align:left">'.$weaponName.'</td>';
 							echo '<td style="text-align:center">'.$weaponSkill.'</td>';
@@ -696,8 +730,9 @@ include('config.php');
 					<tr>
 					  <td class="col1">Type</td>
 					  <td class="col2">Model</td>
-					  <td class="col3">Defense</td>
-					  <td class="col4">Soak</td>
+					  <td class="col3">Melee Def</td>
+					  <td class="col4">Ranged Def</td>
+                      <td class="col5">Soak</td>
 					</tr>
 				  </thead>
 				  <tbody>
@@ -705,8 +740,9 @@ include('config.php');
 				echo '<tr>';
 				echo '<td style="text-align:left">'.$armorType.'</td>';
 				echo '<td style="text-align:center">'.$armorModel.'</td>';
-				echo '<td style="text-align:center">'.$armorDefense.'</td>';
-				echo '<td style="text-align:center">'.$armorSoak.'</td>';
+				echo '<td style="text-align:center">'.$defenseMelee.'</td>';
+                echo '<td style="text-align:center">'.$defenseRanged.'</td>';
+				echo '<td style="text-align:right">'.$armorSoak.'</td>';
 				echo '</tr>';
 			?>
 				  </tbody>
@@ -720,29 +756,32 @@ include('config.php');
 				  <thead>
 					<tr>
 					  <td class="col1">Name</td>
-					  <td class="col2">Type</td>
+					  <td class="col2">Description</td>
 					</tr>
 				  </thead>
 				  <tbody>
 				   <?php
 				//initializing variables needed to display gear
 				$gearName = "";
-				$gearType = "";
+				$gearDesc = "";
 
 				// create query from exon_gear
-				$query1 = "SELECT * FROM exon_gear WHERE DBParentCharacterKey='$characterKey'";
+				$query1 = "SELECT GEAR.DBKey, GEAR.Name, GEAR.Description
+                                    FROM exon_gear GEAR JOIN exon_character_gear CGEAR on CGEAR.DBParentGearKey = GEAR.DBKey
+                                    WHERE GEAR.Type='Gear' AND CGEAR.DBParentCharacterKey='$characterKey'";
 
 				// execute query 
-				$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
+				$result1 = mysqli_query($db,$query1) or die ("Error in query: $query1. ".mysqli_error());
 
 				// see if any rows were returned 
-				if (mysql_num_rows($result1) > 0) {
-					while($row1 = mysql_fetch_row($result1)) {
-						$gearName = $row1[3];
-						$gearType = $row1[4];
+				if (mysqli_num_rows($result1) > 0) {
+					while($row1 = mysqli_fetch_row($result1)) {
+						$gearKey = $row1[0];
+					    $gearName = $row1[1];
+						$gearDesc = $row1[2];
 						echo '<tr>';
 						echo '<td style="text-align:left">'.$gearName.'</td>';
-						echo '<td style="text-align:center">'.$gearType.'</td>';
+						echo '<td style="text-align:center">'.$gearDesc.'</td>';
 						echo '</tr>';			
 					}
 				}
@@ -777,11 +816,11 @@ include('config.php');
 				$query1 = "SELECT * FROM exon_critical WHERE DBParentCharacterKey='$characterKey'";
 
 				// execute query 
-				$result1 = mysql_query($query1) or die ("Error in query: $query1. ".mysql_error());
+				$result1 = mysqli_query($db,$query1) or die ("Error in query: $query1. ".mysqli_error());
 
 				// see if any rows were returned 
-				if (mysql_num_rows($result1) > 0) {
-					while($row1 = mysql_fetch_row($result1)) {
+				if (mysqli_num_rows($result1) > 0) {
+					while($row1 = mysqli_fetch_row($result1)) {
 						$critResult = $row1[3];
 						$critSeverity = $row1[4];
 						$critName = $row1[5];
@@ -856,21 +895,21 @@ include('config.php');
 					$query = "SELECT DBParentMotivationKey FROM exon_character_motivation WHERE DBParentCharacterKey ='$characterKey'";
 
 					// execute above query 
-					$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+					$result = mysqli_query($db,$query) or die ("Error in query: $query. ".mysqli_error()); 
 
 					// see if any rows were returned 
-					if (mysql_num_rows($result) > 0) {
-						while($row = mysql_fetch_row($result)) {
+					if (mysqli_num_rows($result) > 0) {
+						while($row = mysqli_fetch_row($result)) {
 							$motivationKey = $row[0];
 							// create query to find Motivation Type and Description from exon_motivation, based on previously selected DBParentMotivationKey
 							$query2 = "SELECT Type,Description FROM exon_motivation WHERE DBKey ='$motivationKey'";
 
 							// execute above query 
-							$result2 = mysql_query($query2) or die ("Error in query: $query. ".mysql_error()); 
+							$result2 = mysqli_query($db,$query2) or die ("Error in query: $query. ".mysqli_error()); 
 
 							// see if any rows were returned 
-							if (mysql_num_rows($result2) > 0) {
-								while($row2 = mysql_fetch_row($result2)) {
+							if (mysqli_num_rows($result2) > 0) {
+								while($row2 = mysqli_fetch_row($result2)) {
 									$motivationType = $row2[0];
 									$motivationDesc = $row2[1];
 								}
@@ -908,22 +947,22 @@ include('config.php');
 						$query = "SELECT DBParentObligationKey FROM exon_character_obligation WHERE DBParentCharacterKey ='$characterKey'";
 
 						// execute above query 
-						$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+						$result = mysqli_query($db,$query) or die ("Error in query: $query. ".mysqli_error()); 
 
 						// see if any rows were returned 
-						if (mysql_num_rows($result) > 0) {
-							while($row = mysql_fetch_row($result)) {
+						if (mysqli_num_rows($result) > 0) {
+							while($row = mysqli_fetch_row($result)) {
 								$obligationKey = $row[0];
 								
 								// create query to find Obligation Type, Magnitude and Description from exon_obligation, based on previously selected DBParentObligationKey
 								$query2 = "SELECT Type,Magnitude,Description FROM exon_obligation WHERE DBKey ='$obligationKey'";
 
 								// execute above query 
-								$result2 = mysql_query($query2) or die ("Error in query: $query. ".mysql_error()); 
+								$result2 = mysqli_query($db,$query2) or die ("Error in query: $query. ".mysqli_error()); 
 
 								// see if any rows were returned 
-								if (mysql_num_rows($result2) > 0) {
-									while($row2 = mysql_fetch_row($result2)) {
+								if (mysqli_num_rows($result2) > 0) {
+									while($row2 = mysqli_fetch_row($result2)) {
 										$obligationType = $row2[0];
 										$obligationMagnitude = $row2[1];
 										$obligationDesc = $row2[2];

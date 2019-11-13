@@ -2,50 +2,167 @@
 
 //require_once('connection.php');
 //define("DB_SERVER", $bd);
-
-$mysql_hostname = "localhost";
-$mysql_user = "eote";
-$mysql_password = "C1oudbur5t";
-$mysql_database = "edge_of_the_empire";
-//echo "Yay";
-$bd = mysqli_connect($mysql_hostname, $mysql_user, $mysql_password, $mysql_database);
-
-
-$email = "drhaenze@gmail.com";
-$username = "exon2";
-$password = "C1oudbur5t";
-$encrypt_pass=md5($password);
-$sql = "SELECT * FROM exon_player WHERE Username='" . $username . "' AND PasswordHash='" . $encrypt_pass . "'";
-$result = mysqli_query($bd, $sql);
-
-/*echo "inserting new";
-//$sql = "INSERT INTO exon_player (USERNAME, EMAIL, PASSWORDHASH) VALUES ('" . $username . "','" . $email . "','" . $pass . "')";
-
-mysqli_query($bd,$sql);
-
-$sql = "SELECT * FROM exon_player WHERE email='" . $email . "'";
-$result = mysqli_query($bd,$sql);
-
-if(!$result){
-	echo "No results";
-}
-*/
-if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_array($result)) {
-        echo "id: " . $row[1]. " - Name: " . $row[2];
-    }
-} else {
-    echo "0 results";
-}
-
-/*while($row = mysqli_fetch_array($result))
-    {
-		echo "while";
-		print_r($row) . "\n";
-    }*/
-echo "\nResult printed";
-
-//echo "inserting new";
-//$sql = "INSERT INTO exon_player (USERNAME, EMAIL, PASSWORDHASH) VALUES ('".$username."','".$email."','".$pass."')";
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Exon9's Online Edge of the Empire Character Portfolio</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/fontello.css">
+    <script src="//use.edgefonts.net/advent-pro.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron col-sm-12">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="card"><!-- style="width:400px">-->
+                        <img class="card-img-top img-thumbnail" src="img/corran.jpg" alt="Card image">
+                        <div class="card-body">
+                            <h4 class="card-title">Jaden Pierce</h4>
+                            <table class="table table-hover table-sm">
+                                <tbody>
+                                <tr>
+                                    <td style="text-align:left">Species</td>
+                                    <td style="text-align:right">Droid</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:left">Career</td>
+                                    <td style="text-align:right">Hired Gun</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:left">Specialization</td>
+                                    <td style="text-align:right">Bounty Hunter</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:left">Gender</td>
+                                    <td style="text-align:right">Male</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:left">Age</td>
+                                    <td style="text-align:right">29</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:left">Height</td>
+                                    <td style="text-align:right">188 cm</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                                <div class="d-flex justify-content-center">
+                                    <div class="btn-group-lg">
+                                        <button type="button" class="btn btn-info btn-sm">View</button>
+                                        <button type="button" class="btn btn-success btn-sm">Edit</button>
+                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                    </div>
+                                </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="card"><!-- style="width:400px">-->
+                        <img class="card-img-top img-thumbnail" src="img/corran.jpg" alt="Card image">
+                        <div class="card-body">
+                            <h4 class="card-title">Jaden Pierce</h4>
+                            <table class="table table-hover table-sm">
+                                <tbody>
+                                <tr>
+                                    <td>Species</td>
+                                    <td>Droid</td>
+                                </tr>
+                                <tr>
+                                    <td>Career</td>
+                                    <td>Hired Gun</td>
+                                </tr>
+                                <tr>
+                                    <td>Specialization</td>
+                                    <td>Assassin</td>
+                                </tr>
+                                <tr>
+                                    <td>Gender</td>
+                                    <td>Male</td>
+                                </tr>
+                                <tr>
+                                    <td>Age</td>
+                                    <td>29</td>
+                                </tr>
+                                <tr>
+                                    <td>Height</td>
+                                    <td>188 cm</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <p class="card-text">Some example text.</p>
+
+                                <div class="d-flex justify-content-center">
+                                    <div class="btn-group-lg">
+                                        <button type="button" class="btn btn-info btn-sm">View</button>
+                                        <button type="button" class="btn btn-success btn-sm">Edit</button>
+                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                    </div>
+                                </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="card"><!-- style="width:400px">-->
+                        <img class="card-img-top img-thumbnail" src="img/corran.jpg" alt="Card image">
+                        <div class="card-body">
+                            <h4 class="card-title">Jaden Pierce</h4>
+                            <table class="table table-hover table-sm">
+                                <tbody>
+                                <tr>
+                                    <td>Species</td>
+                                    <td>Droid</td>
+                                </tr>
+                                <tr>
+                                    <td>Career</td>
+                                    <td>Hired Gun</td>
+                                </tr>
+                                <tr>
+                                    <td>Specialization</td>
+                                    <td>Assassin</td>
+                                </tr>
+                                <tr>
+                                    <td>Gender</td>
+                                    <td>Male</td>
+                                </tr>
+                                <tr>
+                                    <td>Age</td>
+                                    <td>29</td>
+                                </tr>
+                                <tr>
+                                    <td>Height</td>
+                                    <td>188 cm</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <p class="card-text">Some example text.</p>
+                                <div class="d-flex justify-content-center">
+                                    <div class="btn-group-lg">
+                                        <button type="button" class="btn btn-info btn-sm">View</button>
+                                        <button type="button" class="btn btn-success btn-sm">Edit</button>
+                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+

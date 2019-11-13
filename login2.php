@@ -4,15 +4,19 @@ session_start();
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     // username and password sent from form
-    echo "Connected to DB: ".DB_DATABASE;
+    //echo "Connected to DB: ".DB_DATABASE;
+
+    if(empty($_POST['username'])){
+	    $error = "Username is empty";
+    }
     $myusername = mysqli_real_escape_string($db,$_POST['username']);
     $mypassword = mysqli_real_escape_string($db,$_POST['password']);
     $encrypt_pass = md5($mypassword);
 
-    echo "User: " . $myusername . "Pass: " . $mypassword . "Encrypt: " . $encrypt_pass;
+    //echo "User: " . $myusername . "Pass: " . $mypassword . "Encrypt: " . $encrypt_pass;
 
-    $sql = "SELECT DBKey FROM exon_player WHERE Username='exon2' and PasswordHash = '0de20eac0e91b29f3784e44fa14c0352'";//'" . $myusername . "' AND PasswordHash='" . $encrypt_pass . "'";
-	echo $sql;
+    $sql = "SELECT DBKey FROM exon_player WHERE Username='" . $myusername . "' AND PasswordHash='" . $encrypt_pass . "'";
+    //echo $sql;
     $result = mysqli_query($db,$sql);
     $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
     printf ("%s (%s)\n", $row["DBKey"]);
@@ -20,7 +24,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $count = mysqli_num_rows($result);
 
-	echo $count;
+    //echo $count;
 
     // If result matched $myusername and $mypassword, table row must be 1 row
 
@@ -29,13 +33,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['login_user'] = $myusername;
         header("location: profile.php");
     }else {
-        $error = "Your Login Name or Password is invalid";
+	if(empty($_POST['username'])){
+		$error = "Username missing";
+	}
+	else if (empty($_POST['password'])){
+		$error = "Password missing";
+	}
+        else{
+		$error = "Your Login Name or Password is invalid";
+	}
     }
 }
 ?>
-<html>
-
-<head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+ 
     <title>Login Page</title>
 
     <style type="text/css">
@@ -56,6 +75,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body bgcolor="#FFFFFF">
+<?php
+    echo '<input type="hidden" name="location" value="';
+    if(isset($_GET['location'])) {
+        echo htmlspecialchars($_GET['location']);
+    }
+    echo '" />';
+?>
 
     <div align="center">
         <div style="width:300px; border: solid 1px #333333; " align="left">

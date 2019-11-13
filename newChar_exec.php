@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	require_once('connection.php');
+	include('config.php');
 
 	//Array to store validation errors
 	$errmsg_arr = array();
@@ -11,10 +11,8 @@
 	//Function to sanitize values received from the form. Prevents SQL injection
 	function clean($str) {
 		$str = @trim($str);
-		if(get_magic_quotes_gpc()) {
-			$str = stripslashes($str);
-		}
-		return mysql_real_escape_string($str);
+		$str = stripslashes($str);
+		return mysqli_real_escape_string($str);
 	}
 
 	//Initialize variable to store exon_character DBKey
@@ -75,12 +73,12 @@
 		exit();
 	}
 
-	mysql_query("INSERT INTO exon_character(Name,DBParentSpeciesKey,Gender,Age,Height,Build,Hair,Eyes,Features)
+	mysqli_query("INSERT INTO exon_character(Name,DBParentSpeciesKey,Gender,Age,Height,Build,Hair,Eyes,Features)
 	VALUES('$charName','$charSpeciesKey','$charGender','$charAge','$charHeight','$charBuild','$charHair','$charEyes','$charFeatures')");
 	
-	$result = mysql_query("SELECT DBKey FROM exon_character WHERE DBKey=(SELECT MAX(DBKey) FROM exon_character)");
-	if (mysql_num_rows($result)>0){
-		while($row = mysql_fetch_row($result)) {
+	$result = mysqli_query("SELECT DBKey FROM exon_character WHERE DBKey=(SELECT MAX(DBKey) FROM exon_character)");
+	if (mysqli_num_rows($result)>0){
+		while($row = mysqli_fetch_row($result)) {
 			$charKey=$row[0];
 		}
 	}

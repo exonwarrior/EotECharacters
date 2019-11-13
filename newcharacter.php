@@ -1,7 +1,7 @@
 <?php
 	//Start session
 	session_start();
-	require_once('connection.php');
+	include('config.php');
 ?>
 
 <!DOCTYPE html>
@@ -9,11 +9,13 @@
 	<head>
 
 		<title>Exon9's Online Edge of the Empire Character Portfolio</title>
-		<style>
-			.error {color: #FF0000;}
-		</style>
 		<!-- Bootstrap core CSS -->
-		<link href="./css/bootstrap.css" rel="stylesheet">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script src="./bootstrap/js/bootstrap.min.js"></script>
 	</head>
 	<body>
 		<!-- Fixed navbar repeated code because we need to change active page. -->
@@ -30,6 +32,10 @@
 								<td colspan="2">
 								<!--the code bellow is used to display the message of the input validation-->
 								<?php
+                                    if(!isset($_SESSION['login_user'])) {
+                                        header("Location: login2.php?location=newcharacter.php");
+                                    }
+
 									if( isset($_SESSION['ERRMSG_ARR']) && is_array($_SESSION['ERRMSG_ARR']) && count($_SESSION['ERRMSG_ARR']) >0 ) {
 										echo '<ul class="err">';
 										foreach($_SESSION['ERRMSG_ARR'] as $msg) {
@@ -49,18 +55,19 @@
 
 							<tr>
 								<td width="120"><div align="right">Species</div></td>
-								<td><select name="charSpecies">
+								<td><select name="charSpecies" class="custome-select mb-3">
+								<option selected>Species</option>
 								<?php
 									$speciesName = "";
 									//Select Available species from exon_species
 									$query = "SELECT * FROM exon_species";
 
 									// execute above query 
-									$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+									$result = mysqli_query($db,$query) or die ("Error in query: $query. ".mysqli_error());
 
 									// see if any rows were returned 
-									if (mysql_num_rows($result) > 0) {
-										while($row = mysql_fetch_row($result)) {
+									if (mysqli_num_rows($result) > 0) {
+										while($row = mysqli_fetch_row($result)) {
 											$speciesKey = $row[0];
 											$speciesName = $row[1];
 											echo '<option value="SpeciesKey='.$speciesKey.'">'.$speciesName.'</option>';
@@ -69,21 +76,20 @@
 								?>
 								</select></td>
 							</tr>
-							
 							<tr>
 								<td width="120"><div align="right">Career</div></td>
 								<td><select name="charCareer">
 								<?php
 									$careerName = "";
-									//Select Available species from exon_species
+									//Select Available species from exon_career
 									$query = "SELECT * FROM exon_career";
 
 									// execute above query 
-									$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+									$result = mysqli_query($db,$query) or die ("Error in query: $query. ".mysqli_error());
 
 									// see if any rows were returned 
-									if (mysql_num_rows($result) > 0) {
-										while($row = mysql_fetch_row($result)) {
+									if (mysqli_num_rows($result) > 0) {
+										while($row = mysqli_fetch_row($result)) {
 											$careerKey = $row[0];
 											$careerName = $row[1];
 											echo '<option value="CareerKey='.$careerKey.'">'.$careerName.'</option>';
@@ -98,15 +104,15 @@
 								<td><select name="charSpecialization">
 								<?php
 									$specializationName = "";
-									//Select Available species from exon_specialization
+									//Select Available Specializations from exon_specialization
 									$query = "SELECT * FROM exon_specialization";
 
 									// execute above query 
-									$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error()); 
+									$result = mysqli_query($db,$query) or die ("Error in query: $query. ".mysqli_error());
 
 									// see if any rows were returned 
-									if (mysql_num_rows($result) > 0) {
-										while($row = mysql_fetch_row($result)) {
+									if (mysqli_num_rows($result) > 0) {
+										while($row = mysqli_fetch_row($result)) {
 											$specializationKey = $row[0];
 											$specializationName = $row[2];
 											echo '<option value="SpecKey='.$specializationKey.'">'.$specializationName.'</option>';
