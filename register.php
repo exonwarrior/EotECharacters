@@ -18,6 +18,7 @@
 		<!-- Fixed navbar repeated code because we need to change active page. -->
 		<div id="wrap">
 			<div class="container">
+                <h2>Register</h2>
 				<div class="jumbotron">
 					<?php
 						// define variables and set to empty values
@@ -103,59 +104,6 @@
 							return TRUE;
 						}
 					?>
-					<!--<div align="center">
-						<h2>Register Here</h2>
-						<p><span class="error">* required field.</span></p>
-					</div>
-					<form name="reg" action="<?php //echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
-						<table width="750" border="0" align="center" cellpadding="2" cellspacing="0">
-							<tr>
-								<td width="180"><div align="right">Email:</div></td>
-								<td width="170"><input type="test" name="email" value="<?php //echo $email;?>" /></td>
-								<?php //echo'<td><span class="error">*  '.$emailErr.'</span></td>';?>
-							</tr>
-							<tr>
-								<td width="180"><div align="right">Username:</div></td>
-								<td width="170"><input type="text" name="username" value="<?php //echo $username;?>" /></td>
-								<?php //echo'<td><span class="error">* '.$usernameErr.'</span></td>';?>
-							</tr>
-							<tr>
-								<td width="180"><div align="right">Password:</div></td>
-								<td width="170"><input type="password" name="password" /></td>
-								<?php //echo'<td><span class="error">* '.$passwordErr.'</span></td>';?>
-							</tr>
-							<tr>
-								<td width="180"><div align="right">Cofirm Password:</div></td>
-								<td width="170"><input type="password" name="conpassword" /></td>
-								<?php //echo'<td><span class="error">* '.$conpasswordErr.'</span></td>';?>
-							</tr>
-							<tr>
-								<td><div align="right"></div></td>
-								<td><input name="submit" type="submit" value="Submit" /></td>
-							</tr>
-						</table>
-					</form>-->
-					
-					<!--<form action="<?php //echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
-						<div class="form-group">
-							<label for="email">Email address:</label>
-							<input type="email" class="form-control" id="email">
-						</div>
-						<div class="form-group">
-							<label for="email">Username:</label>
-							<input type="text" class="form-control" id="username">
-						</div>
-						<div class="form-group">
-							<label for="pwd">Password:</label>
-							<input type="password" class="form-control" id="password">
-						</div>
-						<div class="form-group">
-							<label for="pwd">Password:</label>
-							<input type="password" class="form-control" id="conpassword">
-						</div>
-						
-						<button type="submit" class="btn btn-primary">Submit</button>
-					</form>-->
 
                     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
                         <div class="form-group row">
